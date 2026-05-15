@@ -51,14 +51,6 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .form-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;}
 .form-select{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:9px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:10px 12px;outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none;}
 .form-select:focus{border-color:rgba(0,212,170,.4);}
-.form-input{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:9px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:10px 12px;outline:none;transition:border-color .2s;}
-.form-input:focus{border-color:rgba(0,212,170,.4);}
-.form-input::placeholder{color:var(--muted);}
-.form-textarea{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:9px;color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:10px 12px;outline:none;min-height:56px;resize:vertical;line-height:1.5;transition:border-color .2s;}
-.form-textarea:focus{border-color:rgba(0,212,170,.4);}
-.form-textarea::placeholder{color:var(--muted);}
-.form-group{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
-.form-group:last-of-type{margin-bottom:0;}
 
 /* KPI */
 .kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
@@ -109,17 +101,18 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 
 /* STATUS BADGES */
 .sbadge{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.4px;white-space:nowrap;}
-.s-waiting{background:rgba(240,163,91,.12);color:var(--a3);border:1px solid rgba(240,163,91,.3);}
-.s-reported{background:rgba(139,92,246,.12);color:var(--purple);border:1px solid rgba(139,92,246,.3);}
-.s-approved{background:rgba(0,212,170,.14);color:var(--accent);border:1px solid rgba(0,212,170,.3);}
-.s-issue{background:rgba(240,96,112,.12);color:var(--red);border:1px solid rgba(240,96,112,.3);}
-.s-cancelled{background:rgba(90,102,120,.15);color:var(--muted);border:1px solid rgba(90,102,120,.3);}
+.s-waiting  {background:rgba(240,163,91,.12); color:var(--a3);   border:1px solid rgba(240,163,91,.3);}
+.s-reported {background:rgba(139,92,246,.12); color:var(--purple);border:1px solid rgba(139,92,246,.3);}
+.s-approved {background:rgba(0,212,170,.14);  color:var(--accent);border:1px solid rgba(0,212,170,.3);}
+.s-issue    {background:rgba(240,96,112,.12); color:var(--red);  border:1px solid rgba(240,96,112,.3);}
+.s-cancelled{background:rgba(90,102,120,.15); color:var(--muted);border:1px solid rgba(90,102,120,.3);}
+.s-seen     {background:rgba(0,212,170,.08);  color:var(--accent);border:1px solid rgba(0,212,170,.2);}
 
 /* STOCK CARDS */
 .stock-card{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden;transition:border-color .2s;}
 .stock-card.sw{border-color:rgba(240,163,91,.18);}
-.stock-card.sr{border-color:rgba(139,92,246,.25);}
 .stock-card.sa{border-color:rgba(0,212,170,.2);}
+.stock-card.sn{border-color:rgba(139,92,246,.25);}  /* sold, not yet seen */
 .stock-card.si{border-color:rgba(240,96,112,.22);}
 .stock-card.sc{border-color:rgba(90,102,120,.2);}
 .stock-card:last-child{margin-bottom:0;}
@@ -132,24 +125,20 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .sc-mid{padding:9px 13px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
 .sm-lbl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
 .sm-val{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.sm-val.vg{color:var(--accent);}.sm-val.vp{color:var(--purple);}
+.sm-val.vg{color:var(--accent);}
 .sc-note{font-size:11px;color:var(--muted);font-style:italic;padding:7px 13px;border-top:1px solid var(--bd);line-height:1.5;}
 .sc-actions{padding:9px 13px;border-top:1px solid var(--bd);display:flex;gap:6px;flex-wrap:wrap;}
-.sc-btn{font-family:'DM Mono',monospace;font-size:10px;padding:7px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--s1);color:var(--muted);cursor:pointer;transition:all .14s;-webkit-tap-highlight-color:transparent;}
-.sc-btn.report{color:var(--purple);border-color:rgba(139,92,246,.35);background:rgba(139,92,246,.08);font-weight:500;flex:1;}
-.sc-btn.report:hover{background:rgba(139,92,246,.16);}
 
-/* MODAL */
-.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px);}
-.modal-ov.open{display:flex;}
-.modal-box{background:var(--s1);border:1px solid var(--bd);border-radius:20px 20px 0 0;width:100%;max-width:480px;padding:20px 18px 28px;max-height:88vh;overflow-y:auto;}
-.modal-ttl{font-size:14px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
-.modal-close{font-size:18px;color:var(--muted);cursor:pointer;background:none;border:none;line-height:1;padding:0 4px;}
-.modal-close:hover{color:var(--text);}
-.modal-acts{display:flex;gap:8px;margin-top:14px;}
-.modal-save{flex:1;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:10px;color:var(--purple);font-family:'DM Mono',monospace;font-size:12px;padding:11px;cursor:pointer;transition:background .14s;}
-.modal-save:hover{background:rgba(139,92,246,.18);}
-.modal-cancel{background:var(--s2);border:1px solid var(--bd);border-radius:10px;color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;padding:11px 18px;cursor:pointer;}
+/* Mark as seen button */
+.sc-btn{font-family:'DM Mono',monospace;font-size:10px;padding:7px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--s1);color:var(--muted);cursor:pointer;transition:all .14s;-webkit-tap-highlight-color:transparent;}
+.sc-btn.seen-btn{color:var(--accent);border-color:rgba(0,212,170,.35);background:rgba(0,212,170,.08);font-weight:500;flex:1;}
+.sc-btn.seen-btn:hover{background:rgba(0,212,170,.16);}
+
+/* Seen confirmation row */
+.seen-info{padding:8px 13px;border-top:1px solid var(--bd);background:rgba(0,212,170,.04);display:flex;align-items:center;gap:7px;}
+.seen-ico{font-size:12px;}
+.seen-txt{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);}
+.seen-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
 
 /* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--s2);border:1px solid var(--bd2);border-radius:99px;padding:10px 18px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text);z-index:300;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.4);}
@@ -162,9 +151,6 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .empty-ico{font-size:26px;opacity:.4;margin-bottom:8px;display:block;}
 
 /* UTIL */
-.btn-full{width:100%;background:linear-gradient(135deg,rgba(0,212,170,.14),rgba(0,212,170,.07));border:1px solid rgba(0,212,170,.32);border-radius:10px;color:var(--accent);font-family:'DM Mono',monospace;font-size:12px;font-weight:500;padding:12px;cursor:pointer;transition:all .14s;-webkit-tap-highlight-color:transparent;}
-.btn-full:hover{background:linear-gradient(135deg,rgba(0,212,170,.22),rgba(0,212,170,.12));}
-.divider{height:1px;background:var(--bd);margin:12px 0;}
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--bd2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-wrap{padding:24px;text-align:center;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;}
@@ -278,17 +264,17 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
           <div style="font-size:16px;margin-bottom:6px">✅</div>
           <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Approved sale</div>
           <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:4px">100 coins</div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5">generated after owner approves. Split dep + salary.</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5">generated after owner marks as sold. Split dep + salary.</div>
         </div>
       </div>
     </div>
     <div style="padding:12px 14px;font-size:11px;color:var(--muted);line-height:1.7;background:var(--s2)">
-      <strong style="color:var(--accent)">Important:</strong> "Sale reported" means your report is waiting for owner review. Only <strong style="color:var(--accent)">Approved sold</strong> units count toward your deposit, salary, and level progress.
+      <strong style="color:var(--accent)">Important:</strong> Only <strong style="color:var(--accent)">Approved sold</strong> units count toward your deposit, salary, and level progress. The owner marks items as sold — you will see the update and can confirm with "Mark as seen".
       <br><br>
       <strong style="color:var(--t2)">Status guide:</strong><br>
-      🟡 <strong>Waiting to be sold</strong> — in stock, not yet sold<br>
-      🔵 <strong>Sale reported</strong> — waiting for owner approval<br>
-      ✅ <strong>Approved sold</strong> — confirmed, counts in stats<br>
+      🟡 <strong>Waiting to be sold</strong> — in stock, owner will mark when sold<br>
+      ✅ <strong>Marked as sold</strong> — owner confirmed sale, tap to acknowledge<br>
+      👁 <strong>Sold — seen by you</strong> — you have acknowledged the sale<br>
       🔴 <strong>Issue</strong> — something needs checking<br>
       ⛔ <strong>Cancelled</strong> — removed from stock
     </div>
@@ -298,36 +284,11 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 <div style="height:24px"></div>
 </div>
 
-<!-- REPORT SALE MODAL -->
-<div class="modal-ov" id="reportModal">
-  <div class="modal-box">
-    <div class="modal-ttl"><span>📤 Report sale</span><button class="modal-close" onclick="closeModal('reportModal')">✕</button></div>
-    <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:14px">Report that this unit was sold. The owner will review and approve it. You cannot approve it yourself.</p>
-    <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:12px;margin-bottom:14px">
-      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:4px;letter-spacing:1px;text-transform:uppercase">Stock unit</div>
-      <div style="font-family:'DM Mono',monospace;font-size:14px;color:var(--text)" id="rm-stockid">—</div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">When was it sold? *</label>
-      <input class="form-input" type="datetime-local" id="rm-soldAt">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Note / proof (optional)</label>
-      <textarea class="form-textarea" id="rm-note" placeholder="Screenshot reference, buyer info, etc."></textarea>
-    </div>
-    <div class="modal-acts">
-      <button class="modal-cancel" onclick="closeModal('reportModal')">Cancel</button>
-      <button class="modal-save" onclick="submitReport()">📤 Submit report</button>
-    </div>
-  </div>
-</div>
-
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <!-- Supabase CDN -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<!-- Your config — copy supabase-config.example.js to supabase-config.js and fill in credentials -->
 <script src="supabase-config.js"></script>
 <script>
 /* ─── SUPABASE INIT ──────────────────────────────── */
@@ -337,17 +298,11 @@ const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let currentEmpId   = null;
 let currentEmpCode = null;
 let allStockUnits  = [];
-let reportingId    = null;
 let realtimeSub    = null;
 
 /* ─── BOOT ──────────────────────────────────────── */
 async function init() {
-  // Pre-fill datetime to now
-  const nowStr = new Date().toISOString().slice(0,16);
-  document.getElementById('rm-soldAt').value = nowStr;
-
   await loadEmployees();
-  // Try to restore last selected employee from localStorage (cache only, not source of truth)
   const cached = localStorage.getItem('emp_selected_id');
   if (cached) {
     const sel = document.getElementById('empSelect');
@@ -418,9 +373,9 @@ function setupRealtime() {
     })
     .subscribe((status) => {
       const dot = document.getElementById('connDot');
-      if (status === 'SUBSCRIBED') dot.classList.add('live'), dot.classList.remove('err');
-      else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') dot.classList.add('err'), dot.classList.remove('live');
-      else dot.classList.remove('live','err');
+      if (status === 'SUBSCRIBED') { dot.classList.add('live'); dot.classList.remove('err'); }
+      else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') { dot.classList.add('err'); dot.classList.remove('live'); }
+      else { dot.classList.remove('live','err'); }
     });
 }
 
@@ -436,6 +391,27 @@ function handleRealtimeEvent(payload) {
   }
   renderAll();
   showToast('Stock updated in real time', 'ok');
+}
+
+/* ─── MARK AS SEEN ──────────────────────────────── */
+async function markAsSeen(id) {
+  const now = new Date().toISOString();
+  const { error } = await _sb
+    .from('stock_units')
+    .update({ employee_seen_at: now, updated_at: now })
+    .eq('id', id);
+
+  if (error) { showToast('Error: ' + error.message, 'err'); return; }
+
+  // Log event
+  await _sb.from('stock_events').insert({
+    stock_unit_id: id,
+    event_type: 'employee_seen',
+    actor: currentEmpCode || 'employee'
+  });
+
+  showToast('Marked as seen ✓', 'ok');
+  await loadStockUnits();
 }
 
 /* ─── RENDER ────────────────────────────────────── */
@@ -507,17 +483,6 @@ function renderStockList(units) {
   c.innerHTML = units.map(u => stockCardHtml(u)).join('');
 }
 
-function statusMeta(status) {
-  const m = {
-    waiting_to_be_sold: { cls:'sw', badge:'s-waiting',  label:'🟡 Waiting to be sold' },
-    sale_reported:      { cls:'sr', badge:'s-reported', label:'🔵 Sale reported — awaiting approval' },
-    sold_approved:      { cls:'sa', badge:'s-approved', label:'✅ Approved sold' },
-    issue:              { cls:'si', badge:'s-issue',    label:'🔴 Issue — check needed' },
-    cancelled:          { cls:'sc', badge:'s-cancelled',label:'⛔ Cancelled' },
-  };
-  return m[status] || { cls:'', badge:'', label: status };
-}
-
 function formatDT(s) {
   if (!s) return '—';
   try { return new Date(s).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}); } catch(e) { return s; }
@@ -525,65 +490,66 @@ function formatDT(s) {
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function stockCardHtml(u) {
-  const m = statusMeta(u.status);
+  // Determine visual state
+  const isSoldApproved = u.status === 'sold_approved';
+  const isSeen         = isSoldApproved && !!u.employee_seen_at;
+  const isUnseen       = isSoldApproved && !u.employee_seen_at;
+
+  // Card border class
+  let cardCls = '';
+  if (u.status === 'waiting_to_be_sold') cardCls = 'sw';
+  else if (isUnseen)                     cardCls = 'sn';
+  else if (isSeen)                       cardCls = 'sa';
+  else if (u.status === 'issue')         cardCls = 'si';
+  else if (u.status === 'cancelled')     cardCls = 'sc';
+
+  // Status badge
+  let badgeCls = '', badgeLabel = '';
+  if (u.status === 'waiting_to_be_sold') { badgeCls = 's-waiting';  badgeLabel = '🟡 Waiting to be sold'; }
+  else if (isUnseen)                     { badgeCls = 's-reported'; badgeLabel = '✅ Marked as sold'; }
+  else if (isSeen)                       { badgeCls = 's-seen';     badgeLabel = '👁 Sold — seen by you'; }
+  else if (u.status === 'issue')         { badgeCls = 's-issue';    badgeLabel = '🔴 Issue'; }
+  else if (u.status === 'cancelled')     { badgeCls = 's-cancelled';badgeLabel = '⛔ Cancelled'; }
+
   const oidHtml = u.order_id
     ? `<span class="sc-oid has-order">${esc(u.order_id)}</span>`
     : `<span class="sc-oid no-order">No order ID yet</span>`;
-  const canReport = u.status === 'waiting_to_be_sold' || u.status === 'issue';
+
+  // Action row: only show "Mark as seen" for sold_approved + not yet seen
+  const actionsHtml = isUnseen
+    ? `<div class="sc-actions"><button class="sc-btn seen-btn" onclick="markAsSeen('${u.id}')">👁 Mark as seen</button></div>`
+    : '';
+
+  // Seen info row
+  const seenHtml = isSeen
+    ? `<div class="seen-info"><span class="seen-ico">👁</span><span class="seen-txt">Seen by you</span><span class="seen-time">— ${formatDT(u.employee_seen_at)}</span></div>`
+    : '';
+
+  const noteHtml = u.owner_note
+    ? `<div class="sc-note">🗒 ${esc(u.owner_note)}</div>`
+    : '';
+
   return `
-  <div class="stock-card ${m.cls}">
+  <div class="stock-card ${cardCls}">
     <div class="sc-top">
       <div class="sc-ids">
         <span class="sc-sid">${esc(u.stock_id)}</span>
         ${oidHtml}
       </div>
-      <span class="sbadge ${m.badge}">${m.label}</span>
+      <span class="sbadge ${badgeCls}">${badgeLabel}</span>
     </div>
     <div class="sc-mid">
       <div><div class="sm-lbl">Uploaded</div><div class="sm-val">${formatDT(u.uploaded_at)}</div></div>
       <div><div class="sm-lbl">Sold at</div><div class="sm-val ${u.sold_at?'vg':''}">${formatDT(u.sold_at)}</div></div>
       <div><div class="sm-lbl">Approved at</div><div class="sm-val ${u.approved_at?'vg':''}">${formatDT(u.approved_at)}</div></div>
     </div>
-    ${u.sale_note || u.owner_note ? `<div class="sc-note">${esc(u.sale_note||u.owner_note)}</div>` : ''}
-    ${canReport ? `<div class="sc-actions"><button class="sc-btn report" onclick="openReport('${u.id}','${esc(u.stock_id)}')">📤 Report as sold</button></div>` : ''}
+    ${noteHtml}
+    ${seenHtml}
+    ${actionsHtml}
   </div>`;
 }
 
-/* ─── REPORT SALE ─────────────────────────────── */
-function openReport(id, stockId) {
-  reportingId = id;
-  txt('rm-stockid', stockId);
-  document.getElementById('rm-note').value = '';
-  document.getElementById('rm-soldAt').value = new Date().toISOString().slice(0,16);
-  openModal('reportModal');
-}
-
-async function submitReport() {
-  const soldAt = document.getElementById('rm-soldAt').value;
-  const note   = document.getElementById('rm-note').value.trim();
-  if (!soldAt) { showToast('Please enter when it was sold.', 'err'); return; }
-  if (!reportingId) return;
-
-  const { error } = await _sb
-    .from('stock_units')
-    .update({ status: 'sale_reported', sold_at: new Date(soldAt).toISOString(), sale_note: note || null, updated_at: new Date().toISOString() })
-    .eq('id', reportingId);
-
-  if (error) { showToast('Error: ' + error.message, 'err'); return; }
-
-  // Log event
-  await _sb.from('stock_events').insert({ stock_unit_id: reportingId, event_type: 'sale_reported', actor: currentEmpCode || 'employee', note });
-
-  showToast('Sale reported! Waiting for owner approval.', 'ok');
-  closeModal('reportModal');
-  await loadStockUnits();
-}
-
 /* ─── HELPERS ───────────────────────────────────── */
-function openModal(id)  { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
-document.querySelectorAll('.modal-ov').forEach(m => m.addEventListener('click', e => { if(e.target===m) closeModal(m.id); }));
-
 let toastTimer;
 function showToast(msg, type='') {
   const t = document.getElementById('toast');
