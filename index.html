@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#07090e">
+<title>Employee – Progress Tracker</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700;800&display=swap');
+:root{
+  --bg:#07090e;--s1:#0f1219;--s2:#161b25;--s3:#1a2030;
+  --bd:#1d2433;--bd2:#252d40;
+  --accent:#00d4aa;--a2:#5b6af0;--a3:#f0a35b;
+  --text:#e6ecf5;--t2:#a8b3c5;--muted:#5a6678;
+  --gold:#f0c05b;--red:#f06070;--purple:#8b5cf6;
+  --r:12px;--rl:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;padding-bottom:60px;font-size:14px;-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+.topbar{background:rgba(7,9,14,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:80;}
+.topbar-inner{max-width:480px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 14px;}
+.topbar-title{font-size:13px;font-weight:700;white-space:nowrap;}
+.nav-pills{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.nav-pills::-webkit-scrollbar{display:none;}
+.npill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:6px 11px;border-radius:99px;border:1px solid var(--bd);background:var(--s1);cursor:pointer;white-space:nowrap;transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.npill:hover{color:var(--text);border-color:var(--bd2);}
+.conn-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background .3s;}
+.conn-dot.live{background:var(--accent);}
+.conn-dot.err{background:var(--red);}
+
+/* PAGE */
+.page{max-width:480px;margin:0 auto;padding:0 14px;}
+.section{padding-top:20px;}
+.slbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0d1220 0%,#07090e 100%);border-bottom:1px solid var(--bd);padding:20px 14px 16px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-40px;right:-20px;width:150px;height:150px;background:radial-gradient(circle,rgba(0,212,170,.09) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{max-width:480px;margin:0 auto;position:relative;z-index:2;display:flex;align-items:center;gap:12px;}
+.hero-mark{width:38px;height:38px;flex-shrink:0;background:linear-gradient(135deg,var(--accent) 0%,var(--a2) 100%);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;}
+.hero-txt h1{font-size:15px;font-weight:700;letter-spacing:-.2px;margin-bottom:2px;}
+.hero-txt p{color:var(--muted);font-size:11px;line-height:1.45;}
+.emp-pill{font-family:'DM Mono',monospace;font-size:9px;background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.2);color:var(--accent);padding:3px 9px;border-radius:99px;margin-left:auto;white-space:nowrap;}
+
+/* EMPLOYEE SELECTOR */
+.emp-select-wrap{padding:14px;border-bottom:1px solid var(--bd);}
+.form-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;}
+.form-select{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:9px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:10px 12px;outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none;}
+.form-select:focus{border-color:rgba(0,212,170,.4);}
+.form-input{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:9px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:10px 12px;outline:none;transition:border-color .2s;}
+.form-input:focus{border-color:rgba(0,212,170,.4);}
+.form-input::placeholder{color:var(--muted);}
+.form-textarea{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:9px;color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:10px 12px;outline:none;min-height:56px;resize:vertical;line-height:1.5;transition:border-color .2s;}
+.form-textarea:focus{border-color:rgba(0,212,170,.4);}
+.form-textarea::placeholder{color:var(--muted);}
+.form-group{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
+.form-group:last-of-type{margin-bottom:0;}
+
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.kpi{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:14px 13px;position:relative;overflow:hidden;}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r) var(--r) 0 0;}
+.kpi.ca::after{background:var(--accent);}.kpi.cb::after{background:var(--a2);}.kpi.cc::after{background:var(--gold);}
+.kpi-ico{position:absolute;top:11px;right:11px;font-size:14px;opacity:.35;}
+.kpi-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.kpi-val{font-family:'DM Mono',monospace;font-size:26px;font-weight:500;line-height:1;letter-spacing:-.5px;}
+.kpi.ca .kpi-val{color:var(--accent);}.kpi.cb .kpi-val{color:var(--a2);}.kpi.cc .kpi-val{color:var(--gold);}
+.kpi-sub{font-size:10px;color:var(--muted);margin-top:4px;}
+
+/* TRACKER */
+.tracker-head{padding:16px;border-bottom:1px solid var(--bd);background:linear-gradient(180deg,rgba(0,212,170,.04) 0%,transparent 100%);}
+.th-row{display:flex;align-items:flex-end;gap:12px;margin-bottom:12px;}
+.th-big{font-family:'DM Mono',monospace;font-size:46px;font-weight:500;line-height:1;letter-spacing:-2px;}
+.th-meta{flex:1;min-width:0;padding-bottom:4px;}
+.lv-pill{font-family:'DM Mono',monospace;font-size:10px;padding:4px 10px;border-radius:99px;background:rgba(240,192,91,.1);border:1px solid rgba(240,192,91,.25);color:var(--gold);display:inline-block;margin-bottom:5px;}
+.th-split{font-family:'DM Mono',monospace;font-size:12px;color:var(--t2);}
+.pb-wrap{padding:12px 16px;border-bottom:1px solid var(--bd);}
+.pb-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:7px;}
+.pb-lbl{font-size:12px;font-weight:600;color:var(--t2);}
+.pb-pct{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);}
+.pb-track{height:8px;background:var(--s3);border-radius:99px;overflow:hidden;margin-bottom:5px;}
+.pb-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--a2),var(--accent));transition:width .5s cubic-bezier(.4,0,.2,1);}
+.pb-fill.full{background:var(--accent);}
+.pb-sub{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);}
+.sg{background:var(--s1);padding:12px 14px;}
+.sg-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.sg-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;line-height:1;}
+.sg-sub{font-size:10px;color:var(--muted);margin-top:3px;}
+.v-acc{color:var(--accent);}.v-a2{color:var(--a2);}.v-gold{color:var(--gold);}.v-t2{color:var(--t2);font-size:13px;font-family:'Syne',sans-serif;font-weight:600;}
+
+/* MILESTONES */
+.ms-list{display:flex;flex-direction:column;}
+.ms-row{display:flex;align-items:center;gap:11px;padding:11px 15px;border-top:1px solid var(--bd);}
+.ms-row.done{background:rgba(0,212,170,.025);}
+.ms-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--bd2);background:var(--s2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;color:transparent;transition:all .22s;font-weight:700;}
+.ms-row.done .ms-check{background:var(--accent);border-color:var(--accent);color:#000;}
+.ms-body{flex:1;}
+.ms-title{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:1px;}
+.ms-row.done .ms-title{color:var(--text);}
+.ms-desc{font-size:10px;color:var(--muted);}
+.ms-badge{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;flex-shrink:0;}
+.mb2{background:rgba(91,106,240,.12);color:var(--a2);border:1px solid rgba(91,106,240,.25);}
+.mb3{background:rgba(0,212,170,.12);color:var(--accent);border:1px solid rgba(0,212,170,.25);}
+
+/* STATUS BADGES */
+.sbadge{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.4px;white-space:nowrap;}
+.s-waiting{background:rgba(240,163,91,.12);color:var(--a3);border:1px solid rgba(240,163,91,.3);}
+.s-reported{background:rgba(139,92,246,.12);color:var(--purple);border:1px solid rgba(139,92,246,.3);}
+.s-approved{background:rgba(0,212,170,.14);color:var(--accent);border:1px solid rgba(0,212,170,.3);}
+.s-issue{background:rgba(240,96,112,.12);color:var(--red);border:1px solid rgba(240,96,112,.3);}
+.s-cancelled{background:rgba(90,102,120,.15);color:var(--muted);border:1px solid rgba(90,102,120,.3);}
+
+/* STOCK CARDS */
+.stock-card{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden;transition:border-color .2s;}
+.stock-card.sw{border-color:rgba(240,163,91,.18);}
+.stock-card.sr{border-color:rgba(139,92,246,.25);}
+.stock-card.sa{border-color:rgba(0,212,170,.2);}
+.stock-card.si{border-color:rgba(240,96,112,.22);}
+.stock-card.sc{border-color:rgba(90,102,120,.2);}
+.stock-card:last-child{margin-bottom:0;}
+.sc-top{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid var(--bd);gap:8px;}
+.sc-ids{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1;min-width:0;}
+.sc-sid{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text);}
+.sc-oid{font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;border-radius:99px;background:var(--s1);border:1px solid var(--bd);}
+.sc-oid.has-order{color:var(--accent);}
+.sc-oid.no-order{color:var(--muted);}
+.sc-mid{padding:9px 13px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.sm-lbl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.sm-val{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sm-val.vg{color:var(--accent);}.sm-val.vp{color:var(--purple);}
+.sc-note{font-size:11px;color:var(--muted);font-style:italic;padding:7px 13px;border-top:1px solid var(--bd);line-height:1.5;}
+.sc-actions{padding:9px 13px;border-top:1px solid var(--bd);display:flex;gap:6px;flex-wrap:wrap;}
+.sc-btn{font-family:'DM Mono',monospace;font-size:10px;padding:7px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--s1);color:var(--muted);cursor:pointer;transition:all .14s;-webkit-tap-highlight-color:transparent;}
+.sc-btn.report{color:var(--purple);border-color:rgba(139,92,246,.35);background:rgba(139,92,246,.08);font-weight:500;flex:1;}
+.sc-btn.report:hover{background:rgba(139,92,246,.16);}
+
+/* MODAL */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px);}
+.modal-ov.open{display:flex;}
+.modal-box{background:var(--s1);border:1px solid var(--bd);border-radius:20px 20px 0 0;width:100%;max-width:480px;padding:20px 18px 28px;max-height:88vh;overflow-y:auto;}
+.modal-ttl{font-size:14px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+.modal-close{font-size:18px;color:var(--muted);cursor:pointer;background:none;border:none;line-height:1;padding:0 4px;}
+.modal-close:hover{color:var(--text);}
+.modal-acts{display:flex;gap:8px;margin-top:14px;}
+.modal-save{flex:1;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:10px;color:var(--purple);font-family:'DM Mono',monospace;font-size:12px;padding:11px;cursor:pointer;transition:background .14s;}
+.modal-save:hover{background:rgba(139,92,246,.18);}
+.modal-cancel{background:var(--s2);border:1px solid var(--bd);border-radius:10px;color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;padding:11px 18px;cursor:pointer;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--s2);border:1px solid var(--bd2);border-radius:99px;padding:10px 18px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text);z-index:300;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.4);}
+.toast.show{opacity:1;}
+.toast.ok{border-color:rgba(0,212,170,.35);color:var(--accent);}
+.toast.err{border-color:rgba(240,96,112,.35);color:var(--red);}
+
+/* EMPTY */
+.empty{text-align:center;padding:32px 16px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;background:var(--s2);border:1px dashed var(--bd2);border-radius:var(--r);}
+.empty-ico{font-size:26px;opacity:.4;margin-bottom:8px;display:block;}
+
+/* UTIL */
+.btn-full{width:100%;background:linear-gradient(135deg,rgba(0,212,170,.14),rgba(0,212,170,.07));border:1px solid rgba(0,212,170,.32);border-radius:10px;color:var(--accent);font-family:'DM Mono',monospace;font-size:12px;font-weight:500;padding:12px;cursor:pointer;transition:all .14s;-webkit-tap-highlight-color:transparent;}
+.btn-full:hover{background:linear-gradient(135deg,rgba(0,212,170,.22),rgba(0,212,170,.12));}
+.divider{height:1px;background:var(--bd);margin:12px 0;}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--bd2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-wrap{padding:24px;text-align:center;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;}
+@supports(padding:max(0px)){body{padding-bottom:max(60px,env(safe-area-inset-bottom));}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-mark">📊</div>
+    <div class="hero-txt">
+      <h1>Employee Tracker</h1>
+      <p>Approved progress, salary, deposit, and stock units.</p>
+    </div>
+    <span class="emp-pill" id="empPill">—</span>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="nav-pills">
+      <button class="npill" onclick="scrollTo('sec-progress')">Progress</button>
+      <button class="npill" onclick="scrollTo('sec-stock')">My Stock</button>
+      <button class="npill" onclick="scrollTo('sec-rules')">Rules</button>
+    </div>
+    <div class="conn-dot" id="connDot" title="Realtime connection status"></div>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- EMPLOYEE SELECT -->
+<div class="section">
+  <div class="slbl">// Select your profile</div>
+  <div class="card">
+    <div class="emp-select-wrap">
+      <label class="form-label" for="empSelect">Who are you?</label>
+      <select class="form-select" id="empSelect" onchange="onEmpChange()">
+        <option value="">Loading employees...</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- A. OVERVIEW -->
+<div class="section" id="sec-progress">
+  <div class="slbl">// Current overview</div>
+  <div class="kpi-grid" style="margin-bottom:10px">
+    <div class="kpi ca"><span class="kpi-ico">📦</span><div class="kpi-lbl">Approved sold</div><div class="kpi-val" id="kpi-units">—</div><div class="kpi-sub">units</div></div>
+    <div class="kpi ca"><span class="kpi-ico">💎</span><div class="kpi-lbl">Deposit</div><div class="kpi-val" id="kpi-dep">—</div><div class="kpi-sub">coins</div></div>
+    <div class="kpi cb"><span class="kpi-ico">💰</span><div class="kpi-lbl">Salary</div><div class="kpi-val" id="kpi-sal">—</div><div class="kpi-sub">coins</div></div>
+    <div class="kpi cc"><span class="kpi-ico">📈</span><div class="kpi-lbl">Capacity</div><div class="kpi-val" id="kpi-cap">—</div><div class="kpi-sub">extra units</div></div>
+  </div>
+
+  <!-- TRACKER CARD -->
+  <div class="slbl" style="margin-top:16px">// Progress tracker</div>
+  <div class="card">
+    <div class="tracker-head">
+      <div class="th-row">
+        <div class="th-big" id="unitNum">—</div>
+        <div class="th-meta">
+          <div class="lv-pill" id="stLevel">—</div>
+          <div class="th-split" id="stSplit">— / — dep/sal</div>
+        </div>
+      </div>
+    </div>
+    <div class="pb-wrap">
+      <div class="pb-top"><span class="pb-lbl" id="pbLbl">Progress</span><span class="pb-pct" id="pbPct">—</span></div>
+      <div class="pb-track"><div class="pb-fill" id="pbFill" style="width:0%"></div></div>
+      <div class="pb-sub" id="pbSub">Select your profile above</div>
+    </div>
+    <div class="stats-grid">
+      <div class="sg"><div class="sg-lbl">Deposit</div><div class="sg-val v-acc" id="stDep">—</div><div class="sg-sub">coins</div></div>
+      <div class="sg"><div class="sg-lbl">Salary</div><div class="sg-val v-a2" id="stSal">—</div><div class="sg-sub">coins</div></div>
+      <div class="sg"><div class="sg-lbl">Earnings</div><div class="sg-val v-gold" id="stEarn">—</div><div class="sg-sub">units × 100</div></div>
+      <div class="sg"><div class="sg-lbl">Next milestone</div><div class="sg-val v-t2" id="stNext">—</div></div>
+    </div>
+    <div class="ms-list">
+      <div class="ms-row" id="ms10"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">10 approved sold</div><div class="ms-desc">750 deposit · 250 salary · +2.5 capacity</div></div></div>
+      <div class="ms-row" id="ms20"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">20 approved sold</div><div class="ms-desc">1,500 deposit · 500 salary · +5 capacity</div></div><span class="ms-badge mb2">Lv 2</span></div>
+      <div class="ms-row" id="ms30"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">30 approved sold</div><div class="ms-desc">2,100 deposit · 900 salary · +7 capacity</div></div></div>
+      <div class="ms-row" id="ms45"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">45 approved sold</div><div class="ms-desc">3,000 deposit · 1,500 salary · +10 capacity</div></div><span class="ms-badge mb3">Lv 3</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- B. MY STOCK -->
+<div class="section" id="sec-stock">
+  <div class="slbl">// My stock units <span id="stock-count" style="color:var(--t2)"></span></div>
+  <div id="stockContainer">
+    <div class="empty"><span class="empty-ico">📭</span>Select your profile to see stock units.</div>
+  </div>
+</div>
+
+<!-- C. RULES -->
+<div class="section" id="sec-rules">
+  <div class="slbl">// How it works</div>
+  <div class="card" style="overflow:visible">
+    <div style="padding:16px;border-bottom:1px solid var(--bd)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);border-radius:var(--r);overflow:hidden">
+        <div style="background:var(--s1);padding:14px">
+          <div style="font-size:16px;margin-bottom:6px">📦</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Capital lent</div>
+          <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:4px">300 coins</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5">per unit. Not salary — stock value trusted to you.</div>
+        </div>
+        <div style="background:var(--s1);padding:14px">
+          <div style="font-size:16px;margin-bottom:6px">✅</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Approved sale</div>
+          <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:4px">100 coins</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5">generated after owner approves. Split dep + salary.</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px 14px;font-size:11px;color:var(--muted);line-height:1.7;background:var(--s2)">
+      <strong style="color:var(--accent)">Important:</strong> "Sale reported" means your report is waiting for owner review. Only <strong style="color:var(--accent)">Approved sold</strong> units count toward your deposit, salary, and level progress.
+      <br><br>
+      <strong style="color:var(--t2)">Status guide:</strong><br>
+      🟡 <strong>Waiting to be sold</strong> — in stock, not yet sold<br>
+      🔵 <strong>Sale reported</strong> — waiting for owner approval<br>
+      ✅ <strong>Approved sold</strong> — confirmed, counts in stats<br>
+      🔴 <strong>Issue</strong> — something needs checking<br>
+      ⛔ <strong>Cancelled</strong> — removed from stock
+    </div>
+  </div>
+</div>
+
+<div style="height:24px"></div>
+</div>
+
+<!-- REPORT SALE MODAL -->
+<div class="modal-ov" id="reportModal">
+  <div class="modal-box">
+    <div class="modal-ttl"><span>📤 Report sale</span><button class="modal-close" onclick="closeModal('reportModal')">✕</button></div>
+    <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:14px">Report that this unit was sold. The owner will review and approve it. You cannot approve it yourself.</p>
+    <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:12px;margin-bottom:14px">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:4px;letter-spacing:1px;text-transform:uppercase">Stock unit</div>
+      <div style="font-family:'DM Mono',monospace;font-size:14px;color:var(--text)" id="rm-stockid">—</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">When was it sold? *</label>
+      <input class="form-input" type="datetime-local" id="rm-soldAt">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Note / proof (optional)</label>
+      <textarea class="form-textarea" id="rm-note" placeholder="Screenshot reference, buyer info, etc."></textarea>
+    </div>
+    <div class="modal-acts">
+      <button class="modal-cancel" onclick="closeModal('reportModal')">Cancel</button>
+      <button class="modal-save" onclick="submitReport()">📤 Submit report</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<!-- Your config — copy supabase-config.example.js to supabase-config.js and fill in credentials -->
+<script src="supabase-config.js"></script>
+<script>
+/* ─── SUPABASE INIT ──────────────────────────────── */
+const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* ─── STATE ─────────────────────────────────────── */
+let currentEmpId   = null;
+let currentEmpCode = null;
+let allStockUnits  = [];
+let reportingId    = null;
+let realtimeSub    = null;
+
+/* ─── BOOT ──────────────────────────────────────── */
+async function init() {
+  // Pre-fill datetime to now
+  const nowStr = new Date().toISOString().slice(0,16);
+  document.getElementById('rm-soldAt').value = nowStr;
+
+  await loadEmployees();
+  // Try to restore last selected employee from localStorage (cache only, not source of truth)
+  const cached = localStorage.getItem('emp_selected_id');
+  if (cached) {
+    const sel = document.getElementById('empSelect');
+    const opt = [...sel.options].find(o => o.value === cached);
+    if (opt) { sel.value = cached; await onEmpChange(); }
+  }
+  setupRealtime();
+}
+
+/* ─── EMPLOYEES ─────────────────────────────────── */
+async function loadEmployees() {
+  const { data, error } = await _sb.from('employees').select('id, employee_code, name').eq('active', true).order('name');
+  const sel = document.getElementById('empSelect');
+  if (error || !data?.length) {
+    sel.innerHTML = '<option value="">No employees found</option>';
+    return;
+  }
+  sel.innerHTML = '<option value="">— Select your name —</option>' +
+    data.map(e => `<option value="${e.id}" data-code="${e.employee_code}">${e.name} (${e.employee_code})</option>`).join('');
+}
+
+async function onEmpChange() {
+  const sel = document.getElementById('empSelect');
+  const opt = sel.options[sel.selectedIndex];
+  currentEmpId   = sel.value || null;
+  currentEmpCode = opt?.dataset?.code || null;
+
+  document.getElementById('empPill').textContent = currentEmpCode || '—';
+
+  if (!currentEmpId) {
+    resetDashboard();
+    return;
+  }
+  localStorage.setItem('emp_selected_id', currentEmpId);
+  await loadStockUnits();
+}
+
+/* ─── STOCK UNITS ───────────────────────────────── */
+async function loadStockUnits() {
+  if (!currentEmpId) return;
+  document.getElementById('stockContainer').innerHTML = `<div class="loading-wrap"><span class="spinner"></span>Loading...</div>`;
+
+  const { data, error } = await _sb
+    .from('stock_units')
+    .select('*')
+    .eq('employee_id', currentEmpId)
+    .order('uploaded_at', { ascending: false });
+
+  if (error) {
+    showToast('Failed to load stock units: ' + error.message, 'err');
+    return;
+  }
+  allStockUnits = data || [];
+  renderAll();
+}
+
+/* ─── REALTIME ──────────────────────────────────── */
+function setupRealtime() {
+  if (realtimeSub) _sb.removeChannel(realtimeSub);
+
+  realtimeSub = _sb
+    .channel('emp-stock-changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'stock_units' }, (payload) => {
+      if (!currentEmpId) return;
+      const row = payload.new || payload.old;
+      if (row.employee_id !== currentEmpId) return;
+      handleRealtimeEvent(payload);
+    })
+    .subscribe((status) => {
+      const dot = document.getElementById('connDot');
+      if (status === 'SUBSCRIBED') dot.classList.add('live'), dot.classList.remove('err');
+      else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') dot.classList.add('err'), dot.classList.remove('live');
+      else dot.classList.remove('live','err');
+    });
+}
+
+function handleRealtimeEvent(payload) {
+  const { eventType, new: row, old } = payload;
+  if (eventType === 'INSERT') {
+    allStockUnits.unshift(row);
+  } else if (eventType === 'UPDATE') {
+    const idx = allStockUnits.findIndex(u => u.id === row.id);
+    if (idx >= 0) allStockUnits[idx] = row; else allStockUnits.unshift(row);
+  } else if (eventType === 'DELETE') {
+    allStockUnits = allStockUnits.filter(u => u.id !== old.id);
+  }
+  renderAll();
+  showToast('Stock updated in real time', 'ok');
+}
+
+/* ─── RENDER ────────────────────────────────────── */
+function renderAll() {
+  const approved = allStockUnits.filter(u => u.status === 'sold_approved');
+  renderTracker(approved.length);
+  renderStockList(allStockUnits);
+}
+
+function calcStats(u) {
+  let dep = 0, sal = 0;
+  const t1 = Math.min(u, 20); dep += t1*75; sal += t1*25;
+  if (u > 20) { const t2 = Math.min(u-20, 25); dep += t2*60; sal += t2*40; }
+  if (u > 45) { dep += (u-45)*50; sal += (u-45)*50; }
+  let level, dPct, sPct, pbLbl, pbPct, pbW, pbFull, pbSub, nextLbl;
+  if (u < 20) {
+    level='Level 1'; dPct=75; sPct=25;
+    const pct = Math.round(u/20*100);
+    pbLbl='Progress to Level 2'; pbPct=pct+'%'; pbW=pct; pbFull=false;
+    const r=20-u; pbSub=r+' approved unit'+(r===1?'':'s')+' remaining'; nextLbl=r+' → Lv 2';
+  } else if (u < 45) {
+    level='Level 2'; dPct=60; sPct=40;
+    const pct=Math.round((u-20)/25*100);
+    pbLbl='Progress to Level 3'; pbPct=pct+'%'; pbW=pct; pbFull=false;
+    const r=45-u; pbSub=r+' approved unit'+(r===1?'':'s')+' remaining'; nextLbl=r+' → Lv 3';
+  } else {
+    level='Level 3'; dPct=50; sPct=50;
+    pbLbl='Level 3 — Stable'; pbPct='100%'; pbW=100; pbFull=true;
+    pbSub='Maximum level reached.'; nextLbl='Max level';
+  }
+  return { dep, sal, earn: u*100, capacity: +(dep/300).toFixed(1), level, dPct, sPct, pbLbl, pbPct, pbW, pbFull, pbSub, nextLbl };
+}
+
+function fmt(n) { return Number(n).toLocaleString(); }
+function txt(id, v) { const e = document.getElementById(id); if (e) e.textContent = v; }
+function msEl(id, on) { const e = document.getElementById(id); if (e) { if(on) e.classList.add('done'); else e.classList.remove('done'); } }
+
+function renderTracker(u) {
+  const s = calcStats(u);
+  txt('unitNum', u); txt('kpi-units', u);
+  txt('stLevel', s.level);
+  txt('stSplit', `${s.dPct} / ${s.sPct} dep/sal`);
+  txt('stDep', fmt(s.dep)); txt('kpi-dep', fmt(s.dep));
+  txt('stSal', fmt(s.sal)); txt('kpi-sal', fmt(s.sal));
+  txt('stEarn', fmt(s.earn));
+  txt('stNext', s.nextLbl);
+  txt('kpi-cap', s.capacity);
+  txt('pbLbl', s.pbLbl); txt('pbPct', s.pbPct); txt('pbSub', s.pbSub);
+  const fill = document.getElementById('pbFill');
+  fill.style.width = s.pbW + '%';
+  if (s.pbFull) fill.classList.add('full'); else fill.classList.remove('full');
+  [['ms10',10],['ms20',20],['ms30',30],['ms45',45]].forEach(([id,n]) => msEl(id, u >= n));
+}
+
+function resetDashboard() {
+  ['unitNum','kpi-units','kpi-dep','kpi-sal','kpi-cap','stLevel','stSplit','stDep','stSal','stEarn','stNext','pbLbl','pbPct','pbSub'].forEach(id => txt(id,'—'));
+  document.getElementById('pbFill').style.width = '0%';
+  document.getElementById('stockContainer').innerHTML = '<div class="empty"><span class="empty-ico">📭</span>Select your profile to see stock units.</div>';
+  ['ms10','ms20','ms30','ms45'].forEach(id => msEl(id, false));
+}
+
+function renderStockList(units) {
+  const c = document.getElementById('stockContainer');
+  txt('stock-count', units.length ? `(${units.length})` : '');
+  if (!units.length) {
+    c.innerHTML = '<div class="empty"><span class="empty-ico">📭</span>No stock units assigned to you yet.</div>';
+    return;
+  }
+  c.innerHTML = units.map(u => stockCardHtml(u)).join('');
+}
+
+function statusMeta(status) {
+  const m = {
+    waiting_to_be_sold: { cls:'sw', badge:'s-waiting',  label:'🟡 Waiting to be sold' },
+    sale_reported:      { cls:'sr', badge:'s-reported', label:'🔵 Sale reported — awaiting approval' },
+    sold_approved:      { cls:'sa', badge:'s-approved', label:'✅ Approved sold' },
+    issue:              { cls:'si', badge:'s-issue',    label:'🔴 Issue — check needed' },
+    cancelled:          { cls:'sc', badge:'s-cancelled',label:'⛔ Cancelled' },
+  };
+  return m[status] || { cls:'', badge:'', label: status };
+}
+
+function formatDT(s) {
+  if (!s) return '—';
+  try { return new Date(s).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}); } catch(e) { return s; }
+}
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function stockCardHtml(u) {
+  const m = statusMeta(u.status);
+  const oidHtml = u.order_id
+    ? `<span class="sc-oid has-order">${esc(u.order_id)}</span>`
+    : `<span class="sc-oid no-order">No order ID yet</span>`;
+  const canReport = u.status === 'waiting_to_be_sold' || u.status === 'issue';
+  return `
+  <div class="stock-card ${m.cls}">
+    <div class="sc-top">
+      <div class="sc-ids">
+        <span class="sc-sid">${esc(u.stock_id)}</span>
+        ${oidHtml}
+      </div>
+      <span class="sbadge ${m.badge}">${m.label}</span>
+    </div>
+    <div class="sc-mid">
+      <div><div class="sm-lbl">Uploaded</div><div class="sm-val">${formatDT(u.uploaded_at)}</div></div>
+      <div><div class="sm-lbl">Sold at</div><div class="sm-val ${u.sold_at?'vg':''}">${formatDT(u.sold_at)}</div></div>
+      <div><div class="sm-lbl">Approved at</div><div class="sm-val ${u.approved_at?'vg':''}">${formatDT(u.approved_at)}</div></div>
+    </div>
+    ${u.sale_note || u.owner_note ? `<div class="sc-note">${esc(u.sale_note||u.owner_note)}</div>` : ''}
+    ${canReport ? `<div class="sc-actions"><button class="sc-btn report" onclick="openReport('${u.id}','${esc(u.stock_id)}')">📤 Report as sold</button></div>` : ''}
+  </div>`;
+}
+
+/* ─── REPORT SALE ─────────────────────────────── */
+function openReport(id, stockId) {
+  reportingId = id;
+  txt('rm-stockid', stockId);
+  document.getElementById('rm-note').value = '';
+  document.getElementById('rm-soldAt').value = new Date().toISOString().slice(0,16);
+  openModal('reportModal');
+}
+
+async function submitReport() {
+  const soldAt = document.getElementById('rm-soldAt').value;
+  const note   = document.getElementById('rm-note').value.trim();
+  if (!soldAt) { showToast('Please enter when it was sold.', 'err'); return; }
+  if (!reportingId) return;
+
+  const { error } = await _sb
+    .from('stock_units')
+    .update({ status: 'sale_reported', sold_at: new Date(soldAt).toISOString(), sale_note: note || null, updated_at: new Date().toISOString() })
+    .eq('id', reportingId);
+
+  if (error) { showToast('Error: ' + error.message, 'err'); return; }
+
+  // Log event
+  await _sb.from('stock_events').insert({ stock_unit_id: reportingId, event_type: 'sale_reported', actor: currentEmpCode || 'employee', note });
+
+  showToast('Sale reported! Waiting for owner approval.', 'ok');
+  closeModal('reportModal');
+  await loadStockUnits();
+}
+
+/* ─── HELPERS ───────────────────────────────────── */
+function openModal(id)  { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+document.querySelectorAll('.modal-ov').forEach(m => m.addEventListener('click', e => { if(e.target===m) closeModal(m.id); }));
+
+let toastTimer;
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' '+type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+window.scrollTo = function(id) { const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); };
+
+init();
+</script>
+</body>
+</html>
