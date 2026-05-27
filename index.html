@@ -18,25 +18,20 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;padding-bottom:60px;font-size:14px;-webkit-font-smoothing:antialiased;}
-
 /* NAV */
 .topbar{background:rgba(7,9,14,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:80;}
 .topbar-inner{max-width:480px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:9px 14px;}
-.topbar-title{font-size:13px;font-weight:700;white-space:nowrap;}
 .nav-pills{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
 .nav-pills::-webkit-scrollbar{display:none;}
 .npill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:6px 11px;border-radius:99px;border:1px solid var(--bd);background:var(--s1);cursor:pointer;white-space:nowrap;transition:all .15s;-webkit-tap-highlight-color:transparent;}
 .npill:hover{color:var(--text);border-color:var(--bd2);}
 .conn-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background .3s;}
-.conn-dot.live{background:var(--accent);}
-.conn-dot.err{background:var(--red);}
-
+.conn-dot.live{background:var(--accent);}.conn-dot.err{background:var(--red);}
 /* PAGE */
 .page{max-width:480px;margin:0 auto;padding:0 14px;}
 .section{padding-top:20px;}
 .slbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
 .card{background:var(--s1);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;}
-
 /* HERO */
 .hero{background:linear-gradient(160deg,#0d1220 0%,#07090e 100%);border-bottom:1px solid var(--bd);padding:20px 14px 16px;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;top:-40px;right:-20px;width:150px;height:150px;background:radial-gradient(circle,rgba(0,212,170,.09) 0%,transparent 70%);pointer-events:none;}
@@ -45,24 +40,21 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .hero-txt h1{font-size:15px;font-weight:700;letter-spacing:-.2px;margin-bottom:2px;}
 .hero-txt p{color:var(--muted);font-size:11px;line-height:1.45;}
 .emp-pill{font-family:'DM Mono',monospace;font-size:9px;background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.2);color:var(--accent);padding:3px 9px;border-radius:99px;margin-left:auto;white-space:nowrap;}
-
-/* EMPLOYEE SELECTOR */
+/* SELECTOR */
 .emp-select-wrap{padding:14px;border-bottom:1px solid var(--bd);}
 .form-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;}
 .form-select{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:9px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:10px 12px;outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none;}
 .form-select:focus{border-color:rgba(0,212,170,.4);}
-
 /* KPI */
 .kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .kpi{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:14px 13px;position:relative;overflow:hidden;}
 .kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r) var(--r) 0 0;}
-.kpi.ca::after{background:var(--accent);}.kpi.cb::after{background:var(--a2);}.kpi.cc::after{background:var(--gold);}
+.kpi.ca::after{background:var(--accent);}.kpi.cb::after{background:var(--a2);}.kpi.cc::after{background:var(--gold);}.kpi.cr::after{background:var(--red);}
 .kpi-ico{position:absolute;top:11px;right:11px;font-size:14px;opacity:.35;}
 .kpi-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
-.kpi-val{font-family:'DM Mono',monospace;font-size:26px;font-weight:500;line-height:1;letter-spacing:-.5px;}
-.kpi.ca .kpi-val{color:var(--accent);}.kpi.cb .kpi-val{color:var(--a2);}.kpi.cc .kpi-val{color:var(--gold);}
+.kpi-val{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;line-height:1;letter-spacing:-.5px;}
+.kpi.ca .kpi-val{color:var(--accent);}.kpi.cb .kpi-val{color:var(--a2);}.kpi.cc .kpi-val{color:var(--gold);}.kpi.cr .kpi-val{color:var(--red);}
 .kpi-sub{font-size:10px;color:var(--muted);margin-top:4px;}
-
 /* TRACKER */
 .tracker-head{padding:16px;border-bottom:1px solid var(--bd);background:linear-gradient(180deg,rgba(0,212,170,.04) 0%,transparent 100%);}
 .th-row{display:flex;align-items:flex-end;gap:12px;margin-bottom:12px;}
@@ -83,8 +75,7 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .sg-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
 .sg-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;line-height:1;}
 .sg-sub{font-size:10px;color:var(--muted);margin-top:3px;}
-.v-acc{color:var(--accent);}.v-a2{color:var(--a2);}.v-gold{color:var(--gold);}.v-t2{color:var(--t2);font-size:13px;font-family:'Syne',sans-serif;font-weight:600;}
-
+.v-acc{color:var(--accent);}.v-a2{color:var(--a2);}.v-gold{color:var(--gold);}.v-t2{color:var(--t2);font-size:13px;font-family:'Syne',sans-serif;font-weight:600;}.v-red{color:var(--red);}
 /* MILESTONES */
 .ms-list{display:flex;flex-direction:column;}
 .ms-row{display:flex;align-items:center;gap:11px;padding:11px 15px;border-top:1px solid var(--bd);}
@@ -98,88 +89,197 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .ms-badge{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;flex-shrink:0;}
 .mb2{background:rgba(91,106,240,.12);color:var(--a2);border:1px solid rgba(91,106,240,.25);}
 .mb3{background:rgba(0,212,170,.12);color:var(--accent);border:1px solid rgba(0,212,170,.25);}
-
 /* STATUS BADGES */
 .sbadge{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.4px;white-space:nowrap;}
-.s-waiting  {background:rgba(240,163,91,.12); color:var(--a3);   border:1px solid rgba(240,163,91,.3);}
-.s-reported {background:rgba(139,92,246,.12); color:var(--purple);border:1px solid rgba(139,92,246,.3);}
-.s-approved {background:rgba(0,212,170,.14);  color:var(--accent);border:1px solid rgba(0,212,170,.3);}
-.s-issue    {background:rgba(240,96,112,.12); color:var(--red);  border:1px solid rgba(240,96,112,.3);}
-.s-cancelled{background:rgba(90,102,120,.15); color:var(--muted);border:1px solid rgba(90,102,120,.3);}
-.s-seen     {background:rgba(0,212,170,.08);  color:var(--accent);border:1px solid rgba(0,212,170,.2);}
-
+.s-waiting{background:rgba(240,163,91,.12);color:var(--a3);border:1px solid rgba(240,163,91,.3);}
+.s-sold{background:rgba(139,92,246,.12);color:var(--purple);border:1px solid rgba(139,92,246,.3);}
+.s-seen{background:rgba(0,212,170,.08);color:var(--accent);border:1px solid rgba(0,212,170,.2);}
+.s-issue{background:rgba(240,96,112,.12);color:var(--red);border:1px solid rgba(240,96,112,.3);}
+.s-cancelled{background:rgba(90,102,120,.15);color:var(--muted);border:1px solid rgba(90,102,120,.3);}
+/* TYPE PILL */
+.type-pill{font-family:'DM Mono',monospace;font-size:9px;padding:2px 8px;border-radius:99px;border:1px solid;white-space:nowrap;}
+.tp-c{color:var(--accent);border-color:rgba(0,212,170,.3);background:rgba(0,212,170,.08);}
+.tp-b{color:var(--a2);border-color:rgba(91,106,240,.3);background:rgba(91,106,240,.08);}
+.tp-m{color:var(--gold);border-color:rgba(240,192,91,.3);background:rgba(240,192,91,.08);}
+/* CATEGORY OVERVIEW (employee) */
+.emp-cat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;}
+.emp-cat{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:10px 9px;}
+.emp-cat.cat-c{border-color:rgba(0,212,170,.18);}
+.emp-cat.cat-b{border-color:rgba(91,106,240,.18);}
+.emp-cat.cat-m{border-color:rgba(240,192,91,.18);}
+.ec-prefix{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;line-height:1;margin-bottom:2px;}
+.cat-c .ec-prefix,.emp-cat.cat-c .ec-prefix{color:var(--accent);}
+.cat-b .ec-prefix,.emp-cat.cat-b .ec-prefix{color:var(--a2);}
+.cat-m .ec-prefix,.emp-cat.cat-m .ec-prefix{color:var(--gold);}
+.ec-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
+.ec-lbl{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);}
+.ec-val{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--text);}
+.ec-val.ev-wait{color:var(--a3);}
+.ec-val.ev-sold{color:var(--accent);}
+.ec-val.ev-ns{color:var(--purple);}
+.ec-phys{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);margin-top:5px;line-height:1.5;}
+.ec-phys strong{color:var(--t2);}
+/* QUICK FILTERS */
+.qf-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px;}
+.qf-row::-webkit-scrollbar{display:none;}
+.qfb{font-family:'DM Mono',monospace;font-size:10px;padding:5px 11px;border-radius:99px;border:1px solid var(--bd);background:var(--s2);color:var(--muted);cursor:pointer;transition:all .14s;white-space:nowrap;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
+.qfb.qa{border-color:rgba(0,212,170,.4);color:var(--accent);background:rgba(0,212,170,.07);}
+.qfb.qc{border-color:rgba(0,212,170,.4);color:var(--accent);background:rgba(0,212,170,.07);}
+.qfb.qb{border-color:rgba(91,106,240,.4);color:var(--a2);background:rgba(91,106,240,.07);}
+.qfb.qm{border-color:rgba(240,192,91,.4);color:var(--gold);background:rgba(240,192,91,.07);}
+.qfb.qw{border-color:rgba(240,163,91,.4);color:var(--a3);background:rgba(240,163,91,.07);}
+.qfb.qs{border-color:rgba(0,212,170,.4);color:var(--accent);background:rgba(0,212,170,.07);}
+.qfb.qn{border-color:rgba(139,92,246,.4);color:var(--purple);background:rgba(139,92,246,.07);}
 /* STOCK CARDS */
 .stock-card{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden;transition:border-color .2s;}
 .stock-card.sw{border-color:rgba(240,163,91,.18);}
 .stock-card.sa{border-color:rgba(0,212,170,.2);}
-.stock-card.sn{border-color:rgba(139,92,246,.25);}  /* sold, not yet seen */
+.stock-card.sn{border-color:rgba(139,92,246,.25);}
 .stock-card.si{border-color:rgba(240,96,112,.22);}
 .stock-card.sc{border-color:rgba(90,102,120,.2);}
 .stock-card:last-child{margin-bottom:0;}
-.sc-top{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid var(--bd);gap:8px;}
+.sc-top{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid var(--bd);gap:8px;flex-wrap:wrap;}
 .sc-ids{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1;min-width:0;}
 .sc-sid{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text);}
 .sc-oid{font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;border-radius:99px;background:var(--s1);border:1px solid var(--bd);}
-.sc-oid.has-order{color:var(--accent);}
-.sc-oid.no-order{color:var(--muted);}
+.sc-oid.has-order{color:var(--accent);}.sc-oid.no-order{color:var(--muted);}
 .sc-mid{padding:9px 13px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.sc-mid2{padding:9px 13px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .sm-lbl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
 .sm-val{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .sm-val.vg{color:var(--accent);}
 .sc-note{font-size:11px;color:var(--muted);font-style:italic;padding:7px 13px;border-top:1px solid var(--bd);line-height:1.5;}
 .sc-actions{padding:9px 13px;border-top:1px solid var(--bd);display:flex;gap:6px;flex-wrap:wrap;}
-
-/* Mark as seen button */
 .sc-btn{font-family:'DM Mono',monospace;font-size:10px;padding:7px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--s1);color:var(--muted);cursor:pointer;transition:all .14s;-webkit-tap-highlight-color:transparent;}
 .sc-btn.seen-btn{color:var(--accent);border-color:rgba(0,212,170,.35);background:rgba(0,212,170,.08);font-weight:500;flex:1;}
 .sc-btn.seen-btn:hover{background:rgba(0,212,170,.16);}
-
-/* Seen confirmation row */
 .seen-info{padding:8px 13px;border-top:1px solid var(--bd);background:rgba(0,212,170,.04);display:flex;align-items:center;gap:7px;}
-.seen-ico{font-size:12px;}
-.seen-txt{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);}
+.seen-ico{font-size:12px;}.seen-txt{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);}
 .seen-time{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
-
-/* TOAST */
+/* PAYOUT */
+.payout-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--bd);gap:8px;}
+.payout-row:first-child{border-top:none;}
+.pr-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);}
+.pr-amount{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--accent);white-space:nowrap;}
+/* BUYING POWER */
+.bp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);}
+.bp-cell{background:var(--s1);padding:11px 12px;}
+.bp-lbl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.bp-val{font-family:'DM Mono',monospace;font-size:16px;font-weight:500;}
+.bp-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+/* MISC */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--s2);border:1px solid var(--bd2);border-radius:99px;padding:10px 18px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text);z-index:300;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.4);}
-.toast.show{opacity:1;}
-.toast.ok{border-color:rgba(0,212,170,.35);color:var(--accent);}
-.toast.err{border-color:rgba(240,96,112,.35);color:var(--red);}
-
-/* EMPTY */
+.toast.show{opacity:1;}.toast.ok{border-color:rgba(0,212,170,.35);color:var(--accent);}.toast.err{border-color:rgba(240,96,112,.35);color:var(--red);}
 .empty{text-align:center;padding:32px 16px;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;background:var(--s2);border:1px dashed var(--bd2);border-radius:var(--r);}
 .empty-ico{font-size:26px;opacity:.4;margin-bottom:8px;display:block;}
-
-/* UTIL */
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--bd2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-wrap{padding:24px;text-align:center;color:var(--muted);font-family:'DM Mono',monospace;font-size:11px;}
 @supports(padding:max(0px)){body{padding-bottom:max(60px,env(safe-area-inset-bottom));}}
+
+
+/* =========================================================
+   FINAL UI PATCH: keep nav + filters visible and clickable
+   - top nav wraps instead of triggering bad native scrollTo behavior
+   - quick filters wrap instead of disappearing outside screen
+   - sections keep titles visible under sticky nav
+========================================================= */
+.topbar-inner {
+  max-width: min(100%, 720px);
+  width: 100%;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.nav-pills {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: visible;
+  overflow-y: visible;
+  gap: 6px;
+  padding-bottom: 0;
+  scrollbar-width: none;
+}
+
+.nav-pills::-webkit-scrollbar { display: none; }
+
+.npill {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: max-content;
+  max-width: none;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 1;
+  padding: 7px 12px;
+}
+
+.conn-dot { margin-top: 11px; }
+
+.section[id] { scroll-margin-top: 104px; }
+
+.filters,
+.qf-row {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: visible;
+  overflow-y: visible;
+  max-width: 100%;
+  gap: 6px;
+  row-gap: 7px;
+  padding-bottom: 0;
+}
+
+.fb,
+.qfb {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: max-content;
+  max-width: none;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.filters + .ledger-count,
+.qf-row + .slbl { margin-top: 4px; }
+
+@media (max-width: 420px) {
+  .topbar-inner { padding-left: 10px; padding-right: 10px; }
+  .npill, .fb, .qfb { font-size: 9.5px; padding: 7px 10px; }
+  .section[id] { scroll-margin-top: 126px; }
+  .cat-grid, .emp-cat-grid { gap: 6px; }
+  .cat-card, .emp-cat { padding: 10px 8px; }
+}
+
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-mark">📊</div>
     <div class="hero-txt">
       <h1>Employee Tracker</h1>
-      <p>Approved progress, salary, deposit, and stock units.</p>
+      <p>Progress, salary, deposit, and stock units.</p>
     </div>
     <span class="emp-pill" id="empPill">—</span>
   </div>
 </div>
 
-<!-- STICKY NAV -->
 <div class="topbar">
   <div class="topbar-inner">
     <div class="nav-pills">
-      <button class="npill" onclick="scrollTo('sec-progress')">Progress</button>
-      <button class="npill" onclick="scrollTo('sec-stock')">My Stock</button>
-      <button class="npill" onclick="scrollTo('sec-rules')">Rules</button>
+      <button class="npill" data-target="sec-progress">Progress</button>
+      <button class="npill" data-target="sec-salary">Salary</button>
+      <button class="npill" data-target="sec-stock">My Stock</button>
+      <button class="npill" data-target="sec-rules">Rules</button>
     </div>
-    <div class="conn-dot" id="connDot" title="Realtime connection status"></div>
+    <div class="conn-dot" id="connDot"></div>
   </div>
 </div>
 
@@ -198,14 +298,14 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
   </div>
 </div>
 
-<!-- A. OVERVIEW -->
+<!-- A. PROGRESS -->
 <div class="section" id="sec-progress">
   <div class="slbl">// Current overview</div>
   <div class="kpi-grid" style="margin-bottom:10px">
-    <div class="kpi ca"><span class="kpi-ico">📦</span><div class="kpi-lbl">Approved sold</div><div class="kpi-val" id="kpi-units">—</div><div class="kpi-sub">units</div></div>
-    <div class="kpi ca"><span class="kpi-ico">💎</span><div class="kpi-lbl">Deposit</div><div class="kpi-val" id="kpi-dep">—</div><div class="kpi-sub">coins</div></div>
-    <div class="kpi cb"><span class="kpi-ico">💰</span><div class="kpi-lbl">Salary</div><div class="kpi-val" id="kpi-sal">—</div><div class="kpi-sub">coins</div></div>
-    <div class="kpi cc"><span class="kpi-ico">📈</span><div class="kpi-lbl">Capacity</div><div class="kpi-val" id="kpi-cap">—</div><div class="kpi-sub">extra units</div></div>
+    <div class="kpi ca"><span class="kpi-ico">📦</span><div class="kpi-lbl">Approved sold</div><div class="kpi-val" id="kpi-units">—</div><div class="kpi-sub">sale events</div></div>
+    <div class="kpi ca"><span class="kpi-ico">💎</span><div class="kpi-lbl">Deposit balance</div><div class="kpi-val" id="kpi-dep" style="font-size:18px">—</div><div class="kpi-sub">coins</div></div>
+    <div class="kpi cb"><span class="kpi-ico">💰</span><div class="kpi-lbl">Salary earned</div><div class="kpi-val" id="kpi-sal" style="font-size:18px">—</div><div class="kpi-sub">coins total</div></div>
+    <div class="kpi cc"><span class="kpi-ico">📈</span><div class="kpi-lbl">Salary available</div><div class="kpi-val" id="kpi-avail" style="font-size:18px">—</div><div class="kpi-sub" id="kpi-avail-sub">unpaid balance</div></div>
   </div>
 
   <!-- TRACKER CARD -->
@@ -227,56 +327,105 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
     </div>
     <div class="stats-grid">
       <div class="sg"><div class="sg-lbl">Deposit</div><div class="sg-val v-acc" id="stDep">—</div><div class="sg-sub">coins</div></div>
-      <div class="sg"><div class="sg-lbl">Salary</div><div class="sg-val v-a2" id="stSal">—</div><div class="sg-sub">coins</div></div>
-      <div class="sg"><div class="sg-lbl">Earnings</div><div class="sg-val v-gold" id="stEarn">—</div><div class="sg-sub">units × 100</div></div>
+      <div class="sg"><div class="sg-lbl">Salary earned</div><div class="sg-val v-a2" id="stSal">—</div><div class="sg-sub">coins</div></div>
+      <div class="sg"><div class="sg-lbl">Earnings</div><div class="sg-val v-gold" id="stEarn">—</div><div class="sg-sub">total events × 100</div></div>
       <div class="sg"><div class="sg-lbl">Next milestone</div><div class="sg-val v-t2" id="stNext">—</div></div>
     </div>
+    <!-- Deposit buying power -->
+    <div style="border-top:1px solid var(--bd)">
+      <div style="padding:10px 14px 6px;font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">Deposit buying power</div>
+      <div class="bp-grid">
+        <div class="bp-cell"><div class="bp-lbl">C units</div><div class="bp-val" id="bp-c" style="color:var(--accent)">—</div><div class="bp-sub">@300 each</div></div>
+        <div class="bp-cell"><div class="bp-lbl">B bundles</div><div class="bp-val" id="bp-b" style="color:var(--a2)">—</div><div class="bp-sub">@150 each</div></div>
+        <div class="bp-cell"><div class="bp-lbl">M bundles</div><div class="bp-val" id="bp-m" style="color:var(--gold)">—</div><div class="bp-sub">@250 each</div></div>
+      </div>
+    </div>
     <div class="ms-list">
-      <div class="ms-row" id="ms10"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">10 approved sold</div><div class="ms-desc">750 deposit · 250 salary · +2.5 capacity</div></div></div>
-      <div class="ms-row" id="ms20"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">20 approved sold</div><div class="ms-desc">1,500 deposit · 500 salary · +5 capacity</div></div><span class="ms-badge mb2">Lv 2</span></div>
-      <div class="ms-row" id="ms30"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">30 approved sold</div><div class="ms-desc">2,100 deposit · 900 salary · +7 capacity</div></div></div>
-      <div class="ms-row" id="ms45"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">45 approved sold</div><div class="ms-desc">3,000 deposit · 1,500 salary · +10 capacity</div></div><span class="ms-badge mb3">Lv 3</span></div>
+      <div class="ms-row" id="ms10"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">10 approved sale events</div><div class="ms-desc">750 deposit · 250 salary</div></div></div>
+      <div class="ms-row" id="ms20"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">20 approved sale events</div><div class="ms-desc">1,500 deposit · 500 salary</div></div><span class="ms-badge mb2">Lv 2</span></div>
+      <div class="ms-row" id="ms30"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">30 approved sale events</div><div class="ms-desc">2,100 deposit · 900 salary</div></div></div>
+      <div class="ms-row" id="ms45"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">45 approved sale events</div><div class="ms-desc">3,000 deposit · 1,500 salary</div></div><span class="ms-badge mb3">Lv 3</span></div>
     </div>
   </div>
 </div>
 
-<!-- B. MY STOCK -->
+<!-- B. SALARY -->
+<div class="section" id="sec-salary">
+  <div class="slbl">// Salary & payouts</div>
+  <div class="kpi-grid" style="margin-bottom:10px">
+    <div class="kpi cb"><span class="kpi-ico">💰</span><div class="kpi-lbl">Salary earned</div><div class="kpi-val" id="sal-earned" style="font-size:18px">—</div><div class="kpi-sub">coins total</div></div>
+    <div class="kpi cr"><span class="kpi-ico">💸</span><div class="kpi-lbl">Salary paid</div><div class="kpi-val" id="sal-paid" style="font-size:18px">—</div><div class="kpi-sub">coins paid out</div></div>
+    <div class="kpi ca"><span class="kpi-ico">✅</span><div class="kpi-lbl">Available</div><div class="kpi-val" id="sal-avail" style="font-size:18px">—</div><div class="kpi-sub" id="sal-avail-sub">unpaid balance</div><div id="sal-avail-note" style="display:none;font-family:'DM Mono',monospace;font-size:9px;color:var(--red);margin-top:4px;line-height:1.4"></div></div>
+    <div class="kpi ca"><span class="kpi-ico">💎</span><div class="kpi-lbl">Deposit balance</div><div class="kpi-val" id="sal-dep" style="font-size:18px">—</div><div class="kpi-sub">unchanged by payouts</div></div>
+  </div>
+  <div class="slbl" style="margin-top:6px">// Payout history <span id="payout-count" style="color:var(--t2)"></span></div>
+  <div class="card">
+    <div id="payoutContainer"><div class="loading-wrap"><span class="spinner"></span>Loading...</div></div>
+  </div>
+</div>
+
+<!-- C. MY STOCK -->
 <div class="section" id="sec-stock">
+  <div class="slbl">// My stock overview</div>
+
+  <!-- Category summary -->
+  <div class="emp-cat-grid" id="empCatGrid">
+    <!-- filled by renderEmpCategoryOverview() -->
+  </div>
+
+  <!-- Quick filters -->
+  <div class="slbl">// Quick filters</div>
+  <div class="qf-row" style="margin-bottom:12px" id="stockFilterRow">
+    <button class="qfb qa" onclick="setStockFilter('all',this)">All</button>
+    <button class="qfb"    onclick="setStockFilter('type_c',this)">C units</button>
+    <button class="qfb"    onclick="setStockFilter('type_b',this)">B bundles</button>
+    <button class="qfb"    onclick="setStockFilter('type_m',this)">M bundles</button>
+    <button class="qfb"    onclick="setStockFilter('waiting',this)">🟡 Waiting</button>
+    <button class="qfb"    onclick="setStockFilter('sold',this)">✅ Sold</button>
+    <button class="qfb"    onclick="setStockFilter('need_seen',this)">👁 Need seen</button>
+  </div>
+
   <div class="slbl">// My stock units <span id="stock-count" style="color:var(--t2)"></span></div>
   <div id="stockContainer">
     <div class="empty"><span class="empty-ico">📭</span>Select your profile to see stock units.</div>
   </div>
 </div>
 
-<!-- C. RULES -->
+<!-- D. RULES -->
 <div class="section" id="sec-rules">
   <div class="slbl">// How it works</div>
   <div class="card" style="overflow:visible">
-    <div style="padding:16px;border-bottom:1px solid var(--bd)">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);border-radius:var(--r);overflow:hidden">
-        <div style="background:var(--s1);padding:14px">
-          <div style="font-size:16px;margin-bottom:6px">📦</div>
-          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Capital lent</div>
-          <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:4px">300 coins</div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5">per unit. Not salary — stock value trusted to you.</div>
+    <div style="padding:14px;border-bottom:1px solid var(--bd)">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);border-radius:var(--r);overflow:hidden">
+        <div style="background:var(--s1);padding:12px">
+          <div style="font-size:14px;margin-bottom:5px">C</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Base unit</div>
+          <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:3px">300 coins</div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.5"><strong>1 physical item</strong><br>1 sale event = 100 earnings</div>
         </div>
-        <div style="background:var(--s1);padding:14px">
-          <div style="font-size:16px;margin-bottom:6px">✅</div>
-          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Approved sale</div>
-          <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:4px">100 coins</div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5">generated after owner marks as sold. Split dep + salary.</div>
+        <div style="background:var(--s1);padding:12px">
+          <div style="font-size:14px;margin-bottom:5px">B</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Bundle B</div>
+          <div style="font-size:12px;font-weight:700;color:var(--a2);margin-bottom:3px">150 coins</div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.5"><strong>10 physical items</strong><br>1 sale event = 100 earnings</div>
+        </div>
+        <div style="background:var(--s1);padding:12px">
+          <div style="font-size:14px;margin-bottom:5px">M</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Bundle M</div>
+          <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:3px">250 coins</div>
+          <div style="font-size:10px;color:var(--muted);line-height:1.5"><strong>5 physical items</strong><br>1 sale event = 100 earnings</div>
         </div>
       </div>
     </div>
     <div style="padding:12px 14px;font-size:11px;color:var(--muted);line-height:1.7;background:var(--s2)">
-      <strong style="color:var(--accent)">Important:</strong> Only <strong style="color:var(--accent)">Approved sold</strong> units count toward your deposit, salary, and level progress. The owner marks items as sold — you will see the update and can confirm with "Mark as seen".
-      <br><br>
+      <strong style="color:var(--accent)">Sale events count, not physical items.</strong> Each approved sold record = 1 sale event = 100 earnings, regardless of type.<br>
+      B-0001 = <strong>1 bundle of 10 physical items</strong>. M-0001 = <strong>1 bundle of 5 physical items</strong>.<br><br>
       <strong style="color:var(--t2)">Status guide:</strong><br>
-      🟡 <strong>Waiting to be sold</strong> — in stock, owner will mark when sold<br>
-      ✅ <strong>Marked as sold</strong> — owner confirmed sale, tap to acknowledge<br>
-      👁 <strong>Sold — seen by you</strong> — you have acknowledged the sale<br>
-      🔴 <strong>Issue</strong> — something needs checking<br>
-      ⛔ <strong>Cancelled</strong> — removed from stock
+      🟡 <strong>Waiting</strong> — owner will mark when sold<br>
+      ✅ <strong>Marked as sold</strong> — tap to acknowledge<br>
+      👁 <strong>Seen by you</strong> — confirmed<br>
+      🔴 <strong>Issue</strong> — check needed<br>
+      ⛔ <strong>Cancelled</strong>
     </div>
   </div>
 </div>
@@ -284,24 +433,83 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 <div style="height:24px"></div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- Supabase CDN -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="supabase-config.js"></script>
 <script>
-/* ─── SUPABASE INIT ──────────────────────────────── */
-const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+console.log('index.html JS loaded');
 
-/* ─── STATE ─────────────────────────────────────── */
+/* ─── NAVIGATION ──────────────────────────────────── */
+function goToSection(id) {
+  const el = document.getElementById(id);
+  if (!el) { console.warn('goToSection: missing section', id); return; }
+  el.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+window.goToSection = goToSection;
+document.querySelectorAll('[data-target]').forEach(btn => {
+  btn.addEventListener('click', () => goToSection(btn.dataset.target));
+});
+
+/* ─── SAFE CONFIG ─────────────────────────────────── */
+if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+  console.error('index.html: Missing Supabase config. Check supabase-config.js');
+}
+
+const _sb = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+
+/* ─── STATE ───────────────────────────────────────── */
 let currentEmpId   = null;
 let currentEmpCode = null;
 let allStockUnits  = [];
+let allPayouts     = [];
+let stockTypes     = [];
 let realtimeSub    = null;
+let stockFilter    = 'all';   // current quick-filter for stock list
 
-/* ─── BOOT ──────────────────────────────────────── */
+/* ─── SAFE TYPE HELPERS ───────────────────────────── */
+const TYPE_FALLBACK = {
+  C: { prefix:'C', name:'Base stock unit', quantity_per_stock_sale:1, capital_per_stock_sale:300, earnings_per_approved_sale:100 },
+  B: { prefix:'B', name:'Bundle B',        quantity_per_stock_sale:10, capital_per_stock_sale:150, earnings_per_approved_sale:100 },
+  M: { prefix:'M', name:'Bundle M',        quantity_per_stock_sale:5,  capital_per_stock_sale:250, earnings_per_approved_sale:100 },
+};
+
+function getStockType(unit) {
+  if (!unit) return TYPE_FALLBACK['C'];
+  if (unit.stock_types) return unit.stock_types;
+  if (unit.stock_type_id && stockTypes.length) {
+    const t = stockTypes.find(t => t.id === unit.stock_type_id);
+    if (t) return t;
+  }
+  const p = getStockPrefix(unit);
+  return TYPE_FALLBACK[p] || TYPE_FALLBACK['C'];
+}
+function getType(unit) { return getStockType(unit); }
+
+function getStockPrefix(unit) {
+  if (!unit) return 'C';
+  const t = unit.stock_types;
+  if (t && t.prefix) return t.prefix.toUpperCase();
+  if (unit.stock_type_id && stockTypes.length) {
+    const st = stockTypes.find(s => s.id === unit.stock_type_id);
+    if (st && st.prefix) return st.prefix.toUpperCase();
+  }
+  return ((unit.stock_id || '').split('-')[0] || 'C').toUpperCase();
+}
+function getQuantityPerSale(unit) { return getStockType(unit).quantity_per_stock_sale || 1; }
+function getCapitalPerSale(unit)  { return getStockType(unit).capital_per_stock_sale  || 300; }
+function getTypeDisplayName(unit) { return getStockType(unit).name || 'Base stock unit'; }
+
+function typePillCls(prefix) {
+  if (prefix === 'B') return 'tp-b';
+  if (prefix === 'M') return 'tp-m';
+  return 'tp-c';
+}
+
+/* ─── BOOT ────────────────────────────────────────── */
 async function init() {
+  const { data } = await _sb.from('stock_types').select('*');
+  stockTypes = data || [];
   await loadEmployees();
   const cached = localStorage.getItem('emp_selected_id');
   if (cached) {
@@ -312,16 +520,13 @@ async function init() {
   setupRealtime();
 }
 
-/* ─── EMPLOYEES ─────────────────────────────────── */
+/* ─── EMPLOYEES ───────────────────────────────────── */
 async function loadEmployees() {
-  const { data, error } = await _sb.from('employees').select('id, employee_code, name').eq('active', true).order('name');
+  const { data, error } = await _sb.from('employees').select('id, employee_code, name').eq('active',true).order('name');
   const sel = document.getElementById('empSelect');
-  if (error || !data?.length) {
-    sel.innerHTML = '<option value="">No employees found</option>';
-    return;
-  }
+  if (error || !data?.length) { sel.innerHTML='<option value="">No employees found</option>'; return; }
   sel.innerHTML = '<option value="">— Select your name —</option>' +
-    data.map(e => `<option value="${e.id}" data-code="${e.employee_code}">${e.name} (${e.employee_code})</option>`).join('');
+    data.map(e=>`<option value="${e.id}" data-code="${e.employee_code}">${e.name} (${e.employee_code})</option>`).join('');
 }
 
 async function onEmpChange() {
@@ -329,205 +534,315 @@ async function onEmpChange() {
   const opt = sel.options[sel.selectedIndex];
   currentEmpId   = sel.value || null;
   currentEmpCode = opt?.dataset?.code || null;
-
   document.getElementById('empPill').textContent = currentEmpCode || '—';
-
-  if (!currentEmpId) {
-    resetDashboard();
-    return;
-  }
+  if (!currentEmpId) { resetDashboard(); return; }
   localStorage.setItem('emp_selected_id', currentEmpId);
-  await loadStockUnits();
+  await Promise.all([loadStockUnits(), loadMyPayouts()]);
 }
 
-/* ─── STOCK UNITS ───────────────────────────────── */
+/* ─── STOCK ───────────────────────────────────────── */
 async function loadStockUnits() {
   if (!currentEmpId) return;
-  document.getElementById('stockContainer').innerHTML = `<div class="loading-wrap"><span class="spinner"></span>Loading...</div>`;
-
+  document.getElementById('stockContainer').innerHTML = '<div class="loading-wrap"><span class="spinner"></span>Loading...</div>';
   const { data, error } = await _sb
     .from('stock_units')
-    .select('*')
+    .select('*, stock_types(prefix, name, quantity_per_stock_sale, capital_per_stock_sale, earnings_per_approved_sale)')
     .eq('employee_id', currentEmpId)
     .order('uploaded_at', { ascending: false });
-
-  if (error) {
-    showToast('Failed to load stock units: ' + error.message, 'err');
-    return;
-  }
+  if (error) { showToast('Failed to load stock: '+error.message,'err'); return; }
   allStockUnits = data || [];
   renderAll();
 }
 
-/* ─── REALTIME ──────────────────────────────────── */
+async function loadMyPayouts() {
+  if (!currentEmpId) return;
+  const { data, error } = await _sb
+    .from('salary_payouts')
+    .select('*')
+    .eq('employee_id', currentEmpId)
+    .order('paid_at', { ascending: false });
+  if (error) return;
+  allPayouts = data || [];
+  renderPayouts();
+  renderAll();
+}
+
+/* ─── REALTIME ────────────────────────────────────── */
 function setupRealtime() {
   if (realtimeSub) _sb.removeChannel(realtimeSub);
-
   realtimeSub = _sb
     .channel('emp-stock-changes')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'stock_units' }, (payload) => {
+    .on('postgres_changes', { event:'*', schema:'public', table:'stock_units' }, (payload) => {
       if (!currentEmpId) return;
       const row = payload.new || payload.old;
       if (row.employee_id !== currentEmpId) return;
       handleRealtimeEvent(payload);
     })
-    .subscribe((status) => {
+    .on('postgres_changes', { event:'*', schema:'public', table:'salary_payouts' }, async (payload) => {
+      const row = payload.new || payload.old;
+      if (!currentEmpId || row.employee_id !== currentEmpId) return;
+      await loadMyPayouts();
+      showToast('Salary payout updated','ok');
+    })
+    .subscribe(status => {
       const dot = document.getElementById('connDot');
-      if (status === 'SUBSCRIBED') { dot.classList.add('live'); dot.classList.remove('err'); }
-      else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') { dot.classList.add('err'); dot.classList.remove('live'); }
+      if (status==='SUBSCRIBED') { dot.classList.add('live'); dot.classList.remove('err'); }
+      else if (status==='CLOSED'||status==='CHANNEL_ERROR') { dot.classList.add('err'); dot.classList.remove('live'); }
       else { dot.classList.remove('live','err'); }
     });
 }
 
 function handleRealtimeEvent(payload) {
   const { eventType, new: row, old } = payload;
-  if (eventType === 'INSERT') {
-    allStockUnits.unshift(row);
-  } else if (eventType === 'UPDATE') {
-    const idx = allStockUnits.findIndex(u => u.id === row.id);
-    if (idx >= 0) allStockUnits[idx] = row; else allStockUnits.unshift(row);
-  } else if (eventType === 'DELETE') {
-    allStockUnits = allStockUnits.filter(u => u.id !== old.id);
-  }
+  if (eventType==='INSERT') allStockUnits.unshift(row);
+  else if (eventType==='UPDATE') {
+    const idx = allStockUnits.findIndex(u=>u.id===row.id);
+    if (idx>=0) allStockUnits[idx]=row; else allStockUnits.unshift(row);
+  } else if (eventType==='DELETE') allStockUnits = allStockUnits.filter(u=>u.id!==old.id);
   renderAll();
-  showToast('Stock updated in real time', 'ok');
+  showToast('Stock updated','ok');
 }
 
-/* ─── MARK AS SEEN ──────────────────────────────── */
+/* ─── MARK AS SEEN ────────────────────────────────── */
 async function markAsSeen(id) {
   const now = new Date().toISOString();
-  const { error } = await _sb
-    .from('stock_units')
-    .update({ employee_seen_at: now, updated_at: now })
-    .eq('id', id);
-
-  if (error) { showToast('Error: ' + error.message, 'err'); return; }
-
-  // Log event
-  await _sb.from('stock_events').insert({
-    stock_unit_id: id,
-    event_type: 'employee_seen',
-    actor: currentEmpCode || 'employee'
-  });
-
-  showToast('Marked as seen ✓', 'ok');
+  const { error } = await _sb.from('stock_units').update({ employee_seen_at:now, updated_at:now }).eq('id',id);
+  if (error) { showToast('Error: '+error.message,'err'); return; }
+  await _sb.from('stock_events').insert({ stock_unit_id:id, event_type:'employee_seen', actor:currentEmpCode||'employee' });
+  showToast('Marked as seen ✓','ok');
   await loadStockUnits();
 }
 
-/* ─── RENDER ────────────────────────────────────── */
-function renderAll() {
-  const approved = allStockUnits.filter(u => u.status === 'sold_approved');
-  renderTracker(approved.length);
+/* ─── STOCK FILTER ────────────────────────────────── */
+function setStockFilter(f, btn) {
+  stockFilter = f;
+  document.querySelectorAll('.qfb').forEach(b => b.classList.remove('qa','qc','qb','qm','qw','qs','qn'));
+  const clsMap = { all:'qa', type_c:'qc', type_b:'qb', type_m:'qm', waiting:'qw', sold:'qs', need_seen:'qn' };
+  if (btn) btn.classList.add(clsMap[f]||'qa');
   renderStockList(allStockUnits);
 }
 
-function calcStats(u) {
+function applyStockFilter(units) {
+  if (stockFilter==='all')       return units;
+  if (stockFilter==='type_c')    return units.filter(u=>getStockPrefix(u)==='C');
+  if (stockFilter==='type_b')    return units.filter(u=>getStockPrefix(u)==='B');
+  if (stockFilter==='type_m')    return units.filter(u=>getStockPrefix(u)==='M');
+  if (stockFilter==='waiting')   return units.filter(u=>u.status==='waiting_to_be_sold');
+  if (stockFilter==='sold')      return units.filter(u=>u.status==='sold_approved');
+  if (stockFilter==='need_seen') return units.filter(u=>u.status==='sold_approved'&&!u.employee_seen_at);
+  return units;
+}
+
+/* ─── SALARY CALCS ────────────────────────────────── */
+function calcMyStats() {
+  const sold = allStockUnits
+    .filter(u => u.status === 'sold_approved')
+    .slice().sort((a,b) => new Date(a.approved_at)-new Date(b.approved_at));
+
+  const u = sold.length;
   let dep = 0, sal = 0;
-  const t1 = Math.min(u, 20); dep += t1*75; sal += t1*25;
-  if (u > 20) { const t2 = Math.min(u-20, 25); dep += t2*60; sal += t2*40; }
-  if (u > 45) { dep += (u-45)*50; sal += (u-45)*50; }
+  sold.forEach((unit, idx) => {
+    const pos = idx + 1;
+    const earn = getStockType(unit).earnings_per_approved_sale || 100;
+    const sp = pos <= 20 ? {d:75,s:25} : pos <= 45 ? {d:60,s:40} : {d:50,s:50};
+    dep += Math.round(earn * sp.d / 100);
+    sal += Math.round(earn * sp.s / 100);
+  });
+
+  const totalPaid = allPayouts.reduce((acc,p) => acc+(p.amount||0), 0);
+  const avail = sal - totalPaid;
+
   let level, dPct, sPct, pbLbl, pbPct, pbW, pbFull, pbSub, nextLbl;
   if (u < 20) {
     level='Level 1'; dPct=75; sPct=25;
-    const pct = Math.round(u/20*100);
+    const pct=Math.round(u/20*100), r=20-u;
     pbLbl='Progress to Level 2'; pbPct=pct+'%'; pbW=pct; pbFull=false;
-    const r=20-u; pbSub=r+' approved unit'+(r===1?'':'s')+' remaining'; nextLbl=r+' → Lv 2';
+    pbSub=r+' approved event'+(r===1?'':'s')+' remaining'; nextLbl=r+' → Lv 2';
   } else if (u < 45) {
     level='Level 2'; dPct=60; sPct=40;
-    const pct=Math.round((u-20)/25*100);
+    const pct=Math.round((u-20)/25*100), r=45-u;
     pbLbl='Progress to Level 3'; pbPct=pct+'%'; pbW=pct; pbFull=false;
-    const r=45-u; pbSub=r+' approved unit'+(r===1?'':'s')+' remaining'; nextLbl=r+' → Lv 3';
+    pbSub=r+' approved event'+(r===1?'':'s')+' remaining'; nextLbl=r+' → Lv 3';
   } else {
     level='Level 3'; dPct=50; sPct=50;
     pbLbl='Level 3 — Stable'; pbPct='100%'; pbW=100; pbFull=true;
     pbSub='Maximum level reached.'; nextLbl='Max level';
   }
-  return { dep, sal, earn: u*100, capacity: +(dep/300).toFixed(1), level, dPct, sPct, pbLbl, pbPct, pbW, pbFull, pbSub, nextLbl };
+
+  return { u, dep, sal, avail, totalPaid, earn:u*100, level, dPct, sPct, pbLbl, pbPct, pbW, pbFull, pbSub, nextLbl };
+}
+
+/* ─── RENDER ALL ──────────────────────────────────── */
+function renderAll() {
+  const s = calcMyStats();
+  renderTracker(s);
+  renderSalarySection(s);
+  renderEmpCategoryOverview();
+  renderStockList(allStockUnits);
 }
 
 function fmt(n) { return Number(n).toLocaleString(); }
-function txt(id, v) { const e = document.getElementById(id); if (e) e.textContent = v; }
-function msEl(id, on) { const e = document.getElementById(id); if (e) { if(on) e.classList.add('done'); else e.classList.remove('done'); } }
+function txt(id,v) { const e=document.getElementById(id); if(e) e.textContent=v; }
+function msEl(id,on) { const e=document.getElementById(id); if(e){if(on)e.classList.add('done');else e.classList.remove('done');} }
 
-function renderTracker(u) {
-  const s = calcStats(u);
-  txt('unitNum', u); txt('kpi-units', u);
-  txt('stLevel', s.level);
-  txt('stSplit', `${s.dPct} / ${s.sPct} dep/sal`);
-  txt('stDep', fmt(s.dep)); txt('kpi-dep', fmt(s.dep));
-  txt('stSal', fmt(s.sal)); txt('kpi-sal', fmt(s.sal));
-  txt('stEarn', fmt(s.earn));
-  txt('stNext', s.nextLbl);
-  txt('kpi-cap', s.capacity);
-  txt('pbLbl', s.pbLbl); txt('pbPct', s.pbPct); txt('pbSub', s.pbSub);
+function renderTracker(s) {
+  txt('unitNum',s.u); txt('kpi-units',s.u);
+  txt('stLevel',s.level);
+  txt('stSplit',`${s.dPct} / ${s.sPct} dep/sal`);
+  txt('stDep',fmt(s.dep)); txt('kpi-dep',fmt(s.dep));
+  txt('stSal',fmt(s.sal)); txt('kpi-sal',fmt(s.sal));
+  const availKpi = document.getElementById('kpi-avail');
+  if (availKpi) { availKpi.textContent = fmt(s.avail); availKpi.style.color = s.avail < 0 ? 'var(--red)' : ''; }
+  const availKpiSub = document.getElementById('kpi-avail-sub');
+  if (availKpiSub) { availKpiSub.textContent = s.avail < 0 ? 'advance balance' : 'unpaid balance'; }
+  txt('stEarn',fmt(s.earn));
+  txt('stNext',s.nextLbl);
+  txt('pbLbl',s.pbLbl); txt('pbPct',s.pbPct); txt('pbSub',s.pbSub);
   const fill = document.getElementById('pbFill');
-  fill.style.width = s.pbW + '%';
+  fill.style.width = s.pbW+'%';
   if (s.pbFull) fill.classList.add('full'); else fill.classList.remove('full');
-  [['ms10',10],['ms20',20],['ms30',30],['ms45',45]].forEach(([id,n]) => msEl(id, u >= n));
+  [['ms10',10],['ms20',20],['ms30',30],['ms45',45]].forEach(([id,n])=>msEl(id,s.u>=n));
+  txt('bp-c', Math.floor(s.dep/300));
+  txt('bp-b', Math.floor(s.dep/150));
+  txt('bp-m', Math.floor(s.dep/250));
+}
+
+function renderSalarySection(s) {
+  txt('sal-earned', fmt(s.sal)+' coins');
+  txt('sal-paid',   fmt(s.totalPaid)+' coins');
+  txt('sal-dep',    fmt(s.dep)+' coins');
+  const availEl   = document.getElementById('sal-avail');
+  const availNote = document.getElementById('sal-avail-note');
+  const availSub  = document.getElementById('sal-avail-sub');
+  if (availEl) { availEl.textContent = fmt(s.avail)+' coins'; availEl.style.color = s.avail < 0 ? 'var(--red)' : ''; }
+  if (availNote) {
+    if (s.avail < 0) { availNote.textContent = 'Advance balance: you are '+fmt(Math.abs(s.avail))+' coins ahead. Future salary will cover this.'; availNote.style.display='block'; }
+    else availNote.style.display='none';
+  }
+  if (availSub) availSub.textContent = s.avail < 0 ? 'advance / overpayment' : 'unpaid balance';
+}
+
+function renderPayouts() {
+  const c = document.getElementById('payoutContainer');
+  txt('payout-count', allPayouts.length ? `(${allPayouts.length})` : '');
+  if (!allPayouts.length) {
+    c.innerHTML = '<div class="empty"><span class="empty-ico">💸</span>No payouts recorded yet.</div>';
+    return;
+  }
+  c.innerHTML = allPayouts.map(p => {
+    const meta = [formatDT(p.paid_at), p.method||'', p.note||''].filter(Boolean).join(' · ');
+    return `<div class="payout-row"><div class="pr-meta">${esc(meta)}</div><div class="pr-amount">${fmt(p.amount)} coins</div></div>`;
+  }).join('');
+}
+
+/* ─── EMPLOYEE CATEGORY OVERVIEW ─────────────────── */
+function renderEmpCategoryOverview() {
+  const grid = document.getElementById('empCatGrid');
+  if (!grid) return;
+  const prefixes = ['C','B','M'];
+  grid.innerHTML = prefixes.map(pfx => {
+    const t = TYPE_FALLBACK[pfx];
+    const units   = allStockUnits.filter(u=>getStockPrefix(u)===pfx);
+    const total   = units.length;
+    const waiting = units.filter(u=>u.status==='waiting_to_be_sold').length;
+    const sold    = units.filter(u=>u.status==='sold_approved').length;
+    const notseen = units.filter(u=>u.status==='sold_approved'&&!u.employee_seen_at).length;
+    const physItems = total * t.quantity_per_stock_sale;
+    const unitWord  = pfx==='C' ? 'unit' : 'bundle';
+    const physLabel = pfx==='C' ? '1 item each' : pfx==='B' ? '10 items each' : '5 items each';
+    return `
+    <div class="emp-cat cat-${pfx.toLowerCase()}">
+      <div class="ec-prefix">${pfx}</div>
+      <div class="ec-row"><span class="ec-lbl">total</span><span class="ec-val">${total} ${unitWord}${total!==1?'s':''}</span></div>
+      <div class="ec-row"><span class="ec-lbl">waiting</span><span class="ec-val ev-wait">${waiting}</span></div>
+      <div class="ec-row"><span class="ec-lbl">sold</span><span class="ec-val ev-sold">${sold}</span></div>
+      ${notseen>0?`<div class="ec-row"><span class="ec-lbl">not seen</span><span class="ec-val ev-ns">${notseen}</span></div>`:''}
+      <div class="ec-phys"><strong>${fmt(physItems)}</strong> physical items<br><span style="color:var(--muted)">${physLabel}</span></div>
+    </div>`;
+  }).join('');
 }
 
 function resetDashboard() {
-  ['unitNum','kpi-units','kpi-dep','kpi-sal','kpi-cap','stLevel','stSplit','stDep','stSal','stEarn','stNext','pbLbl','pbPct','pbSub'].forEach(id => txt(id,'—'));
-  document.getElementById('pbFill').style.width = '0%';
-  document.getElementById('stockContainer').innerHTML = '<div class="empty"><span class="empty-ico">📭</span>Select your profile to see stock units.</div>';
-  ['ms10','ms20','ms30','ms45'].forEach(id => msEl(id, false));
+  ['unitNum','kpi-units','kpi-dep','kpi-sal','kpi-avail','stLevel','stSplit','stDep','stSal','stEarn','stNext','pbLbl','pbPct','pbSub',
+   'sal-earned','sal-paid','sal-avail','sal-dep','bp-c','bp-b','bp-m'].forEach(id=>txt(id,'—'));
+  document.getElementById('pbFill').style.width='0%';
+  const availKpi = document.getElementById('kpi-avail');
+  if (availKpi) availKpi.style.color='';
+  const salAvailEl = document.getElementById('sal-avail');
+  if (salAvailEl) salAvailEl.style.color='';
+  const salNote = document.getElementById('sal-avail-note');
+  if (salNote) salNote.style.display='none';
+  const kpiSub = document.getElementById('kpi-avail-sub');
+  if (kpiSub) kpiSub.textContent='unpaid balance';
+  const salSub = document.getElementById('sal-avail-sub');
+  if (salSub) salSub.textContent='unpaid balance';
+  document.getElementById('stockContainer').innerHTML='<div class="empty"><span class="empty-ico">📭</span>Select your profile to see stock units.</div>';
+  document.getElementById('payoutContainer').innerHTML='<div class="empty"><span class="empty-ico">💸</span>Select your profile.</div>';
+  const empCatGrid = document.getElementById('empCatGrid');
+  if (empCatGrid) empCatGrid.innerHTML='';
+  ['ms10','ms20','ms30','ms45'].forEach(id=>msEl(id,false));
+  allPayouts=[];
 }
 
-function renderStockList(units) {
-  const c = document.getElementById('stockContainer');
-  txt('stock-count', units.length ? `(${units.length})` : '');
-  if (!units.length) {
-    c.innerHTML = '<div class="empty"><span class="empty-ico">📭</span>No stock units assigned to you yet.</div>';
-    return;
-  }
-  c.innerHTML = units.map(u => stockCardHtml(u)).join('');
-}
-
-function formatDT(s) {
-  if (!s) return '—';
-  try { return new Date(s).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}); } catch(e) { return s; }
-}
+/* ─── STOCK CARD HTML ─────────────────────────────── */
+function formatDT(s) { if(!s)return'—';try{return new Date(s).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false});}catch(e){return s;} }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+function renderStockList(units) {
+  const filtered = applyStockFilter(units);
+  const c = document.getElementById('stockContainer');
+  txt('stock-count', filtered.length !== units.length ? `(${filtered.length}/${units.length})` : units.length ? `(${units.length})` : '');
+  if (!filtered.length) {
+    c.innerHTML = units.length===0
+      ? '<div class="empty"><span class="empty-ico">📭</span>No stock units assigned to you yet.</div>'
+      : '<div class="empty"><span class="empty-ico">🔎</span>No stock units match this filter.</div>';
+    return;
+  }
+  c.innerHTML = filtered.map(u => stockCardHtml(u)).join('');
+}
+
 function stockCardHtml(u) {
-  // Determine visual state
   const isSoldApproved = u.status === 'sold_approved';
   const isSeen         = isSoldApproved && !!u.employee_seen_at;
   const isUnseen       = isSoldApproved && !u.employee_seen_at;
 
-  // Card border class
-  let cardCls = '';
-  if (u.status === 'waiting_to_be_sold') cardCls = 'sw';
-  else if (isUnseen)                     cardCls = 'sn';
-  else if (isSeen)                       cardCls = 'sa';
-  else if (u.status === 'issue')         cardCls = 'si';
-  else if (u.status === 'cancelled')     cardCls = 'sc';
+  const t      = getStockType(u);
+  const prefix = getStockPrefix(u);
+  const qty    = t.quantity_per_stock_sale || 1;
+  const cap    = t.capital_per_stock_sale  || 300;
 
-  // Status badge
-  let badgeCls = '', badgeLabel = '';
-  if (u.status === 'waiting_to_be_sold') { badgeCls = 's-waiting';  badgeLabel = '🟡 Waiting to be sold'; }
-  else if (isUnseen)                     { badgeCls = 's-reported'; badgeLabel = '✅ Marked as sold'; }
-  else if (isSeen)                       { badgeCls = 's-seen';     badgeLabel = '👁 Sold — seen by you'; }
-  else if (u.status === 'issue')         { badgeCls = 's-issue';    badgeLabel = '🔴 Issue'; }
-  else if (u.status === 'cancelled')     { badgeCls = 's-cancelled';badgeLabel = '⛔ Cancelled'; }
+  let cardCls = '';
+  if (u.status==='waiting_to_be_sold') cardCls='sw';
+  else if (isUnseen)                   cardCls='sn';
+  else if (isSeen)                     cardCls='sa';
+  else if (u.status==='issue')         cardCls='si';
+  else if (u.status==='cancelled')     cardCls='sc';
+
+  let badgeCls='', badgeLabel='';
+  if (u.status==='waiting_to_be_sold') { badgeCls='s-waiting'; badgeLabel='🟡 Waiting to be sold'; }
+  else if (isUnseen)                   { badgeCls='s-sold';    badgeLabel='✅ Marked as sold'; }
+  else if (isSeen)                     { badgeCls='s-seen';    badgeLabel='👁 Seen by you'; }
+  else if (u.status==='issue')         { badgeCls='s-issue';   badgeLabel='🔴 Issue'; }
+  else if (u.status==='cancelled')     { badgeCls='s-cancelled';badgeLabel='⛔ Cancelled'; }
 
   const oidHtml = u.order_id
     ? `<span class="sc-oid has-order">${esc(u.order_id)}</span>`
     : `<span class="sc-oid no-order">No order ID yet</span>`;
 
-  // Action row: only show "Mark as seen" for sold_approved + not yet seen
   const actionsHtml = isUnseen
     ? `<div class="sc-actions"><button class="sc-btn seen-btn" onclick="markAsSeen('${u.id}')">👁 Mark as seen</button></div>`
     : '';
 
-  // Seen info row
   const seenHtml = isSeen
     ? `<div class="seen-info"><span class="seen-ico">👁</span><span class="seen-txt">Seen by you</span><span class="seen-time">— ${formatDT(u.employee_seen_at)}</span></div>`
     : '';
 
-  const noteHtml = u.owner_note
-    ? `<div class="sc-note">🗒 ${esc(u.owner_note)}</div>`
-    : '';
+  const noteHtml = u.owner_note ? `<div class="sc-note">🗒 ${esc(u.owner_note)}</div>` : '';
+
+  // Physical items note — make bundle size clear
+  const physNote = prefix==='B' ? `This bundle = <strong>10 physical items</strong>`
+                 : prefix==='M' ? `This bundle = <strong>5 physical items</strong>`
+                 : '1 physical item';
 
   return `
   <div class="stock-card ${cardCls}">
@@ -536,30 +851,41 @@ function stockCardHtml(u) {
         <span class="sc-sid">${esc(u.stock_id)}</span>
         ${oidHtml}
       </div>
-      <span class="sbadge ${badgeCls}">${badgeLabel}</span>
+      <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:flex-end">
+        <span class="type-pill ${typePillCls(prefix)}">${prefix} · ×${qty}</span>
+        <span class="sbadge ${badgeCls}">${badgeLabel}</span>
+      </div>
     </div>
     <div class="sc-mid">
       <div><div class="sm-lbl">Uploaded</div><div class="sm-val">${formatDT(u.uploaded_at)}</div></div>
       <div><div class="sm-lbl">Sold at</div><div class="sm-val ${u.sold_at?'vg':''}">${formatDT(u.sold_at)}</div></div>
       <div><div class="sm-lbl">Approved at</div><div class="sm-val ${u.approved_at?'vg':''}">${formatDT(u.approved_at)}</div></div>
     </div>
+    <div class="sc-mid2" style="border-top:1px solid var(--bd)">
+      <div><div class="sm-lbl">Capital</div><div class="sm-val">${fmt(cap)} coins</div></div>
+      <div><div class="sm-lbl">Physical qty</div><div class="sm-val">${qty} item${qty>1?'s':''}</div></div>
+    </div>
+    <div style="padding:6px 13px;border-top:1px solid var(--bd);font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);line-height:1.5">${physNote}</div>
     ${noteHtml}
     ${seenHtml}
     ${actionsHtml}
   </div>`;
 }
 
-/* ─── HELPERS ───────────────────────────────────── */
+/* ─── HELPERS ─────────────────────────────────────── */
 let toastTimer;
-function showToast(msg, type='') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (type ? ' '+type : '');
+function showToast(msg,type='') {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='toast show'+(type?' '+type:'');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-window.scrollTo = function(id) { const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); };
+/* ─── WINDOW EXPORTS ──────────────────────────────── */
+window.onEmpChange      = onEmpChange;
+window.markAsSeen       = markAsSeen;
+window.setStockFilter   = setStockFilter;
+window.showToast        = showToast;
 
 init();
 </script>
