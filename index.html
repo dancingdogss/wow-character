@@ -45,6 +45,20 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .form-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;}
 .form-select{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:9px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:10px 12px;outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none;}
 .form-select:focus{border-color:rgba(0,212,170,.4);}
+/* COMPACT TOP-BAR SELECTOR */
+.emp-mini{font-family:'DM Mono',monospace;font-size:11px;background:var(--s1);border:1px solid var(--bd);border-radius:99px;color:var(--text);padding:6px 11px;outline:none;appearance:none;-webkit-appearance:none;max-width:160px;text-overflow:ellipsis;cursor:pointer;flex-shrink:0;transition:border-color .15s;}
+.emp-mini:focus{border-color:rgba(0,212,170,.45);}
+/* ── UNSEEN-SOLD ALERT BANNER ── */
+.alert-banner{display:none;align-items:center;gap:11px;margin-top:16px;padding:13px 15px;border-radius:var(--rl);
+  background:linear-gradient(135deg,rgba(139,92,246,.16),rgba(139,92,246,.06));
+  border:1px solid rgba(139,92,246,.4);cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;}
+.alert-banner.show{display:flex;}
+.alert-banner:hover{background:linear-gradient(135deg,rgba(139,92,246,.24),rgba(139,92,246,.1));border-color:rgba(139,92,246,.55);}
+.alert-ico{font-size:20px;flex-shrink:0;}
+.alert-body{flex:1;min-width:0;}
+.alert-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.alert-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--purple);}
+.alert-arr{font-family:'DM Mono',monospace;font-size:14px;color:var(--purple);flex-shrink:0;}
 /* KPI */
 .kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .kpi{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:14px 13px;position:relative;overflow:hidden;}
@@ -130,6 +144,33 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .qfb.qw{border-color:rgba(240,163,91,.4);color:var(--a3);background:rgba(240,163,91,.07);}
 .qfb.qs{border-color:rgba(0,212,170,.4);color:var(--accent);background:rgba(0,212,170,.07);}
 .qfb.qn{border-color:rgba(139,92,246,.4);color:var(--purple);background:rgba(139,92,246,.07);}
+/* FILTER COUNT BADGE */
+.qf-badge{display:inline-block;min-width:15px;padding:0 5px;margin-left:5px;border-radius:99px;background:var(--purple);color:#fff;font-size:9px;font-weight:700;line-height:15px;text-align:center;vertical-align:middle;}
+/* MARK ALL SEEN */
+.markall-row{margin-bottom:10px;}
+.markall-btn{width:100%;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;padding:10px;border-radius:9px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s;
+  color:var(--purple);border:1px solid rgba(139,92,246,.4);background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(139,92,246,.05));}
+.markall-btn:hover{background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(139,92,246,.08));}
+/* AVAILABLE-TO-SELL INVENTORY */
+.inv-panel{background:linear-gradient(160deg,rgba(0,212,170,.05),rgba(15,18,25,.4));border:1px solid rgba(0,212,170,.18);border-radius:var(--rl);padding:14px;margin-bottom:12px;}
+.inv-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:12px;}
+.inv-title{font-size:13px;font-weight:700;color:var(--text);}
+.inv-total{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);}
+.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.inv-cell{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:11px 10px;text-align:center;position:relative;overflow:hidden;}
+.inv-cell::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.inv-cell.iv-c::after{background:var(--accent);}
+.inv-cell.iv-b::after{background:var(--a2);}
+.inv-cell.iv-m::after{background:var(--gold);}
+.inv-prefix{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;line-height:1;margin-bottom:3px;}
+.inv-cell.iv-c .inv-prefix{color:var(--accent);}
+.inv-cell.iv-b .inv-prefix{color:var(--a2);}
+.inv-cell.iv-m .inv-prefix{color:var(--gold);}
+.inv-bundles{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--text);line-height:1.1;}
+.inv-bundles-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.inv-items{font-family:'DM Mono',monospace;font-size:10px;color:var(--t2);margin-top:5px;padding-top:5px;border-top:1px solid var(--bd);}
+.inv-items strong{color:var(--text);}
+.inv-empty{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-align:center;padding:6px 0;}
 /* STOCK CARDS */
 .stock-card{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden;transition:border-color .2s;}
 .stock-card.sw{border-color:rgba(240,163,91,.18);}
@@ -279,15 +320,27 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
       <button class="npill" data-target="sec-stock">My Stock</button>
       <button class="npill" data-target="sec-rules">Rules</button>
     </div>
+    <select class="emp-mini" id="empSelectMini" onchange="onEmpChangeMini()" title="Switch profile">
+      <option value="">Profile…</option>
+    </select>
     <div class="conn-dot" id="connDot"></div>
   </div>
 </div>
 
 <div class="page">
 
-<!-- EMPLOYEE SELECT -->
-<div class="section">
-  <div class="slbl">// Select your profile</div>
+<!-- UNSEEN-SOLD ALERT BANNER -->
+<div class="alert-banner" id="unseenBanner" onclick="goToUnseen()">
+  <span class="alert-ico">✅</span>
+  <div class="alert-body">
+    <div class="alert-title" id="unseenTitle">You have sold units to confirm</div>
+    <div class="alert-sub">Tap to review and mark them as seen →</div>
+  </div>
+  <span class="alert-arr">›</span>
+</div>
+
+<!-- EMPLOYEE SELECT (hidden — driven from top-bar mini selector) -->
+<div class="section" style="display:none">
   <div class="card">
     <div class="emp-select-wrap">
       <label class="form-label" for="empSelect">Who are you?</label>
@@ -366,6 +419,11 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 
 <!-- C. MY STOCK -->
 <div class="section" id="sec-stock">
+  <div class="slbl">// Available to sell now</div>
+  <div class="inv-panel" id="invPanel">
+    <!-- filled by renderInventory() -->
+  </div>
+
   <div class="slbl">// My stock overview</div>
 
   <!-- Category summary -->
@@ -383,6 +441,11 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
     <button class="qfb"    onclick="setStockFilter('waiting',this)">🟡 Waiting</button>
     <button class="qfb"    onclick="setStockFilter('sold',this)">✅ Sold</button>
     <button class="qfb"    onclick="setStockFilter('need_seen',this)">👁 Need seen</button>
+  </div>
+
+  <!-- MARK ALL SEEN (shown only when 2+ unseen) -->
+  <div class="markall-row" id="markAllRow" style="display:none">
+    <button class="markall-btn" id="markAllBtn" onclick="markAllSeen()">👁 Mark all sold units as seen</button>
   </div>
 
   <div class="slbl">// My stock units <span id="stock-count" style="color:var(--t2)"></span></div>
@@ -527,6 +590,23 @@ async function loadEmployees() {
   if (error || !data?.length) { sel.innerHTML='<option value="">No employees found</option>'; return; }
   sel.innerHTML = '<option value="">— Select your name —</option>' +
     data.map(e=>`<option value="${e.id}" data-code="${e.employee_code}">${e.name} (${e.employee_code})</option>`).join('');
+  const mini = document.getElementById('empSelectMini');
+  if (mini) {
+    mini.innerHTML = '<option value="">Profile…</option>' +
+      data.map(e=>`<option value="${e.id}" data-code="${e.employee_code}">${e.name} (${e.employee_code})</option>`).join('');
+  }
+}
+
+function syncMiniSelector() {
+  const mini = document.getElementById('empSelectMini');
+  if (mini && currentEmpId) mini.value = currentEmpId;
+}
+
+async function onEmpChangeMini() {
+  const mini = document.getElementById('empSelectMini');
+  const main = document.getElementById('empSelect');
+  if (mini && main) { main.value = mini.value; }
+  await onEmpChange();
 }
 
 async function onEmpChange() {
@@ -535,6 +615,7 @@ async function onEmpChange() {
   currentEmpId   = sel.value || null;
   currentEmpCode = opt?.dataset?.code || null;
   document.getElementById('empPill').textContent = currentEmpCode || '—';
+  syncMiniSelector();
   if (!currentEmpId) { resetDashboard(); return; }
   localStorage.setItem('emp_selected_id', currentEmpId);
   await Promise.all([loadStockUnits(), loadMyPayouts()]);
@@ -613,6 +694,46 @@ async function markAsSeen(id) {
   await loadStockUnits();
 }
 
+/* ─── MARK ALL SEEN ───────────────────────────────── */
+function getUnseenUnits() {
+  return allStockUnits.filter(u => u.status === 'sold_approved' && !u.employee_seen_at);
+}
+
+async function markAllSeen() {
+  const unseen = getUnseenUnits();
+  if (!unseen.length) return;
+  if (!confirm(`Mark all ${unseen.length} sold unit${unseen.length===1?'':'s'} as seen?`)) return;
+  const now = new Date().toISOString();
+  const ids = unseen.map(u => u.id);
+  const { error } = await _sb.from('stock_units').update({ employee_seen_at:now, updated_at:now }).in('id', ids);
+  if (error) { showToast('Error: '+error.message,'err'); return; }
+  // audit events (best-effort, non-blocking)
+  _sb.from('stock_events').insert(
+    ids.map(id => ({ stock_unit_id:id, event_type:'employee_seen', actor:currentEmpCode||'employee' }))
+  ).then(()=>{});
+  showToast(`Marked ${unseen.length} as seen ✓`,'ok');
+  await loadStockUnits();
+}
+
+/* ─── UNSEEN UI STATE (badge + mark-all visibility) ── */
+function renderUnseenControls() {
+  const count = getUnseenUnits().length;
+  // badge on the "Need seen" quick-filter button
+  const needBtn = document.querySelector('.qfb[onclick*="need_seen"]');
+  if (needBtn) {
+    let badge = needBtn.querySelector('.qf-badge');
+    if (count > 0) {
+      if (!badge) { badge = document.createElement('span'); badge.className = 'qf-badge'; needBtn.appendChild(badge); }
+      badge.textContent = count;
+    } else if (badge) {
+      badge.remove();
+    }
+  }
+  // mark-all row visible only when 2+ unseen
+  const row = document.getElementById('markAllRow');
+  if (row) row.style.display = count >= 2 ? 'block' : 'none';
+}
+
 /* ─── STOCK FILTER ────────────────────────────────── */
 function setStockFilter(f, btn) {
   stockFilter = f;
@@ -678,12 +799,35 @@ function renderAll() {
   renderTracker(s);
   renderSalarySection(s);
   renderEmpCategoryOverview();
+  renderInventory();
   renderStockList(allStockUnits);
+  renderUnseenBanner();
+  renderUnseenControls();
 }
 
 function fmt(n) { return Number(n).toLocaleString(); }
 function txt(id,v) { const e=document.getElementById(id); if(e) e.textContent=v; }
 function msEl(id,on) { const e=document.getElementById(id); if(e){if(on)e.classList.add('done');else e.classList.remove('done');} }
+
+/* ─── UNSEEN-SOLD ALERT BANNER ────────────────────── */
+function renderUnseenBanner() {
+  const banner = document.getElementById('unseenBanner');
+  if (!banner) return;
+  if (!currentEmpId) { banner.classList.remove('show'); return; }
+  const unseen = allStockUnits.filter(u => u.status === 'sold_approved' && !u.employee_seen_at).length;
+  if (unseen > 0) {
+    txt('unseenTitle', `You have ${unseen} sold unit${unseen===1?'':'s'} to confirm`);
+    banner.classList.add('show');
+  } else {
+    banner.classList.remove('show');
+  }
+}
+
+function goToUnseen() {
+  const needSeenBtn = document.querySelector('.qfb[onclick*="need_seen"]');
+  setStockFilter('need_seen', needSeenBtn);
+  goToSection('sec-stock');
+}
 
 function renderTracker(s) {
   txt('unitNum',s.u); txt('kpi-units',s.u);
@@ -735,6 +879,44 @@ function renderPayouts() {
   }).join('');
 }
 
+/* ─── AVAILABLE-TO-SELL INVENTORY ─────────────────── */
+function renderInventory() {
+  const panel = document.getElementById('invPanel');
+  if (!panel) return;
+  const prefixes = ['C','B','M'];
+  // waiting units = on hand, available to sell
+  const waiting = allStockUnits.filter(u => u.status === 'waiting_to_be_sold');
+  const totalBundles = waiting.length;
+  let totalItems = 0;
+
+  const cells = prefixes.map(pfx => {
+    const t = TYPE_FALLBACK[pfx];
+    const units   = waiting.filter(u => getStockPrefix(u) === pfx);
+    const bundles = units.length;
+    const perBundle = t.quantity_per_stock_sale;
+    const items   = bundles * perBundle;
+    totalItems += items;
+    const unitWord = pfx === 'C' ? 'unit' : 'bundle';
+    return `
+    <div class="inv-cell iv-${pfx.toLowerCase()}">
+      <div class="inv-prefix">${pfx}</div>
+      <div class="inv-bundles-lbl">${unitWord}${bundles!==1?'s':''}</div>
+      <div class="inv-bundles">${bundles}</div>
+      <div class="inv-items"><strong>${fmt(items)}</strong> item${items!==1?'s':''}</div>
+    </div>`;
+  }).join('');
+
+  panel.innerHTML = `
+    <div class="inv-head">
+      <span class="inv-title">📦 Ready to sell</span>
+      <span class="inv-total">${totalBundles} unit${totalBundles!==1?'s':''} · ${fmt(totalItems)} item${totalItems!==1?'s':''}</span>
+    </div>
+    ${totalBundles === 0
+      ? '<div class="inv-empty">Nothing waiting to sell right now.</div>'
+      : `<div class="inv-grid">${cells}</div>`}
+  `;
+}
+
 /* ─── EMPLOYEE CATEGORY OVERVIEW ─────────────────── */
 function renderEmpCategoryOverview() {
   const grid = document.getElementById('empCatGrid');
@@ -780,8 +962,12 @@ function resetDashboard() {
   document.getElementById('payoutContainer').innerHTML='<div class="empty"><span class="empty-ico">💸</span>Select your profile.</div>';
   const empCatGrid = document.getElementById('empCatGrid');
   if (empCatGrid) empCatGrid.innerHTML='';
+  const invPanel = document.getElementById('invPanel');
+  if (invPanel) invPanel.innerHTML='<div class="inv-empty">Select your profile to see inventory.</div>';
   ['ms10','ms20','ms30','ms45'].forEach(id=>msEl(id,false));
   allPayouts=[];
+  renderUnseenBanner();
+  renderUnseenControls();
 }
 
 /* ─── STOCK CARD HTML ─────────────────────────────── */
@@ -883,8 +1069,11 @@ function showToast(msg,type='') {
 
 /* ─── WINDOW EXPORTS ──────────────────────────────── */
 window.onEmpChange      = onEmpChange;
+window.onEmpChangeMini  = onEmpChangeMini;
 window.markAsSeen       = markAsSeen;
+window.markAllSeen      = markAllSeen;
 window.setStockFilter   = setStockFilter;
+window.goToUnseen       = goToUnseen;
 window.showToast        = showToast;
 
 init();
