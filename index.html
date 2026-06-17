@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#07090e">
 <title>Employee – Progress Tracker</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap');
 :root{
   --bg:#07090e;--s1:#0f1219;--s2:#161b25;--s3:#1a2030;
   --bd:#1d2433;--bd2:#252d40;
@@ -297,6 +297,646 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
   .cat-card, .emp-cat { padding: 10px 8px; }
 }
 
+
+/* =========================================================
+   D2 POLISHED HUD TRANSPLANT
+   Full visual replacement for the employee overview HUD.
+   Keeps the original IDs used by the existing JavaScript.
+========================================================= */
+body {
+  background:
+    radial-gradient(900px 600px at 50% -180px, rgba(0,212,170,.08), transparent 60%),
+    #05060a;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0;
+}
+
+.page {
+  max-width: 480px;
+}
+
+/* Keep the app header compact so the real HUD owns the visual focus */
+body > .hero {
+  background: rgba(7,9,14,.92);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  padding: 14px 14px 12px;
+}
+
+.hero-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  box-shadow: 0 10px 28px -14px rgba(0,212,170,.7);
+}
+
+.hero-txt h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -.2px;
+}
+
+.d2-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  color: var(--a3);
+  text-align: center;
+  margin-bottom: 14px;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+}
+
+/* Main hero card */
+.d2-hero {
+  position: relative;
+  border-radius: 22px;
+  padding: 22px 20px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 100% at 85% 10%, rgba(0,212,170,.16), transparent 55%),
+    radial-gradient(120% 120% at 10% 100%, rgba(139,92,246,.18), transparent 50%),
+    linear-gradient(150deg,#150e33 0%,#0a1f24 100%);
+  border: 1px solid rgba(139,92,246,.28);
+  box-shadow:
+    0 20px 50px -20px rgba(0,212,170,.25),
+    inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+.d2-hero-glow {
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle,rgba(0,212,170,.25),transparent 60%);
+  filter: blur(20px);
+  animation: d2Float 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes d2Float {
+  0%,100% { transform: translateY(0) scale(1); opacity: .8; }
+  50% { transform: translateY(14px) scale(1.08); opacity: 1; }
+}
+
+.d2-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 4px;
+}
+
+.d2-hero-ey {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.d2-hero-who {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--t2);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.d2-hero-big {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(56px, 17vw, 72px);
+  font-weight: 700;
+  line-height: .92;
+  letter-spacing: -2px;
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(100deg,#ffffff 10%,#7defc9 50%,#5b6af0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 20px rgba(0,212,170,.3));
+}
+
+.d2-hero-biglbl {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--t2);
+  position: relative;
+  z-index: 2;
+  margin-top: 4px;
+  margin-bottom: 14px;
+  letter-spacing: .2px;
+}
+
+.d2-hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 13px;
+  border-radius: 99px;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(135deg,rgba(240,192,91,.22),rgba(240,192,91,.1));
+  border: 1px solid rgba(240,192,91,.4);
+  color: var(--gold);
+}
+
+.d2-chip-dot,
+.d2-hero-sep {
+  color: rgba(255,255,255,.35);
+}
+
+.d2-hero-bar {
+  height: 9px;
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 15px 0 8px;
+  position: relative;
+  z-index: 2;
+  background: rgba(0,0,0,.42);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.55);
+}
+
+.d2-hero-bar i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  border-radius: 99px;
+  position: relative;
+  background: linear-gradient(90deg,var(--purple),var(--a2) 50%,var(--accent));
+  box-shadow: 0 0 12px rgba(0,212,170,.5);
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+}
+
+.d2-hero-bar i.full {
+  background: var(--accent);
+}
+
+.d2-hero-bar i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 99px;
+  background: linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  background-size: 200% 100%;
+  animation: d2Shimmer 2.4s linear infinite;
+}
+
+@keyframes d2Shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.d2-hero-barsub {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--t2);
+  position: relative;
+  z-index: 2;
+  font-weight: 600;
+}
+
+/* KPI cards */
+.d2-kpis {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.d2-k {
+  position: relative;
+  border-radius: 15px;
+  padding: 16px 14px 15px;
+  overflow: hidden;
+  background: linear-gradient(160deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+  border: 1px solid var(--bd2);
+  box-shadow: 0 6px 18px -10px rgba(0,0,0,.6);
+  min-height: 92px;
+}
+
+.d2-k::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 99px;
+}
+
+.d2-k::after {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  filter: blur(22px);
+  opacity: .45;
+}
+
+.d2-a::before,
+.d2-a::after { background: var(--accent); }
+.d2-b::before,
+.d2-b::after { background: var(--a2); }
+.d2-c::before,
+.d2-c::after { background: var(--gold); }
+.d2-d::before,
+.d2-d::after { background: var(--purple); }
+
+.d2-kl {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 7px;
+  position: relative;
+  z-index: 1;
+  padding-left: 8px;
+  line-height: 1.2;
+}
+
+.d2-kv {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(25px, 8vw, 31px);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: -.7px;
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  z-index: 1;
+  padding-left: 8px;
+  word-break: keep-all;
+}
+
+.d2-a .d2-kv { color: var(--accent); }
+.d2-b .d2-kv { color: #8d99ff; }
+.d2-c .d2-kv { color: var(--gold); }
+.d2-d .d2-kv { color: #b18cf5; }
+
+.d2-ks {
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 5px;
+  padding-left: 8px;
+  position: relative;
+  z-index: 1;
+  font-weight: 600;
+}
+
+/* Detail panels */
+.d2-panel,
+.d2-buying,
+.d2-milestones {
+  border-radius: 18px;
+  background: linear-gradient(160deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+  border: 1px solid var(--bd);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.d2-panel-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 15px;
+  border-bottom: 1px solid var(--bd);
+}
+
+.d2-panel-h b {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.d2-panel-h span {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-align: right;
+}
+
+.d2-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--bd);
+}
+
+.d2-detail {
+  background: var(--s1);
+  padding: 13px 12px;
+}
+
+.d2-dl {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+
+.d2-dv {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -.4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.d2-ds {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.d2-green { color: var(--accent); }
+.d2-blue { color: #8d99ff; }
+.d2-gold { color: var(--gold); }
+
+/* Buying power */
+.d2-buying {
+  background: linear-gradient(160deg,rgba(0,212,170,.06),rgba(10,22,38,.42));
+  border-color: rgba(0,212,170,.18);
+  box-shadow: 0 10px 30px -18px rgba(0,212,170,.35);
+}
+
+.d2-buy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 15px;
+}
+
+.d2-buy-cell {
+  position: relative;
+  border-radius: 14px;
+  padding: 14px 8px 12px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow:
+    0 8px 20px -10px rgba(0,0,0,.5),
+    inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.d2-buy-c { background: linear-gradient(165deg,#0fe6bc,#008f76); }
+.d2-buy-b { background: linear-gradient(165deg,#7b88ff,#3a44b8); }
+.d2-buy-m { background: linear-gradient(165deg,#f5c861,#cf9530); }
+
+.d2-buy-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 31px;
+  font-weight: 700;
+  line-height: .95;
+  font-variant-numeric: tabular-nums;
+  color: rgba(0,0,0,.82);
+}
+
+.d2-buy-b .d2-buy-num {
+  color: rgba(255,255,255,.92);
+}
+
+.d2-buy-name {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(0,0,0,.7);
+  margin-top: 2px;
+}
+
+.d2-buy-b .d2-buy-name {
+  color: rgba(255,255,255,.85);
+}
+
+.d2-buy-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  margin-top: 8px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(0,0,0,.15);
+  color: rgba(0,0,0,.6);
+}
+
+.d2-buy-b .d2-buy-sub {
+  border-top-color: rgba(255,255,255,.2);
+  color: rgba(255,255,255,.75);
+}
+
+/* Milestones */
+.d2-milestones {
+  background: var(--s1);
+}
+
+.d2-ms-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 15px;
+  border-top: 1px solid var(--bd);
+}
+
+.d2-ms-row:first-child {
+  border-top: 0;
+}
+
+.d2-ms-row.done {
+  background: rgba(0,212,170,.035);
+}
+
+.d2-ms-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--bd2);
+  background: var(--s2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 10px;
+  color: transparent;
+  transition: all .22s;
+  font-weight: 800;
+}
+
+.d2-ms-row.done .d2-ms-check {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+}
+
+.d2-ms-body {
+  flex: 1;
+}
+
+.d2-ms-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.d2-ms-row.done .d2-ms-title {
+  color: var(--text);
+}
+
+.d2-ms-desc {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.d2-ms-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+.d2-mb2 {
+  background: rgba(91,106,240,.12);
+  color: var(--a2);
+  border: 1px solid rgba(91,106,240,.25);
+}
+
+.d2-mb3 {
+  background: rgba(0,212,170,.12);
+  color: var(--accent);
+  border: 1px solid rgba(0,212,170,.25);
+}
+
+/* Stock inventory panel gets the same polished card direction */
+.inv-panel {
+  border-radius: 18px;
+  padding: 16px;
+  background: linear-gradient(160deg,rgba(0,212,170,.07),rgba(10,22,38,.5));
+  border: 1px solid rgba(0,212,170,.22);
+  box-shadow: 0 10px 30px -16px rgba(0,212,170,.3);
+}
+
+.inv-head {
+  margin-bottom: 14px;
+}
+
+.inv-title {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.inv-total {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(0,212,170,.1);
+  border: 1px solid rgba(0,212,170,.25);
+  padding: 4px 11px;
+  border-radius: 99px;
+}
+
+.inv-grid {
+  gap: 10px;
+}
+
+.inv-cell {
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 8px 12px;
+  box-shadow:
+    0 8px 20px -10px rgba(0,0,0,.5),
+    inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.inv-cell::after {
+  display: none;
+}
+
+.inv-cell.iv-c { background: linear-gradient(165deg,#0fe6bc,#008f76); }
+.inv-cell.iv-b { background: linear-gradient(165deg,#7b88ff,#3a44b8); }
+.inv-cell.iv-m { background: linear-gradient(165deg,#f5c861,#cf9530); }
+
+.inv-prefix {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 31px;
+  font-weight: 700;
+  line-height: .95;
+  letter-spacing: -.8px;
+  color: rgba(0,0,0,.82) !important;
+}
+
+.inv-cell.iv-b .inv-prefix {
+  color: rgba(255,255,255,.92) !important;
+}
+
+.inv-bundles {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(0,0,0,.7);
+  line-height: 1.1;
+  margin-top: 3px;
+}
+
+.inv-cell.iv-b .inv-bundles {
+  color: rgba(255,255,255,.85);
+}
+
+.inv-bundles-lbl {
+  display: none;
+}
+
+.inv-items {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  margin-top: 8px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(0,0,0,.15);
+  color: rgba(0,0,0,.6);
+}
+
+.inv-items strong {
+  color: inherit;
+}
+
+.inv-cell.iv-b .inv-items {
+  border-top-color: rgba(255,255,255,.2);
+  color: rgba(255,255,255,.75);
+}
+
+@media (max-width: 390px) {
+  .page { padding: 0 12px; }
+  .d2-kpis { gap: 8px; }
+  .d2-k { padding: 14px 11px; min-height: 88px; }
+  .d2-kl { font-size: 8.6px; padding-left: 7px; }
+  .d2-kv { font-size: 24px; padding-left: 7px; }
+  .d2-detail-grid { grid-template-columns: 1fr; }
+  .d2-buy-grid, .inv-grid { gap: 8px; }
+  .d2-buy-cell, .inv-cell { padding-left: 6px; padding-right: 6px; }
+  .d2-buy-num, .inv-prefix { font-size: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d2-hero-glow,
+  .d2-hero-bar i::after {
+    animation: none;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -353,51 +993,155 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 
 <!-- A. PROGRESS -->
 <div class="section" id="sec-progress">
-  <div class="slbl">// Current overview</div>
-  <div class="kpi-grid" style="margin-bottom:10px">
-    <div class="kpi ca"><span class="kpi-ico">📦</span><div class="kpi-lbl">Approved sold</div><div class="kpi-val" id="kpi-units">—</div><div class="kpi-sub">sale events</div></div>
-    <div class="kpi ca"><span class="kpi-ico">💎</span><div class="kpi-lbl">Deposit balance</div><div class="kpi-val" id="kpi-dep" style="font-size:18px">—</div><div class="kpi-sub">coins</div></div>
-    <div class="kpi cb"><span class="kpi-ico">💰</span><div class="kpi-lbl">Salary earned</div><div class="kpi-val" id="kpi-sal" style="font-size:18px">—</div><div class="kpi-sub">coins total</div></div>
-    <div class="kpi cc"><span class="kpi-ico">📈</span><div class="kpi-lbl">Salary available</div><div class="kpi-val" id="kpi-avail" style="font-size:18px">—</div><div class="kpi-sub" id="kpi-avail-sub">unpaid balance</div></div>
+  <div class="d2-note">// Live employee HUD · connected to your Supabase data</div>
+
+  <!-- D2 POLISHED HERO -->
+  <div class="d2-hero">
+    <div class="d2-hero-glow"></div>
+    <div class="d2-hero-top">
+      <span class="d2-hero-ey">Approved sales</span>
+      <span class="d2-hero-who">Live profile</span>
+    </div>
+
+    <div class="d2-hero-big" id="unitNum">—</div>
+    <div class="d2-hero-biglbl">sale events approved · keep going</div>
+
+    <span class="d2-hero-chip">
+      ⚡ <span id="stLevel">—</span>
+      <span class="d2-chip-dot">·</span>
+      <span id="stSplit">— / — dep/sal</span>
+    </span>
+
+    <div class="d2-hero-bar">
+      <i id="pbFill" style="width:0%"></i>
+    </div>
+
+    <div class="d2-hero-barsub">
+      <span id="pbLbl">Progress</span>
+      <span class="d2-hero-sep">·</span>
+      <span id="pbPct">—</span>
+      <span class="d2-hero-sep">·</span>
+      <span id="pbSub">Select your profile above</span>
+    </div>
   </div>
 
-  <!-- TRACKER CARD -->
-  <div class="slbl" style="margin-top:16px">// Progress tracker</div>
-  <div class="card">
-    <div class="tracker-head">
-      <div class="th-row">
-        <div class="th-big" id="unitNum">—</div>
-        <div class="th-meta">
-          <div class="lv-pill" id="stLevel">—</div>
-          <div class="th-split" id="stSplit">— / — dep/sal</div>
-        </div>
+  <!-- D2 KPI CARDS -->
+  <div class="d2-kpis">
+    <div class="d2-k d2-a">
+      <div class="d2-kl">Approved sold</div>
+      <div class="d2-kv" id="kpi-units">—</div>
+      <div class="d2-ks">sale events</div>
+    </div>
+
+    <div class="d2-k d2-a">
+      <div class="d2-kl">Deposit balance</div>
+      <div class="d2-kv" id="kpi-dep">—</div>
+      <div class="d2-ks">coins</div>
+    </div>
+
+    <div class="d2-k d2-b">
+      <div class="d2-kl">Salary earned</div>
+      <div class="d2-kv" id="kpi-sal">—</div>
+      <div class="d2-ks">coins total</div>
+    </div>
+
+    <div class="d2-k d2-c">
+      <div class="d2-kl">Available</div>
+      <div class="d2-kv" id="kpi-avail">—</div>
+      <div class="d2-ks" id="kpi-avail-sub">unpaid balance</div>
+    </div>
+  </div>
+
+  <!-- SECONDARY DETAILS -->
+  <div class="d2-panel">
+    <div class="d2-panel-h">
+      <b>📊 Progress details</b>
+      <span id="stNext">—</span>
+    </div>
+
+    <div class="d2-detail-grid">
+      <div class="d2-detail">
+        <div class="d2-dl">Deposit</div>
+        <div class="d2-dv d2-green" id="stDep">—</div>
+        <div class="d2-ds">coins</div>
+      </div>
+
+      <div class="d2-detail">
+        <div class="d2-dl">Salary earned</div>
+        <div class="d2-dv d2-blue" id="stSal">—</div>
+        <div class="d2-ds">coins</div>
+      </div>
+
+      <div class="d2-detail">
+        <div class="d2-dl">Earnings</div>
+        <div class="d2-dv d2-gold" id="stEarn">—</div>
+        <div class="d2-ds">events × 100</div>
       </div>
     </div>
-    <div class="pb-wrap">
-      <div class="pb-top"><span class="pb-lbl" id="pbLbl">Progress</span><span class="pb-pct" id="pbPct">—</span></div>
-      <div class="pb-track"><div class="pb-fill" id="pbFill" style="width:0%"></div></div>
-      <div class="pb-sub" id="pbSub">Select your profile above</div>
+  </div>
+
+  <!-- BUYING POWER -->
+  <div class="d2-buying">
+    <div class="d2-panel-h">
+      <b>💎 Deposit buying power</b>
+      <span>based on current deposit</span>
     </div>
-    <div class="stats-grid">
-      <div class="sg"><div class="sg-lbl">Deposit</div><div class="sg-val v-acc" id="stDep">—</div><div class="sg-sub">coins</div></div>
-      <div class="sg"><div class="sg-lbl">Salary earned</div><div class="sg-val v-a2" id="stSal">—</div><div class="sg-sub">coins</div></div>
-      <div class="sg"><div class="sg-lbl">Earnings</div><div class="sg-val v-gold" id="stEarn">—</div><div class="sg-sub">total events × 100</div></div>
-      <div class="sg"><div class="sg-lbl">Next milestone</div><div class="sg-val v-t2" id="stNext">—</div></div>
-    </div>
-    <!-- Deposit buying power -->
-    <div style="border-top:1px solid var(--bd)">
-      <div style="padding:10px 14px 6px;font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)">Deposit buying power</div>
-      <div class="bp-grid">
-        <div class="bp-cell"><div class="bp-lbl">C units</div><div class="bp-val" id="bp-c" style="color:var(--accent)">—</div><div class="bp-sub">@300 each</div></div>
-        <div class="bp-cell"><div class="bp-lbl">B bundles</div><div class="bp-val" id="bp-b" style="color:var(--a2)">—</div><div class="bp-sub">@150 each</div></div>
-        <div class="bp-cell"><div class="bp-lbl">M bundles</div><div class="bp-val" id="bp-m" style="color:var(--gold)">—</div><div class="bp-sub">@250 each</div></div>
+
+    <div class="d2-buy-grid">
+      <div class="d2-buy-cell d2-buy-c">
+        <div class="d2-buy-num" id="bp-c">—</div>
+        <div class="d2-buy-name">C units</div>
+        <div class="d2-buy-sub">@300 each</div>
+      </div>
+
+      <div class="d2-buy-cell d2-buy-b">
+        <div class="d2-buy-num" id="bp-b">—</div>
+        <div class="d2-buy-name">B bundles</div>
+        <div class="d2-buy-sub">@150 each</div>
+      </div>
+
+      <div class="d2-buy-cell d2-buy-m">
+        <div class="d2-buy-num" id="bp-m">—</div>
+        <div class="d2-buy-name">M bundles</div>
+        <div class="d2-buy-sub">@250 each</div>
       </div>
     </div>
-    <div class="ms-list">
-      <div class="ms-row" id="ms10"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">10 approved sale events</div><div class="ms-desc">750 deposit · 250 salary</div></div></div>
-      <div class="ms-row" id="ms20"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">20 approved sale events</div><div class="ms-desc">1,500 deposit · 500 salary</div></div><span class="ms-badge mb2">Lv 2</span></div>
-      <div class="ms-row" id="ms30"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">30 approved sale events</div><div class="ms-desc">2,100 deposit · 900 salary</div></div></div>
-      <div class="ms-row" id="ms45"><div class="ms-check">✓</div><div class="ms-body"><div class="ms-title">45 approved sale events</div><div class="ms-desc">3,000 deposit · 1,500 salary</div></div><span class="ms-badge mb3">Lv 3</span></div>
+  </div>
+
+  <!-- MILESTONES -->
+  <div class="d2-milestones">
+    <div class="d2-ms-row" id="ms10">
+      <div class="d2-ms-check">✓</div>
+      <div class="d2-ms-body">
+        <div class="d2-ms-title">10 approved sale events</div>
+        <div class="d2-ms-desc">750 deposit · 250 salary</div>
+      </div>
+    </div>
+
+    <div class="d2-ms-row" id="ms20">
+      <div class="d2-ms-check">✓</div>
+      <div class="d2-ms-body">
+        <div class="d2-ms-title">20 approved sale events</div>
+        <div class="d2-ms-desc">1,500 deposit · 500 salary</div>
+      </div>
+      <span class="d2-ms-badge d2-mb2">Lv 2</span>
+    </div>
+
+    <div class="d2-ms-row" id="ms30">
+      <div class="d2-ms-check">✓</div>
+      <div class="d2-ms-body">
+        <div class="d2-ms-title">30 approved sale events</div>
+        <div class="d2-ms-desc">2,100 deposit · 900 salary</div>
+      </div>
+    </div>
+
+    <div class="d2-ms-row" id="ms45">
+      <div class="d2-ms-check">✓</div>
+      <div class="d2-ms-body">
+        <div class="d2-ms-title">45 approved sale events</div>
+        <div class="d2-ms-desc">3,000 deposit · 1,500 salary</div>
+      </div>
+      <span class="d2-ms-badge d2-mb3">Lv 3</span>
     </div>
   </div>
 </div>
@@ -897,11 +1641,12 @@ function renderInventory() {
     const items   = bundles * perBundle;
     totalItems += items;
     const unitWord = pfx === 'C' ? 'unit' : 'bundle';
+    const displayName = pfx + ' ' + unitWord + (bundles!==1?'s':'');
     return `
     <div class="inv-cell iv-${pfx.toLowerCase()}">
-      <div class="inv-prefix">${pfx}</div>
-      <div class="inv-bundles-lbl">${unitWord}${bundles!==1?'s':''}</div>
-      <div class="inv-bundles">${bundles}</div>
+      <div class="inv-prefix">${bundles}</div>
+      <div class="inv-bundles-lbl">${pfx}</div>
+      <div class="inv-bundles">${displayName}</div>
       <div class="inv-items"><strong>${fmt(items)}</strong> item${items!==1?'s':''}</div>
     </div>`;
   }).join('');
