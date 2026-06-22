@@ -171,6 +171,26 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .inv-items{font-family:'DM Mono',monospace;font-size:10px;color:var(--t2);margin-top:5px;padding-top:5px;border-top:1px solid var(--bd);}
 .inv-items strong{color:var(--text);}
 .inv-empty{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-align:center;padding:6px 0;}
+.inv-stale{font-family:'DM Mono',monospace;font-size:10px;color:var(--a3);margin-top:10px;padding-top:9px;border-top:1px solid rgba(240,163,91,.2);display:flex;align-items:center;gap:6px;}
+/* ACTIVITY TIMELINE */
+.act-row{display:flex;gap:11px;position:relative;padding-bottom:16px;}
+.act-row:last-child{padding-bottom:0;}
+.act-rail{width:9px;flex-shrink:0;position:relative;display:flex;justify-content:center;}
+.act-dot{width:9px;height:9px;border-radius:50%;margin-top:3px;flex-shrink:0;z-index:1;box-shadow:0 0 0 3px var(--s1);}
+.act-row:not(:last-child) .act-rail::after{content:'';position:absolute;top:12px;bottom:-16px;width:1px;background:var(--bd2);}
+.act-dot.ev-created{background:var(--muted);}
+.act-dot.ev-sold{background:var(--purple);}
+.act-dot.ev-seen{background:var(--accent);}
+.act-dot.ev-issue{background:var(--red);}
+.act-dot.ev-cancel{background:var(--muted);}
+.act-dot.ev-edit{background:var(--a2);}
+.act-dot.ev-wait{background:var(--a3);}
+.act-body{flex:1;min-width:0;}
+.act-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
+.act-label{font-family:'Space Grotesk',sans-serif;font-size:12.5px;font-weight:600;color:var(--text);}
+.act-time{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);white-space:nowrap;flex-shrink:0;}
+.act-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--t2);margin-top:2px;}
+.act-meta .sid{color:var(--accent);font-weight:500;}
 /* STOCK CARDS */
 .stock-card{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden;transition:border-color .2s;}
 .stock-card.sw{border-color:rgba(240,163,91,.18);}
@@ -958,6 +978,7 @@ body > .hero {
       <button class="npill" data-target="sec-progress">Progress</button>
       <button class="npill" data-target="sec-salary">Salary</button>
       <button class="npill" data-target="sec-stock">My Stock</button>
+      <button class="npill" data-target="sec-activity">Activity</button>
       <button class="npill" data-target="sec-rules">Rules</button>
     </div>
     <select class="emp-mini" id="empSelectMini" onchange="onEmpChangeMini()" title="Switch profile">
@@ -1198,7 +1219,17 @@ body > .hero {
   </div>
 </div>
 
-<!-- D. RULES -->
+<!-- D. ACTIVITY -->
+<div class="section" id="sec-activity">
+  <div class="slbl">// Recent activity</div>
+  <div class="card" style="overflow:visible">
+    <div id="activityContainer" style="padding:14px">
+      <div class="loading-wrap"><span class="spinner"></span>Loading...</div>
+    </div>
+  </div>
+</div>
+
+<!-- E. RULES -->
 <div class="section" id="sec-rules">
   <div class="slbl">// How it works</div>
   <div class="card" style="overflow:visible">
@@ -1273,6 +1304,7 @@ let allPayouts     = [];
 let stockTypes     = [];
 let realtimeSub    = null;
 let stockFilter    = 'all';   // current quick-filter for stock list
+let allActivity    = [];      // recent stock_events for this employee's units
 
 /* ─── SAFE TYPE HELPERS ───────────────────────────── */
 const TYPE_FALLBACK = {
@@ -1376,7 +1408,22 @@ async function loadStockUnits() {
     .order('uploaded_at', { ascending: false });
   if (error) { showToast('Failed to load stock: '+error.message,'err'); return; }
   allStockUnits = data || [];
+  await loadActivity();
   renderAll();
+}
+
+/* ─── ACTIVITY (read-only event history) ──────────── */
+async function loadActivity() {
+  if (!currentEmpId || !allStockUnits.length) { allActivity = []; return; }
+  const ids = allStockUnits.map(u => u.id);
+  const { data, error } = await _sb
+    .from('stock_events')
+    .select('*')
+    .in('stock_unit_id', ids)
+    .order('created_at', { ascending: false })
+    .limit(50);
+  if (error) { allActivity = []; return; }
+  allActivity = data || [];
 }
 
 async function loadMyPayouts() {
@@ -1425,6 +1472,7 @@ function handleRealtimeEvent(payload) {
     if (idx>=0) allStockUnits[idx]=row; else allStockUnits.unshift(row);
   } else if (eventType==='DELETE') allStockUnits = allStockUnits.filter(u=>u.id!==old.id);
   renderAll();
+  loadActivity().then(renderActivity);
   showToast('Stock updated','ok');
 }
 
@@ -1547,6 +1595,7 @@ function renderAll() {
   renderStockList(allStockUnits);
   renderUnseenBanner();
   renderUnseenControls();
+  renderActivity();
 }
 
 function fmt(n) { return Number(n).toLocaleString(); }
@@ -1658,8 +1707,60 @@ function renderInventory() {
     </div>
     ${totalBundles === 0
       ? '<div class="inv-empty">Nothing waiting to sell right now.</div>'
-      : `<div class="inv-grid">${cells}</div>`}
+      : `<div class="inv-grid">${cells}</div>${staleHtml(waiting)}`}
   `;
+}
+
+function staleHtml(waiting) {
+  if (!waiting.length) return '';
+  const oldest = waiting.reduce((a,b) => new Date(a.uploaded_at) < new Date(b.uploaded_at) ? a : b);
+  const days = Math.floor((Date.now() - new Date(oldest.uploaded_at).getTime()) / 864e5);
+  if (days < 3) return '';
+  return `<div class="inv-stale">⏳ Oldest waiting unit: <strong>${days} day${days!==1?'s':''}</strong> (${esc(oldest.stock_id)})</div>`;
+}
+
+/* ─── ACTIVITY RENDER ─────────────────────────────── */
+function eventMeta(type) {
+  const m = {
+    created:            { icon:'📦', label:'Stock unit added',     cls:'ev-created' },
+    marked_sold:        { icon:'✅', label:'Marked as sold',       cls:'ev-sold' },
+    employee_seen:      { icon:'👁', label:'You marked as seen',   cls:'ev-seen' },
+    issue:               { icon:'🔴', label:'Issue flagged',       cls:'ev-issue' },
+    cancelled:           { icon:'⛔', label:'Cancelled',            cls:'ev-cancel' },
+    edited:              { icon:'✏️', label:'Record updated',      cls:'ev-edit' },
+    waiting_to_be_sold: { icon:'🟡', label:'Reset to waiting',     cls:'ev-wait' },
+    sale_reported:       { icon:'📤', label:'Sale reported',        cls:'ev-wait' },
+  };
+  return m[type] || { icon:'•', label:type, cls:'ev-edit' };
+}
+
+function renderActivity() {
+  const c = document.getElementById('activityContainer');
+  if (!c) return;
+  if (!currentEmpId) {
+    c.innerHTML = '<div class="empty"><span class="empty-ico">🕘</span>Select your profile to see activity.</div>';
+    return;
+  }
+  if (!allActivity.length) {
+    c.innerHTML = '<div class="empty"><span class="empty-ico">🕘</span>No activity yet.</div>';
+    return;
+  }
+  c.innerHTML = allActivity.map(ev => {
+    const m = eventMeta(ev.event_type);
+    const unit = allStockUnits.find(u => u.id === ev.stock_unit_id);
+    const sid = unit ? unit.stock_id : '—';
+    return `
+    <div class="act-row">
+      <div class="act-rail"><span class="act-dot ${m.cls}"></span></div>
+      <div class="act-body">
+        <div class="act-top">
+          <span class="act-label">${m.icon} ${m.label}</span>
+          <span class="act-time">${formatDT(ev.created_at)}</span>
+        </div>
+        <div class="act-meta"><span class="sid">${esc(sid)}</span>${ev.note ? ' · ' + esc(ev.note) : ''}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 /* ─── EMPLOYEE CATEGORY OVERVIEW ─────────────────── */
@@ -1709,6 +1810,9 @@ function resetDashboard() {
   if (empCatGrid) empCatGrid.innerHTML='';
   const invPanel = document.getElementById('invPanel');
   if (invPanel) invPanel.innerHTML='<div class="inv-empty">Select your profile to see inventory.</div>';
+  allActivity = [];
+  const activityContainer = document.getElementById('activityContainer');
+  if (activityContainer) activityContainer.innerHTML = '<div class="empty"><span class="empty-ico">🕘</span>Select your profile to see activity.</div>';
   ['ms10','ms20','ms30','ms45'].forEach(id=>msEl(id,false));
   allPayouts=[];
   renderUnseenBanner();
