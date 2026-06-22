@@ -1350,13 +1350,35 @@ async function init() {
   const { data } = await _sb.from('stock_types').select('*');
   stockTypes = data || [];
   await loadEmployees();
+
+  const sel = document.getElementById('empSelect');
+  const params = new URLSearchParams(window.location.search);
+  const empFromUrl = params.get('emp');
   const cached = localStorage.getItem('emp_selected_id');
-  if (cached) {
-    const sel = document.getElementById('empSelect');
-    const opt = [...sel.options].find(o => o.value === cached);
-    if (opt) { sel.value = cached; await onEmpChange(); }
+
+  // Telegram notification links can open:
+  // https://dancingdogss.github.io/wow-character/?emp=<employee_id>#sec-stock
+  // If the emp parameter exists, it wins. If not, use the saved local profile.
+  const candidates = [empFromUrl, cached].filter(Boolean);
+
+  if (sel && candidates.length) {
+    for (const candidate of candidates) {
+      const opt = [...sel.options].find(o => o.value === candidate);
+      if (opt) {
+        sel.value = candidate;
+        await onEmpChange();
+        break;
+      }
+    }
   }
+
   setupRealtime();
+
+  // If the Telegram button includes a section hash, scroll there after data renders.
+  if (window.location.hash) {
+    const targetId = window.location.hash.slice(1);
+    setTimeout(() => goToSection(targetId), 450);
+  }
 }
 
 /* ─── EMPLOYEES ───────────────────────────────────── */
