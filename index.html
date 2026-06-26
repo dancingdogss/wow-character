@@ -1388,29 +1388,24 @@ function typePillCls(prefix) {
 async function init() {
   const { data } = await _sb.from('stock_types').select('*');
   stockTypes = data || [];
-  await loadEmployees();
 
-  const sel = document.getElementById('empSelect');
   const params = new URLSearchParams(window.location.search);
-  const empFromUrl = params.get('emp');
-  const cached = localStorage.getItem('emp_selected_id');
+  const tokenFromUrl = params.get('token');
+  const empFromUrl   = params.get('emp');
 
-  // Telegram notification links can open:
-  // https://dancingdogss.github.io/wow-character/?emp=<employee_id>#sec-stock
-  // If the emp parameter exists, it wins. If not, use the saved local profile.
-  const candidates = [empFromUrl, cached].filter(Boolean);
-
-  if (sel && candidates.length) {
-    for (const candidate of candidates) {
-      const opt = [...sel.options].find(o => o.value === candidate);
-      if (opt) {
-        sel.value = candidate;
-        await onEmpChange();
-        break;
-      }
-    }
+  if (tokenFromUrl) {
+    await loadEmployeeByToken(tokenFromUrl);
+  } else if (empFromUrl) {
+    // Legacy ?emp= backwards compat — no full selector shown
+    await loadEmployeeById(empFromUrl);
+  } else {
+    showLockedMessage();
+    return;
   }
 
+  if (!currentEmpId) return;
+
+  hideSelectorUI();
   setupRealtime();
 
   // Scroll to target section from hash or ?msg= param (Telegram notification links)
@@ -1420,6 +1415,64 @@ async function init() {
   if (scrollTarget) {
     setTimeout(() => goToSection(scrollTarget), 450);
   }
+}
+
+async function loadEmployeeByToken(token) {
+  const { data, error } = await _sb
+    .from('employees')
+    .select('id, employee_code, name')
+    .eq('employee_access_token', token)
+    .eq('active', true)
+    .single();
+  if (error || !data) {
+    showLockedMessage('Invalid or expired access link. Please ask the owner for a new one.');
+    return;
+  }
+  setCurrentEmployee(data);
+  await Promise.all([loadStockUnits(), loadMyPayouts(), loadMessages()]);
+  await handleMsgParam();
+}
+
+async function loadEmployeeById(empId) {
+  const { data, error } = await _sb
+    .from('employees')
+    .select('id, employee_code, name')
+    .eq('id', empId)
+    .eq('active', true)
+    .single();
+  if (error || !data) {
+    showLockedMessage('Employee not found. Please ask the owner for your dashboard link.');
+    return;
+  }
+  setCurrentEmployee(data);
+  await Promise.all([loadStockUnits(), loadMyPayouts(), loadMessages()]);
+  await handleMsgParam();
+}
+
+function setCurrentEmployee(emp) {
+  currentEmpId   = emp.id;
+  currentEmpCode = emp.employee_code;
+  document.getElementById('empPill').textContent = currentEmpCode || '—';
+  localStorage.setItem('emp_selected_id', currentEmpId);
+}
+
+function hideSelectorUI() {
+  const mini = document.getElementById('empSelectMini');
+  if (mini) mini.style.display = 'none';
+}
+
+function showLockedMessage(msg) {
+  const text = msg || 'Private employee link required. Please ask the owner for your dashboard link.';
+  const page = document.querySelector('.page');
+  if (page) {
+    const div = document.createElement('div');
+    div.style.cssText = 'padding:60px 20px;text-align:center;';
+    div.innerHTML =
+      '<div style="font-size:36px;margin-bottom:16px;">🔒</div>' +
+      '<div style="font-family:\'DM Mono\',monospace;font-size:12px;color:var(--muted);line-height:1.7;max-width:300px;margin:0 auto;">' + text + '</div>';
+    page.prepend(div);
+  }
+  hideSelectorUI();
 }
 
 /* ─── EMPLOYEES ───────────────────────────────────── */
