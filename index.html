@@ -1413,10 +1413,12 @@ async function init() {
 
   setupRealtime();
 
-  // If the Telegram button includes a section hash, scroll there after data renders.
-  if (window.location.hash) {
-    const targetId = window.location.hash.slice(1);
-    setTimeout(() => goToSection(targetId), 450);
+  // Scroll to target section from hash or ?msg= param (Telegram notification links)
+  const msgParam = params.get('msg');
+  const hashTarget = window.location.hash ? window.location.hash.slice(1) : null;
+  const scrollTarget = hashTarget || (msgParam ? 'sec-messages' : null);
+  if (scrollTarget) {
+    setTimeout(() => goToSection(scrollTarget), 450);
   }
 }
 
@@ -1456,6 +1458,7 @@ async function onEmpChange() {
   if (!currentEmpId) { resetDashboard(); return; }
   localStorage.setItem('emp_selected_id', currentEmpId);
   await Promise.all([loadStockUnits(), loadMyPayouts(), loadMessages()]);
+  await handleMsgParam();
 }
 
 /* ─── STOCK ───────────────────────────────────────── */
@@ -1507,10 +1510,37 @@ async function loadMessages() {
     .from('owner_messages')
     .select('*')
     .eq('employee_id', currentEmpId)
+    .is('deleted_at', null)
+    .is('employee_hidden_at', null)
     .order('sent_at', { ascending: false })
     .limit(50);
   if (error) { allMessages = []; return; }
-  allMessages = data || [];
+  // Sort: unseen first, then newest first within each group
+  allMessages = (data || []).sort((a, b) => {
+    const aUnseen = !a.seen_at ? 0 : 1;
+    const bUnseen = !b.seen_at ? 0 : 1;
+    if (aUnseen !== bUnseen) return aUnseen - bUnseen;
+    const aTime = new Date(a.created_at || a.sent_at || 0).getTime();
+    const bTime = new Date(b.created_at || b.sent_at || 0).getTime();
+    return bTime - aTime;
+  });
+}
+
+async function handleMsgParam() {
+  const params = new URLSearchParams(window.location.search);
+  const msgId = params.get('msg');
+  if (!msgId || !currentEmpId) return;
+  const msg = allMessages.find(m => m.id === msgId);
+  if (!msg || msg.dashboard_opened_at) return;
+  const now = new Date().toISOString();
+  const { error } = await _sb.from('owner_messages')
+    .update({ dashboard_opened_at: now })
+    .eq('id', msgId);
+  if (!error) {
+    const idx = allMessages.findIndex(m => m.id === msgId);
+    if (idx >= 0) allMessages[idx] = { ...allMessages[idx], dashboard_opened_at: now };
+    renderMessages();
+  }
 }
 
 async function confirmMessage(id) {
@@ -1879,12 +1909,15 @@ function renderMessages() {
     return;
   }
   c.innerHTML = allMessages.map(m => {
-    const isSeen = !!m.seen_at;
+    const isSeen   = !!m.seen_at;
+    const bodyText = m.body || m.message || '';
+    const timeStr  = m.created_at || m.sent_at;
     return `
     <div class="msg-card ${isSeen?'':'unseen'}">
-      <div class="msg-text">${esc(m.message)}</div>
+      ${m.title ? `<div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:var(--a2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px">${esc(m.title)}</div>` : ''}
+      <div class="msg-text">${esc(bodyText)}</div>
       <div class="msg-meta">
-        <span class="msg-time">${formatDT(m.sent_at)}</span>
+        <span class="msg-time">${formatDT(timeStr)}</span>
         ${isSeen
           ? `<span class="msg-confirmed">✅ Confirmed — ${formatDT(m.seen_at)}</span>`
           : `<button class="msg-confirm-btn" onclick="confirmMessage('${m.id}')">✅ I've seen this</button>`}
