@@ -115,16 +115,19 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .tp-c{color:var(--accent);border-color:rgba(0,212,170,.3);background:rgba(0,212,170,.08);}
 .tp-b{color:var(--a2);border-color:rgba(91,106,240,.3);background:rgba(91,106,240,.08);}
 .tp-m{color:var(--gold);border-color:rgba(240,192,91,.3);background:rgba(240,192,91,.08);}
+.tp-cp{color:var(--purple);border-color:rgba(139,92,246,.3);background:rgba(139,92,246,.08);}
 /* CATEGORY OVERVIEW (employee) */
-.emp-cat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;}
+.emp-cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:10px;}
 .emp-cat{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:10px 9px;}
 .emp-cat.cat-c{border-color:rgba(0,212,170,.18);}
 .emp-cat.cat-b{border-color:rgba(91,106,240,.18);}
 .emp-cat.cat-m{border-color:rgba(240,192,91,.18);}
+.emp-cat.cat-cpremium{border-color:rgba(139,92,246,.18);}
 .ec-prefix{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;line-height:1;margin-bottom:2px;}
 .cat-c .ec-prefix,.emp-cat.cat-c .ec-prefix{color:var(--accent);}
 .cat-b .ec-prefix,.emp-cat.cat-b .ec-prefix{color:var(--a2);}
 .cat-m .ec-prefix,.emp-cat.cat-m .ec-prefix{color:var(--gold);}
+.cat-cpremium .ec-prefix,.emp-cat.cat-cpremium .ec-prefix{color:var(--purple);}
 .ec-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
 .ec-lbl{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);}
 .ec-val{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--text);}
@@ -139,6 +142,7 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .qfb{font-family:'DM Mono',monospace;font-size:10px;padding:5px 11px;border-radius:99px;border:1px solid var(--bd);background:var(--s2);color:var(--muted);cursor:pointer;transition:all .14s;white-space:nowrap;flex-shrink:0;-webkit-tap-highlight-color:transparent;}
 .qfb.qa{border-color:rgba(0,212,170,.4);color:var(--accent);background:rgba(0,212,170,.07);}
 .qfb.qc{border-color:rgba(0,212,170,.4);color:var(--accent);background:rgba(0,212,170,.07);}
+.qfb.qcp{border-color:rgba(139,92,246,.4);color:var(--purple);background:rgba(139,92,246,.07);}
 .qfb.qb{border-color:rgba(91,106,240,.4);color:var(--a2);background:rgba(91,106,240,.07);}
 .qfb.qm{border-color:rgba(240,192,91,.4);color:var(--gold);background:rgba(240,192,91,.07);}
 .qfb.qw{border-color:rgba(240,163,91,.4);color:var(--a3);background:rgba(240,163,91,.07);}
@@ -156,16 +160,18 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-he
 .inv-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:12px;}
 .inv-title{font-size:13px;font-weight:700;color:var(--text);}
 .inv-total{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);}
-.inv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.inv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
 .inv-cell{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:11px 10px;text-align:center;position:relative;overflow:hidden;}
 .inv-cell::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
 .inv-cell.iv-c::after{background:var(--accent);}
 .inv-cell.iv-b::after{background:var(--a2);}
 .inv-cell.iv-m::after{background:var(--gold);}
+.inv-cell.iv-cpremium::after{background:var(--purple);}
 .inv-prefix{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;line-height:1;margin-bottom:3px;}
 .inv-cell.iv-c .inv-prefix{color:var(--accent);}
 .inv-cell.iv-b .inv-prefix{color:var(--a2);}
 .inv-cell.iv-m .inv-prefix{color:var(--gold);}
+.inv-cell.iv-cpremium .inv-prefix{color:var(--purple);}
 .inv-bundles{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--text);line-height:1.1;}
 .inv-bundles-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
 .inv-items{font-family:'DM Mono',monospace;font-size:10px;color:var(--t2);margin-top:5px;padding-top:5px;border-top:1px solid var(--bd);}
@@ -714,7 +720,7 @@ body > .hero {
 
 .d2-buy-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   padding: 15px;
 }
@@ -733,6 +739,7 @@ body > .hero {
 .d2-buy-c { background: linear-gradient(165deg,#0fe6bc,#008f76); }
 .d2-buy-b { background: linear-gradient(165deg,#7b88ff,#3a44b8); }
 .d2-buy-m { background: linear-gradient(165deg,#f5c861,#cf9530); }
+.d2-buy-cp { background: linear-gradient(165deg,#a78bfa,#6d28d9); }
 
 .d2-buy-num {
   font-family: 'Space Grotesk', sans-serif;
@@ -743,7 +750,8 @@ body > .hero {
   color: rgba(0,0,0,.82);
 }
 
-.d2-buy-b .d2-buy-num {
+.d2-buy-b .d2-buy-num,
+.d2-buy-cp .d2-buy-num {
   color: rgba(255,255,255,.92);
 }
 
@@ -905,6 +913,7 @@ body > .hero {
 .inv-cell.iv-c { background: linear-gradient(165deg,#0fe6bc,#008f76); }
 .inv-cell.iv-b { background: linear-gradient(165deg,#7b88ff,#3a44b8); }
 .inv-cell.iv-m { background: linear-gradient(165deg,#f5c861,#cf9530); }
+.inv-cell.iv-cpremium { background: linear-gradient(165deg,#a78bfa,#6d28d9); }
 
 .inv-prefix {
   font-family: 'Space Grotesk', sans-serif;
@@ -915,7 +924,8 @@ body > .hero {
   color: rgba(0,0,0,.82) !important;
 }
 
-.inv-cell.iv-b .inv-prefix {
+.inv-cell.iv-b .inv-prefix,
+.inv-cell.iv-cpremium .inv-prefix {
   color: rgba(255,255,255,.92) !important;
 }
 
@@ -928,7 +938,8 @@ body > .hero {
   margin-top: 3px;
 }
 
-.inv-cell.iv-b .inv-bundles {
+.inv-cell.iv-b .inv-bundles,
+.inv-cell.iv-cpremium .inv-bundles {
   color: rgba(255,255,255,.85);
 }
 
@@ -950,7 +961,8 @@ body > .hero {
   color: inherit;
 }
 
-.inv-cell.iv-b .inv-items {
+.inv-cell.iv-b .inv-items,
+.inv-cell.iv-cpremium .inv-items {
   border-top-color: rgba(255,255,255,.2);
   color: rgba(255,255,255,.75);
 }
@@ -1143,6 +1155,12 @@ body > .hero {
         <div class="d2-buy-sub">@300 each</div>
       </div>
 
+      <div class="d2-buy-cell d2-buy-cp">
+        <div class="d2-buy-num" id="bp-cp">—</div>
+        <div class="d2-buy-name">CPREMIUM units</div>
+        <div class="d2-buy-sub">@350 each</div>
+      </div>
+
       <div class="d2-buy-cell d2-buy-b">
         <div class="d2-buy-num" id="bp-b">—</div>
         <div class="d2-buy-name">B bundles</div>
@@ -1229,6 +1247,7 @@ body > .hero {
   <div class="qf-row" style="margin-bottom:12px" id="stockFilterRow">
     <button class="qfb qa" onclick="setStockFilter('all',this)">All</button>
     <button class="qfb"    onclick="setStockFilter('type_c',this)">C units</button>
+    <button class="qfb"    onclick="setStockFilter('type_cp',this)">CPREMIUM units</button>
     <button class="qfb"    onclick="setStockFilter('type_b',this)">B bundles</button>
     <button class="qfb"    onclick="setStockFilter('type_m',this)">M bundles</button>
     <button class="qfb"    onclick="setStockFilter('waiting',this)">🟡 Waiting</button>
@@ -1348,6 +1367,7 @@ let allMessages    = [];      // owner_messages sent to this employee
 /* ─── SAFE TYPE HELPERS ───────────────────────────── */
 const TYPE_FALLBACK = {
   C: { prefix:'C', name:'Base stock unit', quantity_per_stock_sale:1, capital_per_stock_sale:300, earnings_per_approved_sale:100 },
+  CPREMIUM: { prefix:'CPREMIUM', name:'Premium stock unit', quantity_per_stock_sale:1, capital_per_stock_sale:350, earnings_per_approved_sale:100 },
   B: { prefix:'B', name:'Bundle B',        quantity_per_stock_sale:10, capital_per_stock_sale:150, earnings_per_approved_sale:100 },
   M: { prefix:'M', name:'Bundle M',        quantity_per_stock_sale:5,  capital_per_stock_sale:250, earnings_per_approved_sale:100 },
 };
@@ -1381,6 +1401,7 @@ function getTypeDisplayName(unit) { return getStockType(unit).name || 'Base stoc
 function typePillCls(prefix) {
   if (prefix === 'B') return 'tp-b';
   if (prefix === 'M') return 'tp-m';
+  if (prefix === 'CPREMIUM') return 'tp-cp';
   return 'tp-c';
 }
 
@@ -1702,8 +1723,8 @@ function renderUnseenControls() {
 /* ─── STOCK FILTER ────────────────────────────────── */
 function setStockFilter(f, btn) {
   stockFilter = f;
-  document.querySelectorAll('.qfb').forEach(b => b.classList.remove('qa','qc','qb','qm','qw','qs','qn'));
-  const clsMap = { all:'qa', type_c:'qc', type_b:'qb', type_m:'qm', waiting:'qw', sold:'qs', need_seen:'qn' };
+  document.querySelectorAll('.qfb').forEach(b => b.classList.remove('qa','qc','qcp','qb','qm','qw','qs','qn'));
+  const clsMap = { all:'qa', type_c:'qc', type_cp:'qcp', type_b:'qb', type_m:'qm', waiting:'qw', sold:'qs', need_seen:'qn' };
   if (btn) btn.classList.add(clsMap[f]||'qa');
   renderStockList(allStockUnits);
 }
@@ -1711,6 +1732,7 @@ function setStockFilter(f, btn) {
 function applyStockFilter(units) {
   if (stockFilter==='all')       return units;
   if (stockFilter==='type_c')    return units.filter(u=>getStockPrefix(u)==='C');
+  if (stockFilter==='type_cp')   return units.filter(u=>getStockPrefix(u)==='CPREMIUM');
   if (stockFilter==='type_b')    return units.filter(u=>getStockPrefix(u)==='B');
   if (stockFilter==='type_m')    return units.filter(u=>getStockPrefix(u)==='M');
   if (stockFilter==='waiting')   return units.filter(u=>u.status==='waiting_to_be_sold');
@@ -1738,20 +1760,28 @@ function calcMyStats() {
   const totalPaid = allPayouts.reduce((acc,p) => acc+(p.amount||0), 0);
   const avail = sal - totalPaid;
 
+  // Level ladder: Lv2 at 20 units, Lv3 at 45, then +25 units per level up to MAX_LEVEL.
+  // Splits stay position-based (above) — levels 3+ display 50/50.
+  const MAX_LEVEL = 60;
+  const levelStart = n => n <= 1 ? 0 : n === 2 ? 20 : 45 + (n - 3) * 25;
+  let lvlNum;
+  if (u < 20)      lvlNum = 1;
+  else if (u < 45) lvlNum = 2;
+  else             lvlNum = Math.min(3 + Math.floor((u - 45) / 25), MAX_LEVEL);
+
   let level, dPct, sPct, pbLbl, pbPct, pbW, pbFull, pbSub, nextLbl;
-  if (u < 20) {
-    level='Level 1'; dPct=75; sPct=25;
-    const pct=Math.round(u/20*100), r=20-u;
-    pbLbl='Progress to Level 2'; pbPct=pct+'%'; pbW=pct; pbFull=false;
-    pbSub=r+' approved event'+(r===1?'':'s')+' remaining'; nextLbl=r+' → Lv 2';
-  } else if (u < 45) {
-    level='Level 2'; dPct=60; sPct=40;
-    const pct=Math.round((u-20)/25*100), r=45-u;
-    pbLbl='Progress to Level 3'; pbPct=pct+'%'; pbW=pct; pbFull=false;
-    pbSub=r+' approved event'+(r===1?'':'s')+' remaining'; nextLbl=r+' → Lv 3';
+  level = 'Level ' + lvlNum;
+  if (lvlNum === 1)      { dPct = 75; sPct = 25; }
+  else if (lvlNum === 2) { dPct = 60; sPct = 40; }
+  else                   { dPct = 50; sPct = 50; }
+
+  if (lvlNum < MAX_LEVEL) {
+    const cur = levelStart(lvlNum), next = levelStart(lvlNum + 1);
+    const pct = Math.round((u - cur) / (next - cur) * 100), r = next - u;
+    pbLbl='Progress to Level '+(lvlNum+1); pbPct=pct+'%'; pbW=pct; pbFull=false;
+    pbSub=r+' approved event'+(r===1?'':'s')+' remaining'; nextLbl=r+' → Lv '+(lvlNum+1);
   } else {
-    level='Level 3'; dPct=50; sPct=50;
-    pbLbl='Level 3 — Stable'; pbPct='100%'; pbW=100; pbFull=true;
+    pbLbl='Level '+MAX_LEVEL+' — Stable'; pbPct='100%'; pbW=100; pbFull=true;
     pbSub='Maximum level reached.'; nextLbl='Max level';
   }
 
@@ -1814,6 +1844,7 @@ function renderTracker(s) {
   if (s.pbFull) fill.classList.add('full'); else fill.classList.remove('full');
   [['ms10',10],['ms20',20],['ms30',30],['ms45',45]].forEach(([id,n])=>msEl(id,s.u>=n));
   txt('bp-c', Math.floor(s.dep/300));
+  txt('bp-cp', Math.floor(s.dep/350));
   txt('bp-b', Math.floor(s.dep/150));
   txt('bp-m', Math.floor(s.dep/250));
 }
@@ -1850,7 +1881,7 @@ function renderPayouts() {
 function renderInventory() {
   const panel = document.getElementById('invPanel');
   if (!panel) return;
-  const prefixes = ['C','B','M'];
+  const prefixes = ['C','CPREMIUM','B','M'];
   // waiting units = on hand, available to sell
   const waiting = allStockUnits.filter(u => u.status === 'waiting_to_be_sold');
   const totalBundles = waiting.length;
@@ -1863,7 +1894,7 @@ function renderInventory() {
     const perBundle = t.quantity_per_stock_sale;
     const items   = bundles * perBundle;
     totalItems += items;
-    const unitWord = pfx === 'C' ? 'unit' : 'bundle';
+    const unitWord = perBundle > 1 ? 'bundle' : 'unit';
     const displayName = pfx + ' ' + unitWord + (bundles!==1?'s':'');
     return `
     <div class="inv-cell iv-${pfx.toLowerCase()}">
@@ -1983,7 +2014,7 @@ function renderMessages() {
 function renderEmpCategoryOverview() {
   const grid = document.getElementById('empCatGrid');
   if (!grid) return;
-  const prefixes = ['C','B','M'];
+  const prefixes = ['C','CPREMIUM','B','M'];
   grid.innerHTML = prefixes.map(pfx => {
     const t = TYPE_FALLBACK[pfx];
     const units   = allStockUnits.filter(u=>getStockPrefix(u)===pfx);
@@ -1992,8 +2023,8 @@ function renderEmpCategoryOverview() {
     const sold    = units.filter(u=>u.status==='sold_approved').length;
     const notseen = units.filter(u=>u.status==='sold_approved'&&!u.employee_seen_at).length;
     const physItems = total * t.quantity_per_stock_sale;
-    const unitWord  = pfx==='C' ? 'unit' : 'bundle';
-    const physLabel = pfx==='C' ? '1 item each' : pfx==='B' ? '10 items each' : '5 items each';
+    const unitWord  = t.quantity_per_stock_sale > 1 ? 'bundle' : 'unit';
+    const physLabel = t.quantity_per_stock_sale + ' item' + (t.quantity_per_stock_sale===1?'':'s') + ' each';
     return `
     <div class="emp-cat cat-${pfx.toLowerCase()}">
       <div class="ec-prefix">${pfx}</div>
@@ -2008,7 +2039,7 @@ function renderEmpCategoryOverview() {
 
 function resetDashboard() {
   ['unitNum','kpi-units','kpi-dep','kpi-sal','kpi-avail','stLevel','stSplit','stDep','stSal','stEarn','stNext','pbLbl','pbPct','pbSub',
-   'sal-earned','sal-paid','sal-avail','sal-dep','bp-c','bp-b','bp-m'].forEach(id=>txt(id,'—'));
+   'sal-earned','sal-paid','sal-avail','sal-dep','bp-c','bp-cp','bp-b','bp-m'].forEach(id=>txt(id,'—'));
   document.getElementById('pbFill').style.width='0%';
   const availKpi = document.getElementById('kpi-avail');
   if (availKpi) availKpi.style.color='';
