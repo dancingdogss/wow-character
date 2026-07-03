@@ -986,6 +986,223 @@ body > .hero {
   }
 }
 
+/* =========================================================
+   P3 PREMIUM POLISH — employee dashboard refinement layer
+   Pure visual overrides. No JS-bound IDs/classes removed.
+========================================================= */
+
+/* ── Rhythm & section separation ── */
+.section { padding-top: 28px; animation: p3FadeUp .45s cubic-bezier(.22,.7,.3,1) both; }
+@keyframes p3FadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.slbl { font-size: 9.5px; letter-spacing: 2.8px; margin-bottom: 12px; }
+.slbl::after { content: ''; flex: 1 1 auto; height: 1px; margin-left: 12px; background: linear-gradient(90deg, var(--bd2), transparent); }
+
+/* ── Top bar / navigation ── */
+.topbar { background: rgba(5,6,10,.8); border-bottom-color: rgba(255,255,255,.06); }
+.npill {
+  padding: 8px 13px; font-size: 10px; border-radius: 10px;
+  background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.08);
+  transition: color .18s, border-color .18s, background .18s, box-shadow .18s, transform .12s;
+  min-height: 30px;
+}
+.npill:active { transform: scale(.94); }
+.npill.active {
+  color: var(--accent); border-color: rgba(0,212,170,.45);
+  background: rgba(0,212,170,.09);
+  box-shadow: 0 0 16px -7px rgba(0,212,170,.8);
+}
+
+/* ── App header ── */
+body > .hero { padding: 16px 14px 14px; background: linear-gradient(180deg, rgba(13,18,32,.85), rgba(7,9,14,.95)); }
+.hero-txt h1 { font-size: 15.5px; }
+.emp-pill {
+  font-size: 10px; padding: 5px 12px;
+  background: linear-gradient(135deg, rgba(0,212,170,.15), rgba(91,106,240,.1));
+  border-color: rgba(0,212,170,.32);
+  box-shadow: 0 0 18px -8px rgba(0,212,170,.8);
+}
+.d2-note { margin-top: 2px; }
+
+/* ── Near-level motivation state ── */
+.d2-hero.near-level {
+  border-color: rgba(240,192,91,.5);
+  box-shadow: 0 20px 55px -20px rgba(240,192,91,.4), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.d2-hero.near-level .d2-hero-bar i { box-shadow: 0 0 18px rgba(240,192,91,.6); }
+.d2-hero.near-level #pbPct { color: var(--gold); font-weight: 700; }
+.d2-flame { color: var(--gold); font-weight: 700; animation: p3Pulse 1.8s ease-in-out infinite; }
+@keyframes p3Pulse { 0%,100% { opacity: 1; } 50% { opacity: .55; } }
+
+/* ── Glass cards ── */
+.card {
+  border-radius: 18px;
+  background: linear-gradient(165deg, rgba(255,255,255,.035), rgba(255,255,255,.008));
+  border-color: rgba(255,255,255,.07);
+  box-shadow: 0 10px 30px -18px rgba(0,0,0,.7);
+}
+.kpi {
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+  border-color: rgba(255,255,255,.07);
+  transition: transform .16s, border-color .18s;
+}
+.kpi:active { transform: scale(.985); }
+.d2-k { transition: transform .16s, border-color .18s; }
+.d2-k:active { transform: scale(.985); }
+.payout-row { transition: background .16s; }
+.payout-row:hover { background: rgba(255,255,255,.02); }
+
+/* ── Milestone footer (level cap note) ── */
+.d2-ms-foot {
+  padding: 12px 15px; border-top: 1px solid var(--bd);
+  font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--muted);
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  background: linear-gradient(90deg, rgba(240,192,91,.04), transparent);
+}
+.d2-ms-foot b { color: var(--gold); font-weight: 700; letter-spacing: .5px; }
+
+/* ── Quick filters ── */
+.qfb { padding: 8px 13px; border-radius: 10px; min-height: 30px; background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.08); transition: all .15s; }
+.qfb:active { transform: scale(.94); }
+
+/* ── Mark-all button ── */
+.markall-btn { padding: 12px; border-radius: 12px; font-weight: 700; box-shadow: 0 6px 20px -10px rgba(139,92,246,.7); transition: all .16s; }
+.markall-btn:active { transform: scale(.98); }
+
+/* ── Stock cards ── */
+.stock-card {
+  border-radius: 15px;
+  background: linear-gradient(165deg, rgba(255,255,255,.035), rgba(11,14,20,.55));
+  box-shadow: 0 8px 22px -14px rgba(0,0,0,.7);
+  transition: transform .16s, border-color .2s, box-shadow .2s;
+  margin-bottom: 10px;
+}
+.stock-card:active { transform: scale(.99); }
+.stock-card.sn { box-shadow: 0 8px 28px -12px rgba(139,92,246,.4); }
+.sbadge { padding: 4px 10px; }
+.sc-btn.seen-btn { padding: 11px 14px; font-size: 11px; font-weight: 700; border-radius: 10px; transition: all .15s; }
+.sc-btn.seen-btn:active { transform: scale(.97); }
+
+/* ── CPREMIUM premium treatment ── */
+.stock-card.pfx-cpremium {
+  border-color: rgba(167,139,250,.4);
+  background: linear-gradient(165deg, rgba(139,92,246,.1), rgba(11,14,20,.62));
+  box-shadow: 0 10px 30px -14px rgba(139,92,246,.5);
+}
+.stock-card.pfx-cpremium::before {
+  content: ''; display: block; height: 3px;
+  background: linear-gradient(90deg, #a78bfa, #f0c05b, #a78bfa);
+  background-size: 200% 100%;
+  animation: p3Sheen 3.5s linear infinite;
+}
+@keyframes p3Sheen { to { background-position: -200% 0; } }
+.tp-cp {
+  background: linear-gradient(135deg, rgba(139,92,246,.22), rgba(240,192,91,.12));
+  border-color: rgba(167,139,250,.5); color: #c4b5fd; font-weight: 700;
+  box-shadow: 0 0 12px -5px rgba(167,139,250,.8);
+}
+.tp-cp::before { content: '★ '; color: var(--gold); }
+.emp-cat.cat-cpremium {
+  border-color: rgba(167,139,250,.35);
+  background: linear-gradient(165deg, rgba(139,92,246,.09), var(--s1));
+  box-shadow: 0 6px 18px -12px rgba(139,92,246,.6);
+}
+
+/* ── Messages ── */
+.msg-card {
+  border-radius: 14px; padding: 15px;
+  background: linear-gradient(165deg, rgba(255,255,255,.035), rgba(11,14,20,.5));
+  border-color: rgba(255,255,255,.07);
+  transition: border-color .2s, box-shadow .2s;
+  margin-bottom: 10px;
+}
+.msg-card.unseen {
+  border-color: rgba(91,106,240,.5);
+  background: linear-gradient(165deg, rgba(91,106,240,.12), rgba(11,14,20,.55));
+  box-shadow: 0 10px 28px -14px rgba(91,106,240,.55);
+}
+.msg-new-chip {
+  font-family: 'DM Mono', monospace; display: inline-block;
+  font-size: 8.5px; font-weight: 700; letter-spacing: 1.4px;
+  padding: 3px 9px; border-radius: 99px;
+  background: linear-gradient(135deg, var(--a2), #7b88ff); color: #fff;
+  margin-bottom: 8px; animation: p3Pulse 2s ease-in-out infinite;
+}
+.msg-confirm-btn {
+  padding: 9px 15px; border-radius: 10px; font-size: 10.5px; font-weight: 700;
+  background: linear-gradient(135deg, rgba(91,106,240,.3), rgba(91,106,240,.12));
+  border-color: rgba(91,106,240,.55); color: #aab4ff;
+  box-shadow: 0 4px 14px -8px rgba(91,106,240,.9);
+  transition: all .15s;
+}
+.msg-confirm-btn:active { transform: scale(.96); }
+.msg-confirmed { font-weight: 700; }
+
+/* ── Empty / loading states ── */
+.empty {
+  border-radius: 14px; padding: 40px 16px;
+  background: radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.03), transparent 70%), var(--s1);
+  border: 1px dashed rgba(255,255,255,.1);
+  line-height: 1.7;
+}
+.empty-ico { font-size: 30px; opacity: .5; margin-bottom: 10px; }
+.loading-wrap { padding: 32px 16px; position: relative; overflow: hidden; border-radius: 14px; }
+.loading-wrap::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.05) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: p3Sheen 1.6s linear infinite;
+}
+
+/* ── Toast ── */
+.toast {
+  background: rgba(22,27,37,.92);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.55);
+  transition: opacity .3s, transform .3s;
+  transform: translateX(-50%) translateY(8px);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── Alert / message banners ── */
+.alert-banner, .msg-banner { box-shadow: 0 10px 26px -16px rgba(139,92,246,.6); }
+.alert-banner:active, .msg-banner:active { transform: scale(.99); }
+
+/* ── Locked (private link required) screen ── */
+body.locked .section,
+body.locked .alert-banner,
+body.locked .msg-banner { display: none !important; }
+body.locked .nav-pills { visibility: hidden; }
+.locked-screen {
+  padding: 56px 20px 44px;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  animation: p3FadeUp .5s ease both;
+}
+.locked-orb {
+  width: 86px; height: 86px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 34px; margin-bottom: 22px;
+  background: radial-gradient(circle at 35% 30%, rgba(0,212,170,.25), rgba(139,92,246,.18) 70%), var(--s2);
+  border: 1px solid rgba(0,212,170,.3);
+  box-shadow: 0 0 44px -12px rgba(0,212,170,.55), inset 0 1px 0 rgba(255,255,255,.12);
+  animation: p3OrbFloat 4s ease-in-out infinite;
+}
+@keyframes p3OrbFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.locked-title { font-size: 19px; font-weight: 700; letter-spacing: -.3px; margin-bottom: 8px; }
+.locked-sub { font-size: 12.5px; color: var(--t2); line-height: 1.7; max-width: 310px; margin: 0 auto 18px; }
+.locked-hint {
+  font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--accent);
+  line-height: 1.8; max-width: 310px;
+  background: rgba(0,212,170,.06); border: 1px solid rgba(0,212,170,.22);
+  border-radius: 14px; padding: 13px 16px;
+}
+
+/* ── Motion safety ── */
+@media (prefers-reduced-motion: reduce) {
+  .section, .locked-screen, .locked-orb, .d2-flame, .msg-new-chip,
+  .stock-card.pfx-cpremium::before, .loading-wrap::after { animation: none; }
+}
+
 </style>
 </head>
 <body>
@@ -994,8 +1211,8 @@ body > .hero {
   <div class="hero-inner">
     <div class="hero-mark">📊</div>
     <div class="hero-txt">
-      <h1>Employee Tracker</h1>
-      <p>Progress, salary, deposit, and stock units.</p>
+      <h1>Employee Dashboard</h1>
+      <p>Your progress, salary, deposit &amp; stock — live.</p>
     </div>
     <span class="emp-pill" id="empPill">—</span>
   </div>
@@ -1054,14 +1271,14 @@ body > .hero {
 
 <!-- A. PROGRESS -->
 <div class="section" id="sec-progress">
-  <div class="d2-note">// Live employee HUD · connected to your Supabase data</div>
+  <div class="d2-note">// Your live progress · updates in real time</div>
 
   <!-- D2 POLISHED HERO -->
   <div class="d2-hero">
     <div class="d2-hero-glow"></div>
     <div class="d2-hero-top">
       <span class="d2-hero-ey">Approved sales</span>
-      <span class="d2-hero-who">Live profile</span>
+      <span class="d2-hero-who" id="empName">Live profile</span>
     </div>
 
     <div class="d2-hero-big" id="unitNum">—</div>
@@ -1083,6 +1300,7 @@ body > .hero {
       <span id="pbPct">—</span>
       <span class="d2-hero-sep">·</span>
       <span id="pbSub">Select your profile above</span>
+      <span class="d2-flame" id="nearFlame" style="display:none">🔥 Almost there!</span>
     </div>
   </div>
 
@@ -1209,6 +1427,11 @@ body > .hero {
         <div class="d2-ms-desc">3,000 deposit · 1,500 salary</div>
       </div>
       <span class="d2-ms-badge d2-mb3">Lv 3</span>
+    </div>
+
+    <div class="d2-ms-foot">
+      <span>Then +25 approved events per level</span>
+      <b>Level cap · 60</b>
     </div>
   </div>
 </div>
@@ -1340,6 +1563,10 @@ function goToSection(id) {
   const el = document.getElementById(id);
   if (!el) { console.warn('goToSection: missing section', id); return; }
   el.scrollIntoView({ behavior:'smooth', block:'start' });
+  // Highlight the matching nav pill (covers taps and Telegram deep links)
+  document.querySelectorAll('.npill').forEach(b => {
+    b.classList.toggle('active', b.dataset.target === id);
+  });
 }
 window.goToSection = goToSection;
 document.querySelectorAll('[data-target]').forEach(btn => {
@@ -1474,6 +1701,8 @@ function setCurrentEmployee(emp) {
   currentEmpId   = emp.id;
   currentEmpCode = emp.employee_code;
   document.getElementById('empPill').textContent = currentEmpCode || '—';
+  const nameEl = document.getElementById('empName');
+  if (nameEl && emp.name) nameEl.textContent = emp.name;
   localStorage.setItem('emp_selected_id', currentEmpId);
 }
 
@@ -1483,16 +1712,19 @@ function hideSelectorUI() {
 }
 
 function showLockedMessage(msg) {
-  const text = msg || 'Private employee link required. Please ask the owner for your dashboard link.';
+  const text = msg || 'This dashboard is private and opens only through your personal access link.';
   const page = document.querySelector('.page');
   if (page) {
     const div = document.createElement('div');
-    div.style.cssText = 'padding:60px 20px;text-align:center;';
+    div.className = 'locked-screen';
     div.innerHTML =
-      '<div style="font-size:36px;margin-bottom:16px;">🔒</div>' +
-      '<div style="font-family:\'DM Mono\',monospace;font-size:12px;color:var(--muted);line-height:1.7;max-width:300px;margin:0 auto;">' + text + '</div>';
+      '<div class="locked-orb">🔐</div>' +
+      '<div class="locked-title">Private Dashboard</div>' +
+      '<div class="locked-sub">' + text + '</div>' +
+      '<div class="locked-hint">📲 Open your private dashboard link from Telegram, or ask the owner for your personal link.</div>';
     page.prepend(div);
   }
+  document.body.classList.add('locked');
   hideSelectorUI();
 }
 
@@ -1842,6 +2074,12 @@ function renderTracker(s) {
   const fill = document.getElementById('pbFill');
   fill.style.width = s.pbW+'%';
   if (s.pbFull) fill.classList.add('full'); else fill.classList.remove('full');
+  // Motivation state when close to next level (visual only)
+  const nearLevel = !s.pbFull && s.pbW >= 75;
+  const heroCard = document.querySelector('.d2-hero');
+  if (heroCard) heroCard.classList.toggle('near-level', nearLevel);
+  const flame = document.getElementById('nearFlame');
+  if (flame) flame.style.display = nearLevel ? '' : 'none';
   [['ms10',10],['ms20',20],['ms30',30],['ms45',45]].forEach(([id,n])=>msEl(id,s.u>=n));
   txt('bp-c', Math.floor(s.dep/300));
   txt('bp-cp', Math.floor(s.dep/350));
@@ -1998,6 +2236,7 @@ function renderMessages() {
     const timeStr  = m.created_at || m.sent_at;
     return `
     <div class="msg-card ${isSeen?'':'unseen'}">
+      ${isSeen ? '' : '<span class="msg-new-chip">NEW</span>'}
       ${m.title ? `<div style="font-family:'DM Mono',monospace;font-size:10px;font-weight:700;color:var(--a2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px">${esc(m.title)}</div>` : ''}
       <div class="msg-text">${esc(bodyText)}</div>
       <div class="msg-meta">
@@ -2132,7 +2371,7 @@ function stockCardHtml(u) {
                  : '1 physical item';
 
   return `
-  <div class="stock-card ${cardCls}">
+  <div class="stock-card ${cardCls} pfx-${prefix.toLowerCase()}">
     <div class="sc-top">
       <div class="sc-ids">
         <span class="sc-sid">${esc(u.stock_id)}</span>
