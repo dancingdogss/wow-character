@@ -338,7 +338,10 @@ body::before{
 .stock-card.pfx-cpremium::before{content:'';display:block;height:4px;background:linear-gradient(90deg,var(--purple),var(--gold),var(--purple));background-size:200% 100%;animation:sheen 3.5s linear infinite;}
 .sc-top{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--bd);gap:8px;flex-wrap:wrap;}
 .sc-ids{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1;min-width:0;}
-.sc-sid{font-family:var(--f-m);font-size:13px;font-weight:700;color:var(--text);letter-spacing:.3px;}
+.sc-sid{font-family:var(--f-d);font-size:13px;font-weight:700;color:var(--text);letter-spacing:.2px;}
+.sc-ref{font-family:var(--f-m);font-size:9px;color:var(--muted);opacity:.65;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.stx-grp .stx-grp-count{font-family:var(--f-d);font-size:16px;font-weight:700;color:var(--text);padding:8px 0 2px;}
+.stx-grp .stx-grp-sub{font-family:var(--f-m);font-size:10px;color:var(--muted);}
 .sc-oid{font-family:var(--f-m);font-size:9.5px;padding:3px 9px;border-radius:99px;background:rgba(0,0,0,.3);border:1px solid var(--bd);}
 .sc-oid.has-order{color:var(--accent);border-color:rgba(67,226,142,.3);}
 .sc-oid.no-order{color:var(--muted);}
@@ -1077,6 +1080,18 @@ function typePillCls(prefix) {
   return 'tp-c';
 }
 
+// Primary, user-facing label for a stock unit (owner-entered stock_name, with
+// a fallback to the internal stock_id for legacy rows: stock_name || stock_id).
+function stockLabel(u) {
+  const name = (u && u.stock_name != null) ? String(u.stock_name).trim() : '';
+  return name || (u && u.stock_id) || '—';
+}
+// Internal reference — small secondary/audit text only, '' when redundant.
+function stockRef(u) {
+  const ref = (u && u.stock_id) ? String(u.stock_id) : '';
+  return ref && ref !== stockLabel(u) ? ref : '';
+}
+
 /* ─── BOOT ────────────────────────────────────────── */
 async function init() {
   const { data } = await _sb.from('stock_types').select('*');
@@ -1638,7 +1653,7 @@ function staleHtml(waiting) {
   const oldest = waiting.reduce((a,b) => new Date(a.uploaded_at) < new Date(b.uploaded_at) ? a : b);
   const days = Math.floor((Date.now() - new Date(oldest.uploaded_at).getTime()) / 864e5);
   if (days < 3) return '';
-  return `<div class="inv-stale">⏳ Oldest waiting unit: <strong>${days} day${days!==1?'s':''}</strong> (${esc(oldest.stock_id)})</div>`;
+  return `<div class="inv-stale">⏳ Oldest waiting unit: <strong>${days} day${days!==1?'s':''}</strong> (${esc(stockLabel(oldest))})</div>`;
 }
 
 /* ─── ACTIVITY RENDER ─────────────────────────────── */
@@ -1695,7 +1710,7 @@ function renderActivity() {
   const cardsHtml = visible.map(ev => {
     const m = eventMeta(ev.event_type);
     const unit = allStockUnits.find(u => u.id === ev.stock_unit_id);
-    const sid = unit ? unit.stock_id : '—';
+    const sid = unit ? stockLabel(unit) : '—';
     return `
     <div class="act-row">
       <div class="act-rail"><span class="act-dot ${m.cls}"></span></div>
@@ -1848,14 +1863,52 @@ const STOCK_GROUPS = [
 
 function matchesStockSearch(u, q) {
   if (!q) return true;
+  const name = (u.stock_name || '').toLowerCase();
   const sid = (u.stock_id || '').toLowerCase();
   const oid = (u.order_id || '').toLowerCase();
-  return sid.includes(q) || oid.includes(q);
+  return name.includes(q) || sid.includes(q) || oid.includes(q);
 }
 
 function stockCardsOrEmpty(list, emptyMsg) {
   if (!list.length) return `<div class="empty stx-empty-sm"><span class="empty-ico">📭</span>${emptyMsg}</div>`;
   return list.map(u => stockCardHtml(u)).join('');
+}
+
+// Current (waiting) stock is shown GROUPED by identical stock name + type, so
+// "25 Blue Hoodie" reads as one summary line instead of 25 identical cards.
+// This is purely visual — the underlying rows stay separate (each keeps its own
+// id/stock_id and is marked sold individually via the owner dashboard).
+function waitingGroupedHtml(units, emptyMsg) {
+  if (!units.length) return `<div class="empty stx-empty-sm"><span class="empty-ico">📭</span>${emptyMsg}</div>`;
+  const groups = new Map();
+  units.forEach(u => {
+    const key = stockLabel(u) + ' ' + getStockPrefix(u);
+    let g = groups.get(key);
+    if (!g) { g = { rep: u, count: 0 }; groups.set(key, g); }
+    g.count++;
+  });
+  return Array.from(groups.values()).map(g => {
+    const u = g.rep;
+    const prefix = getStockPrefix(u);
+    const t = getStockType(u);
+    const qty = t.quantity_per_stock_sale || 1;
+    const cap = t.capital_per_stock_sale || 300;
+    const physLine = qty > 1
+      ? `Each unit = ${qty} physical items · ${g.count} × ${qty} = ${g.count*qty} items`
+      : '1 physical item each';
+    return `
+    <div class="stock-card sw pfx-${prefix.toLowerCase()} stx-grp">
+      <div class="sc-top">
+        <div class="sc-ids"><span class="sc-sid">${esc(stockLabel(u))}</span></div>
+        <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:flex-end">
+          <span class="type-pill ${typePillCls(prefix)}">${prefix} · ×${qty}</span>
+          <span class="sbadge s-waiting">🟡 Waiting to be sold</span>
+        </div>
+      </div>
+      <div class="stx-grp-count">${g.count} stock unit${g.count===1?'':'s'}</div>
+      <div class="stx-grp-sub">${physLine} · capital ${fmt(cap)} coins each</div>
+    </div>`;
+  }).join('');
 }
 
 function toggleStockGroup(key) {
@@ -1921,6 +1974,9 @@ function renderStockGroupHtml(g, units, q) {
         ${shown < totalCount ? `<button type="button" class="stx-show-more-btn" onclick="showMoreStock('${g.key}')">Show 10 more</button>` : ''}
       </div>`;
     }
+  } else if (g.key === 'waiting') {
+    // Current stock is grouped by identical name + type (visual only).
+    bodyHtml = waitingGroupedHtml(ordered, g.emptyMsg);
   } else {
     bodyHtml = stockCardsOrEmpty(ordered, g.emptyMsg);
   }
@@ -2012,7 +2068,8 @@ function stockCardHtml(u) {
   <div class="stock-card ${cardCls} pfx-${prefix.toLowerCase()}">
     <div class="sc-top">
       <div class="sc-ids">
-        <span class="sc-sid">${esc(u.stock_id)}</span>
+        <span class="sc-sid">${esc(stockLabel(u))}</span>
+        ${stockRef(u) ? `<span class="sc-ref" title="Internal reference">${esc(stockRef(u))}</span>` : ''}
         ${oidHtml}
       </div>
       <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;justify-content:flex-end">
