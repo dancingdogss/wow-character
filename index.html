@@ -216,6 +216,13 @@ body::before{
 .v-s{font-size:9.5px;color:var(--muted);margin-top:4px;}
 .vv-gold{color:var(--gold);} .vv-green{color:var(--accent);} .vv-vio{color:#aa9bff;}
 
+/* Deposit-cap status (shown only once deposit == DEPOSIT_CAP) */
+.cap-status{display:none;padding:13px 15px;gap:5px;flex-direction:column;border-top:1px solid var(--bd);background:linear-gradient(90deg,rgba(255,200,77,.09),transparent);}
+.cap-status.show{display:flex;}
+.cap-status-title{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:var(--gold);}
+.cap-status-body{font-size:11px;line-height:1.55;color:var(--t2);}
+.cap-status-future{display:inline-flex;align-items:center;gap:5px;margin-top:2px;width:fit-content;font-family:var(--f-m);font-size:9px;letter-spacing:.4px;color:var(--muted);background:var(--s2);border:1px solid var(--bd2);border-radius:99px;padding:4px 10px;opacity:.8;cursor:default;}
+
 /* ── DEPOSIT POWER SHOP ── */
 .shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;}
 .shop-tile{position:relative;border-radius:16px;padding:15px 10px 12px;text-align:center;background:var(--s2);border:1px solid var(--bd2);overflow:hidden;}
@@ -315,6 +322,7 @@ body::before{
 .stock-card:active{transform:scale(.99);}
 .stock-card:last-child{margin-bottom:0;}
 .stock-card.sw{border-color:rgba(255,171,74,.3);}
+.stock-card.sr{border-color:rgba(255,171,74,.3);}
 .stock-card.sa{border-color:rgba(67,226,142,.3);}
 .stock-card.sn{border-color:rgba(199,125,255,.55);box-shadow:0 12px 34px -14px rgba(199,125,255,.65);}
 .stock-card.si{border-color:rgba(255,93,125,.35);}
@@ -352,6 +360,7 @@ body::before{
 /* Status + type badges */
 .sbadge{font-family:var(--f-m);font-size:8.5px;font-weight:800;padding:4px 10px;border-radius:8px;letter-spacing:.4px;white-space:nowrap;}
 .s-waiting{background:rgba(255,171,74,.13);color:var(--a3);border:1px solid rgba(255,171,74,.4);}
+.s-reported{background:rgba(255,171,74,.13);color:var(--a3);border:1px solid rgba(255,171,74,.4);}
 .s-sold{background:rgba(199,125,255,.14);color:var(--purple);border:1px solid rgba(199,125,255,.45);}
 .s-seen{background:rgba(67,226,142,.1);color:var(--accent);border:1px solid rgba(67,226,142,.3);}
 .s-issue{background:rgba(255,93,125,.13);color:var(--red);border:1px solid rgba(255,93,125,.4);}
@@ -425,6 +434,53 @@ body::before{
 /* ── EMPTY / LOADING STATES ── */
 .empty{text-align:center;padding:42px 18px;color:var(--muted);font-family:var(--f-m);font-size:10.5px;line-height:1.8;background:radial-gradient(120% 100% at 50% 0%,rgba(143,123,255,.06),transparent 70%),var(--s1);border:1px dashed var(--bd2);border-radius:16px;}
 .empty-ico{font-size:32px;opacity:.55;margin-bottom:10px;display:block;filter:grayscale(.3);}
+.empty.stx-empty-sm{padding:22px 16px;}
+.empty.stx-empty-sm .empty-ico{font-size:24px;margin-bottom:6px;}
+
+/* ── STOCK SEARCH ── */
+.stx-search-row{position:relative;display:flex;align-items:center;margin-bottom:14px;}
+.stx-search-ico{position:absolute;left:13px;font-size:12px;opacity:.55;pointer-events:none;}
+.stx-search-input{width:100%;font-family:var(--f-m);font-size:12px;color:var(--text);background:var(--s1);border:1px solid var(--bd);border-radius:13px;padding:11px 36px 11px 34px;outline:none;transition:border-color .15s;min-width:0;}
+.stx-search-input::placeholder{color:var(--muted);}
+.stx-search-input:focus{border-color:rgba(199,125,255,.55);}
+.stx-search-clear{position:absolute;right:6px;width:26px;height:26px;border-radius:50%;border:none;background:var(--s2);color:var(--muted);font-size:12px;cursor:pointer;display:none;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
+.stx-search-clear.show{display:flex;}
+.stx-search-clear:active{transform:scale(.9);}
+
+/* ── STOCK GROUPS (accordion sections) ── */
+.stx-group{border-radius:18px;border:1px solid var(--bd);background:linear-gradient(170deg,rgba(255,255,255,.025),rgba(255,255,255,.006));overflow:hidden;margin-bottom:10px;}
+.stx-group-h{width:100%;display:flex;align-items:center;gap:9px;padding:13px 14px;background:transparent;border:none;color:var(--text);cursor:pointer;font-family:var(--f-d);text-align:left;-webkit-tap-highlight-color:transparent;}
+.stx-group-h:active{background:rgba(255,255,255,.03);}
+.stx-g-title{font-size:12.5px;font-weight:800;}
+.stx-g-count{font-family:var(--f-m);font-size:10px;font-weight:700;color:var(--muted);background:var(--s2);border:1px solid var(--bd2);border-radius:99px;padding:2px 9px;}
+.stx-g-unseen{font-family:var(--f-m);font-size:9px;font-weight:700;color:var(--purple);white-space:nowrap;}
+.stx-g-chev{margin-left:auto;font-size:11px;color:var(--muted);transition:transform .2s;}
+.stx-group-h[aria-expanded="true"] .stx-g-chev{transform:rotate(180deg);}
+.stx-group-body{padding:0 12px 12px;}
+.stx-group-body[hidden]{display:none;}
+.stx-group--alert{border-color:rgba(255,93,125,.4);box-shadow:0 12px 30px -18px rgba(255,93,125,.6);}
+.stx-group--alert .stx-g-title{color:var(--red);}
+.stx-group--alert .stx-g-count{color:var(--red);border-color:rgba(255,93,125,.5);background:rgba(255,93,125,.1);}
+.stx-group--archive{opacity:.8;}
+.stx-group--archive .stx-g-title{color:var(--muted);font-weight:700;}
+
+/* ── SALES HISTORY PAGINATION ── */
+.stx-history-foot{display:flex;flex-direction:column;align-items:center;gap:9px;padding-top:10px;}
+.stx-history-progress{font-family:var(--f-m);font-size:9.5px;color:var(--muted);}
+.stx-show-more-btn{width:100%;font-family:var(--f-m);font-size:11px;font-weight:700;padding:12px;border-radius:13px;cursor:pointer;-webkit-tap-highlight-color:transparent;color:var(--t2);border:1px solid var(--bd2);background:var(--s2);transition:all .15s;}
+.stx-show-more-btn:active{transform:scale(.98);}
+
+/* ── WHAT NEEDS YOUR ATTENTION ── */
+.attn-list{display:flex;flex-direction:column;}
+.attn-row{width:100%;display:flex;align-items:center;gap:10px;padding:13px 15px;background:transparent;border:none;border-bottom:1px solid var(--bd);color:var(--text);cursor:pointer;font-family:var(--f-d);text-align:left;-webkit-tap-highlight-color:transparent;min-width:0;}
+.attn-row:last-child{border-bottom:none;}
+.attn-row:active{background:rgba(255,255,255,.03);}
+.attn-ico{font-size:15px;flex-shrink:0;}
+.attn-lbl{font-size:12px;font-weight:700;flex:1 1 auto;min-width:0;}
+.attn-count{font-family:var(--f-m);font-size:11px;font-weight:800;color:var(--muted);background:var(--s2);border:1px solid var(--bd2);border-radius:99px;padding:3px 10px;flex-shrink:0;}
+.attn-chev{font-size:13px;color:var(--muted);flex-shrink:0;}
+.attn-row--alert .attn-count{color:var(--red);border-color:rgba(255,93,125,.5);background:rgba(255,93,125,.1);}
+.attn-row--alert .attn-lbl{color:var(--red);}
 .spinner{display:inline-block;width:15px;height:15px;border:2px solid var(--bd2);border-top-color:var(--purple);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:7px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-wrap{padding:34px 16px;text-align:center;color:var(--muted);font-family:var(--f-m);font-size:10.5px;position:relative;overflow:hidden;border-radius:16px;}
@@ -492,6 +548,11 @@ body.locked .dock{display:none;}
   .dock{width:calc(100% - 14px);padding:6px;}
   .npill .dk-t{font-size:7.5px;}
   .qfb{font-size:9.5px;padding:8px 11px;}
+  .stx-search-input{padding:10px 32px 10px 30px;font-size:11.5px;}
+  .stx-group-h{padding:11px 12px;gap:7px;}
+  .stx-g-title{font-size:11.5px;}
+  .attn-row{padding:11px 12px;gap:8px;}
+  .attn-lbl{font-size:11px;}
 }
 
 /* ── MOTION SAFETY ── */
@@ -586,6 +647,37 @@ body.locked .dock{display:none;}
     </div>
   </div>
 
+  <!-- STOCK OVERVIEW -->
+  <div class="panel" id="attnPanel">
+    <div class="panel-h"><b>🧭 Stock overview</b><span>tap to open</span></div>
+    <div class="attn-list">
+      <button type="button" class="attn-row" onclick="goToStockGroup('waiting')">
+        <span class="attn-ico">📦</span>
+        <span class="attn-lbl">Current stock</span>
+        <span class="attn-count" id="attn-waiting">0</span>
+        <span class="attn-chev" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="attn-row" onclick="goToStockGroup('history')">
+        <span class="attn-ico">✅</span>
+        <span class="attn-lbl">Sold stock</span>
+        <span class="attn-count" id="attn-sold">0</span>
+        <span class="attn-chev" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="attn-row" id="attnRow-issue" onclick="goToStockGroup('issue')">
+        <span class="attn-ico">🔴</span>
+        <span class="attn-lbl">Issues</span>
+        <span class="attn-count" id="attn-issue">0</span>
+        <span class="attn-chev" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="attn-row" onclick="goToInbox()">
+        <span class="attn-ico">📨</span>
+        <span class="attn-lbl">Unread messages</span>
+        <span class="attn-count" id="attn-messages">0</span>
+        <span class="attn-chev" aria-hidden="true">›</span>
+      </button>
+    </div>
+  </div>
+
   <!-- WALLET STAT CARDS -->
   <div class="wallet">
     <div class="wcard w-units">
@@ -633,6 +725,14 @@ body.locked .dock{display:none;}
         <div class="v-v vv-vio" id="stEarn">—</div>
         <div class="v-s">events × 100</div>
       </div>
+    </div>
+    <div class="cap-status" id="depositCapStatus">
+      <div class="cap-status-title">🔒 Deposit cap reached</div>
+      <div class="cap-status-body">
+        Your deposit is secured at 3,000 coins.<br>
+        New approved sales now add 50 salary coins and no additional deposit.
+      </div>
+      <span class="cap-status-future">🔮 Higher deposit capacity — coming later</span>
     </div>
   </div>
 
@@ -753,16 +853,13 @@ body.locked .dock{display:none;}
     <!-- filled by renderEmpCategoryOverview() -->
   </div>
 
-  <div class="qhead"><span class="qh-i">🧭</span><span class="qh-t">Filters</span></div>
+  <div class="qhead"><span class="qh-i">🧭</span><span class="qh-t">Filter by type</span></div>
   <div class="qf-row" id="stockFilterRow">
-    <button class="qfb qa" onclick="setStockFilter('all',this)">All</button>
+    <button class="qfb qa" onclick="setStockFilter('all',this)">All types</button>
     <button class="qfb"    onclick="setStockFilter('type_c',this)">C units</button>
     <button class="qfb"    onclick="setStockFilter('type_cp',this)">CPREMIUM units</button>
     <button class="qfb"    onclick="setStockFilter('type_b',this)">B bundles</button>
     <button class="qfb"    onclick="setStockFilter('type_m',this)">M bundles</button>
-    <button class="qfb"    onclick="setStockFilter('waiting',this)">🟡 Waiting</button>
-    <button class="qfb"    onclick="setStockFilter('sold',this)">✅ Sold</button>
-    <button class="qfb"    onclick="setStockFilter('need_seen',this)">👁 Need seen</button>
   </div>
 
   <!-- MARK ALL SEEN (shown only when 2+ unseen) -->
@@ -770,7 +867,18 @@ body.locked .dock{display:none;}
     <button class="markall-btn" id="markAllBtn" onclick="markAllSeen()">👁 Mark all sold units as seen</button>
   </div>
 
-  <div class="qhead"><span class="qh-i">📦</span><span class="qh-t">My items</span><span class="qh-c" id="stock-count"></span></div>
+  <div class="qhead"><span class="qh-i">📦</span><span class="qh-t">My items</span></div>
+
+  <div class="stx-search-row">
+    <span class="stx-search-ico" aria-hidden="true">🔎</span>
+    <input type="search" id="stockSearchInput" class="stx-search-input"
+           aria-label="Search stock by Stock ID or Order ID"
+           placeholder="Search Stock ID or Order ID…"
+           oninput="onStockSearchInput(this.value)">
+    <button type="button" class="stx-search-clear" id="stockSearchClear"
+            aria-label="Clear search" onclick="clearStockSearch()">✕</button>
+  </div>
+
   <div id="stockContainer">
     <div class="empty"><span class="empty-ico">📭</span>Open your private link to load your inventory.</div>
   </div>
@@ -789,11 +897,18 @@ body.locked .dock{display:none;}
 <!-- E. LOG / ACTIVITY -->
 <div class="section" id="sec-activity">
   <div class="qhead"><span class="qh-i">🛰</span><span class="qh-t">Activity log</span></div>
-  <div class="panel" style="overflow:visible">
-    <div id="activityContainer">
-      <div class="loading-wrap"><span class="spinner"></span>Loading...</div>
+  <section class="stx-group" data-key="activity">
+    <button type="button" class="stx-group-h" id="activityToggleBtn" aria-expanded="false" aria-controls="activityBody" onclick="toggleActivityLog()">
+      <span class="stx-g-title">🛰 Recent activity</span>
+      <span class="stx-g-count" id="activityCount">0</span>
+      <span class="stx-g-chev" aria-hidden="true">▾</span>
+    </button>
+    <div class="stx-group-body" id="activityBody" hidden>
+      <div id="activityContainer">
+        <div class="loading-wrap"><span class="spinner"></span>Loading...</div>
+      </div>
     </div>
-  </div>
+  </section>
 </div>
 
 <!-- F. GUIDE / RULES -->
@@ -856,8 +971,20 @@ body.locked .dock{display:none;}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="supabase-config.js"></script>
+<script src="js/calculations.js"></script>
 <script>
 console.log('index.html JS loaded');
+
+// Fail loud, not silent: if the shared calculation module did not load
+// (wrong path, blocked file, bad deploy) we must NOT fall through and render
+// zeroed or wrong deposit/salary totals.
+if (typeof window.GrowthCalculations === 'undefined') {
+  console.error(
+    '[growth-plan] js/calculations.js failed to load — deposit/salary totals ' +
+    'cannot be computed. Check the <script src="js/calculations.js"> path ' +
+    '(it must resolve relative to this page for Live Server, token links, and static hosting).'
+  );
+}
 
 /* ─── NAVIGATION ──────────────────────────────────── */
 function goToSection(id) {
@@ -888,9 +1015,26 @@ let allStockUnits  = [];
 let allPayouts     = [];
 let stockTypes     = [];
 let realtimeSub    = null;
-let stockFilter    = 'all';   // current quick-filter for stock list
+let stockFilter    = 'all';   // current type quick-filter (all/type_c/type_cp/type_b/type_m)
 let allActivity    = [];      // recent stock_events for this employee's units
 let allMessages    = [];      // owner_messages sent to this employee
+
+/* ─── STOCK SECTIONS STATE (My Stock accordion) ───── */
+const STOCK_PAGE_SIZE = 10;
+// Default open/closed per section. Current stock + Issues expanded; Sold
+// stock, Cancelled archive, and the legacy pending section collapsed.
+function defaultStockGroupOpen() {
+  return { waiting:true, history:false, issue:true, cancelled:false, awaiting:false };
+}
+let stockGroupOpen = defaultStockGroupOpen();  // survives realtime re-renders
+// "Show 10 more" progress per paginated section — resets only on employee switch.
+let stockVisibleCounts = { history: STOCK_PAGE_SIZE, cancelled: STOCK_PAGE_SIZE };
+let stockSearchQuery = '';                   // raw search text, trimmed+lowercased at match time
+
+/* ─── ACTIVITY LOG STATE (collapsed accordion) ────── */
+const ACTIVITY_PAGE_SIZE = 10;
+let activityLogOpen = false;
+let activityVisibleCount = ACTIVITY_PAGE_SIZE;   // "Show 10 more" progress, resets only on employee switch
 
 /* ─── SAFE TYPE HELPERS ───────────────────────────── */
 const TYPE_FALLBACK = {
@@ -998,6 +1142,23 @@ async function loadEmployeeById(empId) {
   await handleMsgParam();
 }
 
+// Resets My-Stock accordion/search/pagination AND Activity-Log accordion
+// state. Called only at true employee-switch boundaries (never on a
+// realtime patch or a same-employee reload like markAsSeen), so "Show 10
+// more" progress and open/closed sections survive realtime updates but
+// start fresh for a new employee.
+function resetEmployeeUIState() {
+  stockGroupOpen = defaultStockGroupOpen();
+  stockVisibleCounts = { history: STOCK_PAGE_SIZE, cancelled: STOCK_PAGE_SIZE };
+  stockSearchQuery = '';
+  const input = document.getElementById('stockSearchInput');
+  if (input) input.value = '';
+  const clearBtn = document.getElementById('stockSearchClear');
+  if (clearBtn) clearBtn.classList.remove('show');
+  activityLogOpen = false;
+  activityVisibleCount = ACTIVITY_PAGE_SIZE;
+}
+
 function setCurrentEmployee(emp) {
   currentEmpId   = emp.id;
   currentEmpCode = emp.employee_code;
@@ -1005,6 +1166,7 @@ function setCurrentEmployee(emp) {
   const nameEl = document.getElementById('empName');
   if (nameEl && emp.name) nameEl.textContent = emp.name;
   localStorage.setItem('emp_selected_id', currentEmpId);
+  resetEmployeeUIState();
 }
 
 function hideSelectorUI() {
@@ -1063,6 +1225,7 @@ async function onEmpChange() {
   document.getElementById('empPill').textContent = currentEmpCode || '—';
   syncMiniSelector();
   if (!currentEmpId) { resetDashboard(); return; }
+  resetEmployeeUIState();
   localStorage.setItem('emp_selected_id', currentEmpId);
   await Promise.all([loadStockUnits(), loadMyPayouts(), loadMessages()]);
   await handleMsgParam();
@@ -1236,19 +1399,10 @@ async function markAllSeen() {
 
 /* ─── UNSEEN UI STATE (badge + mark-all visibility) ── */
 function renderUnseenControls() {
+  // Unseen count now surfaces inline in the "Sales history" group header
+  // (computed live in renderStockGroupHtml on every render). This just
+  // owns mark-all-row visibility.
   const count = getUnseenUnits().length;
-  // badge on the "Need seen" quick-filter button
-  const needBtn = document.querySelector('.qfb[onclick*="need_seen"]');
-  if (needBtn) {
-    let badge = needBtn.querySelector('.qf-badge');
-    if (count > 0) {
-      if (!badge) { badge = document.createElement('span'); badge.className = 'qf-badge'; needBtn.appendChild(badge); }
-      badge.textContent = count;
-    } else if (badge) {
-      badge.remove();
-    }
-  }
-  // mark-all row visible only when 2+ unseen
   const row = document.getElementById('markAllRow');
   if (row) row.style.display = count >= 2 ? 'block' : 'none';
 }
@@ -1256,8 +1410,8 @@ function renderUnseenControls() {
 /* ─── STOCK FILTER ────────────────────────────────── */
 function setStockFilter(f, btn) {
   stockFilter = f;
-  document.querySelectorAll('.qfb').forEach(b => b.classList.remove('qa','qc','qcp','qb','qm','qw','qs','qn'));
-  const clsMap = { all:'qa', type_c:'qc', type_cp:'qcp', type_b:'qb', type_m:'qm', waiting:'qw', sold:'qs', need_seen:'qn' };
+  document.querySelectorAll('.qfb').forEach(b => b.classList.remove('qa','qc','qcp','qb','qm'));
+  const clsMap = { all:'qa', type_c:'qc', type_cp:'qcp', type_b:'qb', type_m:'qm' };
   if (btn) btn.classList.add(clsMap[f]||'qa');
   renderStockList(allStockUnits);
 }
@@ -1276,49 +1430,28 @@ function applyStockFilter(units) {
 
 /* ─── SALARY CALCS ────────────────────────────────── */
 function calcMyStats() {
-  const sold = allStockUnits
-    .filter(u => u.status === 'sold_approved')
-    .slice().sort((a,b) => new Date(a.approved_at)-new Date(b.approved_at));
-
-  const u = sold.length;
-  let dep = 0, sal = 0;
-  sold.forEach((unit, idx) => {
-    const pos = idx + 1;
-    const earn = getStockType(unit).earnings_per_approved_sale || 100;
-    const sp = pos <= 20 ? {d:75,s:25} : pos <= 45 ? {d:60,s:40} : {d:50,s:50};
-    dep += Math.round(earn * sp.d / 100);
-    sal += Math.round(earn * sp.s / 100);
+  // Canonical calculation lives in js/calculations.js: 1-20 => 75/25, 21-45 =>
+  // 60/40, deposit capped at GrowthCalculations.DEPOSIT_CAP, then flat
+  // GrowthCalculations.POST_CAP_SALARY_PER_SALE salary per sale. Both the
+  // financial totals and the level/progression come from the shared module so
+  // this page can never drift from owner.html.
+  const earningsFn = unit => getStockType(unit).earnings_per_approved_sale || 100;
+  const totals = GrowthCalculations.calcFinancialTotals(allStockUnits, {
+    earningsFn,
+    payouts: allPayouts
   });
+  const u = totals.approvedSaleCount;
+  const dep = totals.deposit, sal = totals.salaryEarned;
+  const totalPaid = totals.salaryPaid, avail = totals.salaryAvailable;
 
-  const totalPaid = allPayouts.reduce((acc,p) => acc+(p.amount||0), 0);
-  const avail = sal - totalPaid;
+  const lvl = GrowthCalculations.calcLevel(u);
 
-  // Level ladder: Lv2 at 20 units, Lv3 at 45, then +25 units per level up to MAX_LEVEL.
-  // Splits stay position-based (above) — levels 3+ display 50/50.
-  const MAX_LEVEL = 60;
-  const levelStart = n => n <= 1 ? 0 : n === 2 ? 20 : 45 + (n - 3) * 25;
-  let lvlNum;
-  if (u < 20)      lvlNum = 1;
-  else if (u < 45) lvlNum = 2;
-  else             lvlNum = Math.min(3 + Math.floor((u - 45) / 25), MAX_LEVEL);
-
-  let level, dPct, sPct, pbLbl, pbPct, pbW, pbFull, pbSub, nextLbl;
-  level = 'Level ' + lvlNum;
-  if (lvlNum === 1)      { dPct = 75; sPct = 25; }
-  else if (lvlNum === 2) { dPct = 60; sPct = 40; }
-  else                   { dPct = 50; sPct = 50; }
-
-  if (lvlNum < MAX_LEVEL) {
-    const cur = levelStart(lvlNum), next = levelStart(lvlNum + 1);
-    const pct = Math.round((u - cur) / (next - cur) * 100), r = next - u;
-    pbLbl='Progress to Level '+(lvlNum+1); pbPct=pct+'%'; pbW=pct; pbFull=false;
-    pbSub=r+' approved event'+(r===1?'':'s')+' remaining'; nextLbl=r+' → Lv '+(lvlNum+1);
-  } else {
-    pbLbl='Level '+MAX_LEVEL+' — Stable'; pbPct='100%'; pbW=100; pbFull=true;
-    pbSub='Maximum level reached.'; nextLbl='Max level';
-  }
-
-  return { u, dep, sal, avail, totalPaid, earn:u*100, level, dPct, sPct, pbLbl, pbPct, pbW, pbFull, pbSub, nextLbl };
+  return {
+    u, dep, sal, avail, totalPaid, earn: totals.totalEarnings,
+    level: lvl.level, dPct: lvl.dPct, sPct: lvl.sPct,
+    pbLbl: lvl.pbLbl, pbPct: lvl.pbPct, pbW: lvl.pbW, pbFull: lvl.pbFull,
+    pbSub: lvl.pbSub, nextLbl: lvl.nextLbl
+  };
 }
 
 /* ─── RENDER ALL ──────────────────────────────────── */
@@ -1329,6 +1462,7 @@ function renderAll() {
   renderEmpCategoryOverview();
   renderInventory();
   renderStockList(allStockUnits);
+  renderStockOverview();
   renderUnseenBanner();
   renderUnseenControls();
   renderActivity();
@@ -1338,6 +1472,47 @@ function renderAll() {
 function fmt(n) { return Number(n).toLocaleString(); }
 function txt(id,v) { const e=document.getElementById(id); if(e) e.textContent=v; }
 function msEl(id,on) { const e=document.getElementById(id); if(e){if(on)e.classList.add('done');else e.classList.remove('done');} }
+
+/* ─── STOCK OVERVIEW ───────────────────────────────── */
+// Always computed from the full, already-loaded allStockUnits/allMessages
+// arrays — never from search-filtered, paginated, or DOM-rendered subsets —
+// so these counts stay correct regardless of what the My-Stock search box
+// or Sold-stock pagination currently show. This is a neutral stock summary,
+// not a task list: it does NOT include the owner-driven sale_reported status
+// as a normal employee row.
+function computeStockOverview() {
+  return {
+    waiting: allStockUnits.filter(u => u.status === 'waiting_to_be_sold').length,
+    sold:    allStockUnits.filter(u => u.status === 'sold_approved').length,
+    issue:   allStockUnits.filter(u => u.status === 'issue').length,
+    unreadMessages: allMessages.filter(m => !m.seen_at).length,
+  };
+}
+
+function renderStockOverview() {
+  const counts = computeStockOverview();
+  txt('attn-waiting',  counts.waiting);
+  txt('attn-sold',     counts.sold);
+  txt('attn-issue',    counts.issue);
+  txt('attn-messages', counts.unreadMessages);
+  // Highlight the Issues row only when there is genuinely something flagged;
+  // a zero here is a normal, neutral state (not "all caught up" messaging).
+  const issueRow = document.getElementById('attnRow-issue');
+  if (issueRow) issueRow.classList.toggle('attn-row--alert', counts.issue > 0);
+}
+
+// Expands the matching My-Stock accordion section and scrolls to it.
+// Works even at zero count — the section still opens and shows its empty
+// state, it's just not pre-filtered or hidden.
+function goToStockGroup(key) {
+  stockGroupOpen[key] = true;
+  renderStockList(allStockUnits);
+  goToSection('sec-stock');
+}
+
+function goToInbox() {
+  goToSection('sec-messages');
+}
 
 /* ─── UNSEEN-SOLD ALERT BANNER ────────────────────── */
 function renderUnseenBanner() {
@@ -1354,9 +1529,8 @@ function renderUnseenBanner() {
 }
 
 function goToUnseen() {
-  const needSeenBtn = document.querySelector('.qfb[onclick*="need_seen"]');
-  setStockFilter('need_seen', needSeenBtn);
-  goToSection('sec-stock');
+  // Unseen sold_approved records live in "Sales history".
+  goToStockGroup('history');
 }
 
 function renderTracker(s) {
@@ -1386,6 +1560,10 @@ function renderTracker(s) {
   txt('bp-cp', Math.floor(s.dep/350));
   txt('bp-b', Math.floor(s.dep/150));
   txt('bp-m', Math.floor(s.dep/250));
+  // Deposit is provably clamped to GrowthCalculations.DEPOSIT_CAP, so >= and
+  // === are equivalent here — >= is just the defensive form.
+  const capStatus = document.getElementById('depositCapStatus');
+  if (capStatus) capStatus.classList.toggle('show', s.dep >= GrowthCalculations.DEPOSIT_CAP);
 }
 
 function renderSalarySection(s) {
@@ -1478,7 +1656,25 @@ function eventMeta(type) {
   return m[type] || { icon:'•', label:type, cls:'ev-edit' };
 }
 
+function toggleActivityLog() {
+  activityLogOpen = !activityLogOpen;
+  renderActivity();
+}
+
+// No network fetch here — just reveals more of the already-loaded
+// allActivity array (which the DB query already returns newest-first).
+function showMoreActivity() {
+  activityVisibleCount += ACTIVITY_PAGE_SIZE;
+  renderActivity();
+}
+
 function renderActivity() {
+  const toggleBtn = document.getElementById('activityToggleBtn');
+  const body = document.getElementById('activityBody');
+  if (toggleBtn) toggleBtn.setAttribute('aria-expanded', String(activityLogOpen));
+  if (body) { if (activityLogOpen) body.removeAttribute('hidden'); else body.setAttribute('hidden',''); }
+  txt('activityCount', allActivity.length);
+
   const c = document.getElementById('activityContainer');
   if (!c) return;
   if (!currentEmpId) {
@@ -1489,7 +1685,14 @@ function renderActivity() {
     c.innerHTML = '<div class="empty"><span class="empty-ico">🕘</span>No activity yet.</div>';
     return;
   }
-  c.innerHTML = allActivity.map(ev => {
+
+  const total = allActivity.length;
+  const shown = Math.min(activityVisibleCount, total);
+  // allActivity is already ordered newest-first by the Supabase query and
+  // by the fact that loadActivity() fully re-fetches (never appends) on
+  // every realtime stock change — so a slice here can't duplicate rows.
+  const visible = allActivity.slice(0, shown);
+  const cardsHtml = visible.map(ev => {
     const m = eventMeta(ev.event_type);
     const unit = allStockUnits.find(u => u.id === ev.stock_unit_id);
     const sid = unit ? unit.stock_id : '—';
@@ -1505,10 +1708,16 @@ function renderActivity() {
       </div>
     </div>`;
   }).join('');
+  const footHtml = `<div class="stx-history-foot">
+    <span class="stx-history-progress">Showing ${shown} of ${total} events</span>
+    ${shown < total ? `<button type="button" class="stx-show-more-btn" onclick="showMoreActivity()">Show 10 more</button>` : ''}
+  </div>`;
+  c.innerHTML = cardsHtml + footHtml;
 }
 
 /* ─── OWNER MESSAGES RENDER ───────────────────────── */
 function renderMessages() {
+  renderStockOverview(); // keep the unread-messages row in sync with every message-state change
   const banner = document.getElementById('msgBanner');
   const unseen = allMessages.filter(m => !m.seen_at);
 
@@ -1578,8 +1787,12 @@ function renderEmpCategoryOverview() {
 }
 
 function resetDashboard() {
+  resetEmployeeUIState();
   ['unitNum','kpi-units','kpi-dep','kpi-sal','kpi-avail','stLevel','stSplit','stDep','stSal','stEarn','stNext','pbLbl','pbPct','pbSub',
-   'sal-earned','sal-paid','sal-avail','sal-dep','bp-c','bp-cp','bp-b','bp-m'].forEach(id=>txt(id,'—'));
+   'sal-earned','sal-paid','sal-avail','sal-dep','bp-c','bp-cp','bp-b','bp-m',
+   'attn-waiting','attn-sold','attn-issue','attn-messages'].forEach(id=>txt(id,'—'));
+  const issueRow = document.getElementById('attnRow-issue');
+  if (issueRow) issueRow.classList.remove('attn-row--alert');
   document.getElementById('pbFill').style.width='0%';
   const availKpi = document.getElementById('kpi-avail');
   if (availKpi) availKpi.style.color='';
@@ -1615,17 +1828,139 @@ function resetDashboard() {
 function formatDT(s) { if(!s)return'—';try{return new Date(s).toLocaleString('en-GB',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false});}catch(e){return s;} }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+/* ─── STOCK GROUPS (accordion sections) ───────────────
+   Workflow reality: the OWNER assigns stock (waiting_to_be_sold) and the
+   OWNER marks it sold (sold_approved). The employee never reports sales, so
+   there is no "awaiting approval" employee action. sale_reported is a legacy
+   status only — its section (`legacy:true`) renders solely when such rows
+   actually exist, and is framed as a read-only "pending owner update", not an
+   employee task.
+   - paginated:true  → 10-at-a-time "Show 10 more" (Sold stock, Cancelled)
+   - unit            → label used in "Showing X of Y <unit>"
+   - legacy:true     → section hidden entirely when count === 0            */
+const STOCK_GROUPS = [
+  { key:'waiting',   status:'waiting_to_be_sold', title:'📦 Current stock', emptyMsg:'No stock is currently assigned to you.',   noun:'current stock items' },
+  { key:'history',   status:'sold_approved',       title:'✅ Sold stock',    emptyMsg:'No sold stock yet.',                        noun:'sold units', paginated:true, unit:'sold units', sortDesc:'approved_at' },
+  { key:'issue',     status:'issue',               title:'🔴 Issues',        emptyMsg:'No issues on your stock right now.',        noun:'flagged items' },
+  { key:'cancelled', status:'cancelled',           title:'⛔ Cancelled',     emptyMsg:'No cancelled records.',                     noun:'cancelled records', paginated:true, unit:'cancelled records' },
+  { key:'awaiting',  status:'sale_reported',       title:'🕓 Pending owner update', emptyMsg:'Nothing pending.',                  noun:'pending records', legacy:true },
+];
+
+function matchesStockSearch(u, q) {
+  if (!q) return true;
+  const sid = (u.stock_id || '').toLowerCase();
+  const oid = (u.order_id || '').toLowerCase();
+  return sid.includes(q) || oid.includes(q);
+}
+
+function stockCardsOrEmpty(list, emptyMsg) {
+  if (!list.length) return `<div class="empty stx-empty-sm"><span class="empty-ico">📭</span>${emptyMsg}</div>`;
+  return list.map(u => stockCardHtml(u)).join('');
+}
+
+function toggleStockGroup(key) {
+  stockGroupOpen[key] = !stockGroupOpen[key];
+  renderStockList(allStockUnits);
+}
+
+// Reveals the next page of a paginated section (Sold stock or Cancelled).
+function showMoreStock(key) {
+  stockVisibleCounts[key] = (stockVisibleCounts[key] || STOCK_PAGE_SIZE) + STOCK_PAGE_SIZE;
+  renderStockList(allStockUnits);
+}
+
+function onStockSearchInput(value) {
+  stockSearchQuery = (value || '').trim().toLowerCase();
+  const clearBtn = document.getElementById('stockSearchClear');
+  if (clearBtn) clearBtn.classList.toggle('show', stockSearchQuery.length > 0);
+  renderStockList(allStockUnits);
+}
+
+function clearStockSearch() {
+  stockSearchQuery = '';
+  const input = document.getElementById('stockSearchInput');
+  if (input) input.value = '';
+  const clearBtn = document.getElementById('stockSearchClear');
+  if (clearBtn) clearBtn.classList.remove('show');
+  renderStockList(allStockUnits);
+}
+
+function renderStockGroupHtml(g, units, q) {
+  const isOpen = !!stockGroupOpen[g.key];
+  const bodyId = 'stxBody-' + g.key;
+  // The header badge always reflects the TRUE total for this status —
+  // never the search-match count — so it can't be mistaken for a filtered
+  // result count while the employee is searching.
+  const totalCount = units.length;
+
+  // Sold stock is shown newest-approved-first; other sections keep the
+  // default (uploaded_at desc) order from the DB query.
+  const ordered = g.sortDesc
+    ? units.slice().sort((a,b) => new Date(b[g.sortDesc]) - new Date(a[g.sortDesc]))
+    : units;
+
+  // Unseen indicator only applies to Sold stock (owner-marked, not yet
+  // acknowledged by the employee).
+  let unseenHtml = '';
+  if (g.key === 'history') {
+    const unseenCount = ordered.filter(u => !u.employee_seen_at).length;
+    if (unseenCount > 0) unseenHtml = `<span class="stx-g-unseen">· ${unseenCount} unseen</span>`;
+  }
+
+  let bodyHtml, footHtml = '';
+  if (q) {
+    // Search always spans the FULL section dataset, never just the revealed page.
+    const matches = ordered.filter(u => matchesStockSearch(u, q));
+    bodyHtml = stockCardsOrEmpty(matches, `No ${g.noun} match "${esc(q)}".`);
+  } else if (g.paginated) {
+    const shown = Math.min(stockVisibleCounts[g.key] || STOCK_PAGE_SIZE, totalCount);
+    bodyHtml = stockCardsOrEmpty(ordered.slice(0, shown), g.emptyMsg);
+    if (totalCount > 0) {
+      footHtml = `<div class="stx-history-foot">
+        <span class="stx-history-progress">Showing ${shown} of ${totalCount} ${g.unit}</span>
+        ${shown < totalCount ? `<button type="button" class="stx-show-more-btn" onclick="showMoreStock('${g.key}')">Show 10 more</button>` : ''}
+      </div>`;
+    }
+  } else {
+    bodyHtml = stockCardsOrEmpty(ordered, g.emptyMsg);
+  }
+
+  const alertCls   = (g.key === 'issue' && totalCount > 0) ? ' stx-group--alert' : '';
+  const archiveCls = (g.key === 'cancelled' || g.legacy) ? ' stx-group--archive' : '';
+
+  return `
+  <section class="stx-group${alertCls}${archiveCls}" data-key="${g.key}">
+    <button type="button" class="stx-group-h" aria-expanded="${isOpen}" aria-controls="${bodyId}" onclick="toggleStockGroup('${g.key}')">
+      <span class="stx-g-title">${g.title}</span>
+      <span class="stx-g-count">${totalCount}</span>
+      ${unseenHtml}
+      <span class="stx-g-chev" aria-hidden="true">▾</span>
+    </button>
+    <div class="stx-group-body" id="${bodyId}" ${isOpen ? '' : 'hidden'}>
+      ${bodyHtml}
+      ${footHtml}
+    </div>
+  </section>`;
+}
+
 function renderStockList(units) {
-  const filtered = applyStockFilter(units);
   const c = document.getElementById('stockContainer');
-  txt('stock-count', filtered.length !== units.length ? `(${filtered.length}/${units.length})` : units.length ? `(${units.length})` : '');
-  if (!filtered.length) {
-    c.innerHTML = units.length===0
-      ? '<div class="empty"><span class="empty-ico">📭</span>No stock units assigned to you yet.</div>'
-      : '<div class="empty"><span class="empty-ico">🔎</span>No stock units match this filter.</div>';
+  if (!c) return;
+  if (!units.length) {
+    c.innerHTML = '<div class="empty"><span class="empty-ico">📭</span>No stock units assigned to you yet.</div>';
     return;
   }
-  c.innerHTML = filtered.map(u => stockCardHtml(u)).join('');
+  const typeFiltered = applyStockFilter(units);
+  const q = stockSearchQuery;
+  c.innerHTML = STOCK_GROUPS.map(g => {
+    const bucket = typeFiltered.filter(u => u.status === g.status);
+    // Legacy sale_reported section only appears when such rows actually
+    // exist — it is never presented as a normal employee workflow step.
+    // Count is measured against the full (unfiltered) dataset so a type
+    // filter or search can't make the section vanish/appear unexpectedly.
+    if (g.legacy && units.filter(u => u.status === g.status).length === 0) return '';
+    return renderStockGroupHtml(g, bucket, q);
+  }).join('');
 }
 
 function stockCardHtml(u) {
@@ -1640,6 +1975,7 @@ function stockCardHtml(u) {
 
   let cardCls = '';
   if (u.status==='waiting_to_be_sold') cardCls='sw';
+  else if (u.status==='sale_reported') cardCls='sr';
   else if (isUnseen)                   cardCls='sn';
   else if (isSeen)                     cardCls='sa';
   else if (u.status==='issue')         cardCls='si';
@@ -1647,6 +1983,7 @@ function stockCardHtml(u) {
 
   let badgeCls='', badgeLabel='';
   if (u.status==='waiting_to_be_sold') { badgeCls='s-waiting'; badgeLabel='🟡 Waiting to be sold'; }
+  else if (u.status==='sale_reported') { badgeCls='s-reported';badgeLabel='🕓 Pending owner update'; }
   else if (isUnseen)                   { badgeCls='s-sold';    badgeLabel='✅ Marked as sold'; }
   else if (isSeen)                     { badgeCls='s-seen';    badgeLabel='👁 Seen by you'; }
   else if (u.status==='issue')         { badgeCls='s-issue';   badgeLabel='🔴 Issue'; }
@@ -1717,6 +2054,14 @@ window.confirmMessage   = confirmMessage;
 window.setStockFilter   = setStockFilter;
 window.goToUnseen       = goToUnseen;
 window.showToast        = showToast;
+window.toggleStockGroup = toggleStockGroup;
+window.showMoreStock    = showMoreStock;
+window.onStockSearchInput = onStockSearchInput;
+window.clearStockSearch = clearStockSearch;
+window.goToStockGroup   = goToStockGroup;
+window.goToInbox        = goToInbox;
+window.toggleActivityLog = toggleActivityLog;
+window.showMoreActivity = showMoreActivity;
 
 init();
 </script>
