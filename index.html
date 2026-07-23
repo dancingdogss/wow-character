@@ -233,6 +233,8 @@ body::before{
 .st-c::before{background:var(--accent);} .st-c .st-num{color:var(--accent);}
 .st-b::before{background:var(--a2);} .st-b .st-num{color:#aa9bff;}
 .st-m::before{background:var(--gold);} .st-m .st-num{color:var(--gold);}
+.st-k::before{background:var(--a3);} .st-k .st-num{color:var(--a3);}
+.st-mcr::before{background:var(--red);} .st-mcr .st-num{color:var(--red);}
 .st-cp{border-color:rgba(199,125,255,.55);background:linear-gradient(165deg,rgba(199,125,255,.16),var(--s2));box-shadow:0 10px 26px -12px rgba(199,125,255,.6);}
 .st-cp::before{background:linear-gradient(90deg,var(--purple),var(--gold),var(--purple));background-size:200% 100%;animation:sheen 3.5s linear infinite;}
 .st-cp .st-num{color:#d9b3ff;}
@@ -268,6 +270,8 @@ body::before{
 .inv-cell.iv-b{background:linear-gradient(165deg,#8f7bff,#4936c4);}
 .inv-cell.iv-m{background:linear-gradient(165deg,#ffd36e,#d99422);}
 .inv-cell.iv-cpremium{background:linear-gradient(165deg,#c77dff,#6d28d9);}
+.inv-cell.iv-k{background:linear-gradient(165deg,#ffbf6e,#d9822b);}
+.inv-cell.iv-mcr{background:linear-gradient(165deg,#ff8fa6,#d63a58);}
 .inv-prefix{font-size:30px;font-weight:800;line-height:.95;letter-spacing:-1px;color:rgba(0,0,0,.82);}
 .inv-cell.iv-b .inv-prefix,.inv-cell.iv-cpremium .inv-prefix{color:rgba(255,255,255,.94);}
 .inv-bundles-lbl{display:none;}
@@ -287,11 +291,15 @@ body::before{
 .emp-cat.cat-b{border-left-color:var(--a2);}
 .emp-cat.cat-m{border-left-color:var(--gold);}
 .emp-cat.cat-cpremium{border-left-color:var(--purple);background:linear-gradient(165deg,rgba(199,125,255,.1),var(--s1));box-shadow:0 8px 20px -12px rgba(199,125,255,.6);}
+.emp-cat.cat-k{border-left-color:var(--a3);}
+.emp-cat.cat-mcr{border-left-color:var(--red);}
 .ec-prefix{font-family:var(--f-m);font-size:15px;font-weight:700;line-height:1;margin-bottom:6px;}
 .cat-c .ec-prefix{color:var(--accent);}
 .cat-b .ec-prefix{color:#aa9bff;}
 .cat-m .ec-prefix{color:var(--gold);}
 .cat-cpremium .ec-prefix{color:#d9b3ff;}
+.cat-k .ec-prefix{color:var(--a3);}
+.cat-mcr .ec-prefix{color:var(--red);}
 .ec-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;}
 .ec-lbl{font-family:var(--f-m);font-size:8px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);}
 .ec-val{font-family:var(--f-m);font-size:10px;font-weight:700;color:var(--text);}
@@ -309,6 +317,8 @@ body::before{
 .qfb.qcp,.qfb.qn{border-color:rgba(199,125,255,.5);color:var(--purple);background:rgba(199,125,255,.09);box-shadow:0 0 14px -6px rgba(199,125,255,.8);}
 .qfb.qb{border-color:rgba(143,123,255,.5);color:#aa9bff;background:rgba(143,123,255,.09);box-shadow:0 0 14px -6px rgba(143,123,255,.8);}
 .qfb.qm{border-color:rgba(255,200,77,.5);color:var(--gold);background:rgba(255,200,77,.09);box-shadow:0 0 14px -6px rgba(255,200,77,.8);}
+.qfb.qk{border-color:rgba(255,171,74,.5);color:var(--a3);background:rgba(255,171,74,.09);box-shadow:0 0 14px -6px rgba(255,171,74,.8);}
+.qfb.qmcr{border-color:rgba(255,93,125,.5);color:var(--red);background:rgba(255,93,125,.09);box-shadow:0 0 14px -6px rgba(255,93,125,.8);}
 .qfb.qw{border-color:rgba(255,171,74,.5);color:var(--a3);background:rgba(255,171,74,.09);box-shadow:0 0 14px -6px rgba(255,171,74,.8);}
 .qf-badge{display:inline-block;min-width:16px;padding:0 5px;margin-left:6px;border-radius:99px;background:linear-gradient(135deg,var(--purple),var(--a2));color:#fff;font-size:9px;font-weight:800;line-height:16px;text-align:center;vertical-align:middle;}
 
@@ -333,6 +343,8 @@ body::before{
 .pfx-b .sc-sid::before{content:'🧺';}
 .pfx-m .sc-sid::before{content:'🎁';}
 .pfx-cpremium .sc-sid::before{content:'👑';}
+.pfx-k .sc-sid::before{content:'📦';}
+.pfx-mcr .sc-sid::before{content:'🗃';}
 /* CPREMIUM premium frame */
 .stock-card.pfx-cpremium{border-color:rgba(199,125,255,.55);background:linear-gradient(165deg,rgba(199,125,255,.12),rgba(14,10,26,.66));box-shadow:0 12px 34px -14px rgba(199,125,255,.6);}
 .stock-card.pfx-cpremium::before{content:'';display:block;height:4px;background:linear-gradient(90deg,var(--purple),var(--gold),var(--purple));background-size:200% 100%;animation:sheen 3.5s linear infinite;}
@@ -372,6 +384,8 @@ body::before{
 .tp-c{color:var(--accent);border-color:rgba(67,226,142,.35);background:rgba(67,226,142,.08);}
 .tp-b{color:#aa9bff;border-color:rgba(143,123,255,.35);background:rgba(143,123,255,.08);}
 .tp-m{color:var(--gold);border-color:rgba(255,200,77,.35);background:rgba(255,200,77,.08);}
+.tp-k{color:var(--a3);border-color:rgba(255,171,74,.35);background:rgba(255,171,74,.08);}
+.tp-mcr{color:var(--red);border-color:rgba(255,93,125,.35);background:rgba(255,93,125,.08);}
 .tp-cp{color:#e2c6ff;border-color:rgba(199,125,255,.55);background:linear-gradient(135deg,rgba(199,125,255,.24),rgba(255,200,77,.12));font-weight:800;box-shadow:0 0 12px -5px rgba(199,125,255,.9);}
 .tp-cp::before{content:'★ ';color:var(--gold);}
 
@@ -763,6 +777,16 @@ body.locked .dock{display:none;}
         <div class="st-name">M bundles</div>
         <div class="st-price">250 / bundle</div>
       </div>
+      <div class="shop-tile st-k">
+        <div class="st-num" id="bp-k">—</div>
+        <div class="st-name">K bundles</div>
+        <div class="st-price">200 / bundle</div>
+      </div>
+      <div class="shop-tile st-mcr">
+        <div class="st-num" id="bp-mcr">—</div>
+        <div class="st-name">MCR bundles</div>
+        <div class="st-price">500 / bundle</div>
+      </div>
     </div>
   </div>
 
@@ -863,6 +887,8 @@ body.locked .dock{display:none;}
     <button class="qfb"    onclick="setStockFilter('type_cp',this)">CPREMIUM units</button>
     <button class="qfb"    onclick="setStockFilter('type_b',this)">B bundles</button>
     <button class="qfb"    onclick="setStockFilter('type_m',this)">M bundles</button>
+    <button class="qfb"    onclick="setStockFilter('type_k',this)">K bundles</button>
+    <button class="qfb"    onclick="setStockFilter('type_mcr',this)">MCR bundles</button>
   </div>
 
   <!-- MARK ALL SEEN (shown only when 2+ unseen) -->
@@ -1045,7 +1071,20 @@ const TYPE_FALLBACK = {
   CPREMIUM: { prefix:'CPREMIUM', name:'Premium stock unit', quantity_per_stock_sale:1, capital_per_stock_sale:350, earnings_per_approved_sale:100 },
   B: { prefix:'B', name:'Bundle B',        quantity_per_stock_sale:10, capital_per_stock_sale:150, earnings_per_approved_sale:100 },
   M: { prefix:'M', name:'Bundle M',        quantity_per_stock_sale:5,  capital_per_stock_sale:250, earnings_per_approved_sale:100 },
+  K:   { prefix:'K',   name:'K Bundle',   item_unit_cost:50, quantity_per_stock_sale:4,  capital_per_stock_sale:200, earnings_per_approved_sale:100 },
+  MCR: { prefix:'MCR', name:'MCR Bundle', item_unit_cost:50, quantity_per_stock_sale:10, capital_per_stock_sale:500, earnings_per_approved_sale:100 },
 };
+
+// Category-level metadata by prefix (prefers the live stock_types DB row; falls
+// back to the constants above so an overview card never renders NaN/undefined).
+function getTypeMeta(prefix) {
+  const p = String(prefix || '').toUpperCase();
+  if (typeof stockTypes !== 'undefined' && stockTypes && stockTypes.length) {
+    const st = stockTypes.find(s => (s.prefix || '').toUpperCase() === p);
+    if (st) return st;
+  }
+  return TYPE_FALLBACK[p] || TYPE_FALLBACK['C'];
+}
 
 function getStockType(unit) {
   if (!unit) return TYPE_FALLBACK['C'];
@@ -1071,11 +1110,21 @@ function getStockPrefix(unit) {
 }
 function getQuantityPerSale(unit) { return getStockType(unit).quantity_per_stock_sale || 1; }
 function getCapitalPerSale(unit)  { return getStockType(unit).capital_per_stock_sale  || 300; }
+function getEarningsPerApprovedSale(unit) { return getStockType(unit).earnings_per_approved_sale || 100; }
+function getItemUnitCost(unit)    { return getStockType(unit).item_unit_cost || 0; }
 function getTypeDisplayName(unit) { return getStockType(unit).name || 'Base stock unit'; }
+// Short human label, e.g. "K bundle" / "C unit" — derived from the type's own
+// physical quantity so bundle vs. unit is always correct for any prefix.
+function getStockTypeLabel(unit) {
+  const prefix = getStockPrefix(unit);
+  return prefix + ' ' + (getQuantityPerSale(unit) > 1 ? 'bundle' : 'unit');
+}
 
 function typePillCls(prefix) {
   if (prefix === 'B') return 'tp-b';
   if (prefix === 'M') return 'tp-m';
+  if (prefix === 'K') return 'tp-k';
+  if (prefix === 'MCR') return 'tp-mcr';
   if (prefix === 'CPREMIUM') return 'tp-cp';
   return 'tp-c';
 }
@@ -1425,8 +1474,8 @@ function renderUnseenControls() {
 /* ─── STOCK FILTER ────────────────────────────────── */
 function setStockFilter(f, btn) {
   stockFilter = f;
-  document.querySelectorAll('.qfb').forEach(b => b.classList.remove('qa','qc','qcp','qb','qm'));
-  const clsMap = { all:'qa', type_c:'qc', type_cp:'qcp', type_b:'qb', type_m:'qm' };
+  document.querySelectorAll('.qfb').forEach(b => b.classList.remove('qa','qc','qcp','qb','qm','qk','qmcr'));
+  const clsMap = { all:'qa', type_c:'qc', type_cp:'qcp', type_b:'qb', type_m:'qm', type_k:'qk', type_mcr:'qmcr' };
   if (btn) btn.classList.add(clsMap[f]||'qa');
   renderStockList(allStockUnits);
 }
@@ -1437,6 +1486,8 @@ function applyStockFilter(units) {
   if (stockFilter==='type_cp')   return units.filter(u=>getStockPrefix(u)==='CPREMIUM');
   if (stockFilter==='type_b')    return units.filter(u=>getStockPrefix(u)==='B');
   if (stockFilter==='type_m')    return units.filter(u=>getStockPrefix(u)==='M');
+  if (stockFilter==='type_k')    return units.filter(u=>getStockPrefix(u)==='K');
+  if (stockFilter==='type_mcr')  return units.filter(u=>getStockPrefix(u)==='MCR');
   if (stockFilter==='waiting')   return units.filter(u=>u.status==='waiting_to_be_sold');
   if (stockFilter==='sold')      return units.filter(u=>u.status==='sold_approved');
   if (stockFilter==='need_seen') return units.filter(u=>u.status==='sold_approved'&&!u.employee_seen_at);
@@ -1575,6 +1626,8 @@ function renderTracker(s) {
   txt('bp-cp', Math.floor(s.dep/350));
   txt('bp-b', Math.floor(s.dep/150));
   txt('bp-m', Math.floor(s.dep/250));
+  txt('bp-k', Math.floor(s.dep/200));
+  txt('bp-mcr', Math.floor(s.dep/500));
   // Deposit is provably clamped to GrowthCalculations.DEPOSIT_CAP, so >= and
   // === are equivalent here — >= is just the defensive form.
   const capStatus = document.getElementById('depositCapStatus');
@@ -1613,17 +1666,17 @@ function renderPayouts() {
 function renderInventory() {
   const panel = document.getElementById('invPanel');
   if (!panel) return;
-  const prefixes = ['C','CPREMIUM','B','M'];
+  const prefixes = ['C','CPREMIUM','B','M','K','MCR'];
   // waiting units = on hand, available to sell
   const waiting = allStockUnits.filter(u => u.status === 'waiting_to_be_sold');
   const totalBundles = waiting.length;
   let totalItems = 0;
 
   const cells = prefixes.map(pfx => {
-    const t = TYPE_FALLBACK[pfx];
+    const t = getTypeMeta(pfx);
     const units   = waiting.filter(u => getStockPrefix(u) === pfx);
     const bundles = units.length;
-    const perBundle = t.quantity_per_stock_sale;
+    const perBundle = t.quantity_per_stock_sale || 1;
     const items   = bundles * perBundle;
     totalItems += items;
     const unitWord = perBundle > 1 ? 'bundle' : 'unit';
@@ -1778,17 +1831,19 @@ function renderMessages() {
 function renderEmpCategoryOverview() {
   const grid = document.getElementById('empCatGrid');
   if (!grid) return;
-  const prefixes = ['C','CPREMIUM','B','M'];
+  const prefixes = ['C','CPREMIUM','B','M','K','MCR'];
   grid.innerHTML = prefixes.map(pfx => {
-    const t = TYPE_FALLBACK[pfx];
+    const t = getTypeMeta(pfx);
+    const perUnit = t.quantity_per_stock_sale || 1;
     const units   = allStockUnits.filter(u=>getStockPrefix(u)===pfx);
     const total   = units.length;
     const waiting = units.filter(u=>u.status==='waiting_to_be_sold').length;
     const sold    = units.filter(u=>u.status==='sold_approved').length;
     const notseen = units.filter(u=>u.status==='sold_approved'&&!u.employee_seen_at).length;
-    const physItems = total * t.quantity_per_stock_sale;
-    const unitWord  = t.quantity_per_stock_sale > 1 ? 'bundle' : 'unit';
-    const physLabel = t.quantity_per_stock_sale + ' item' + (t.quantity_per_stock_sale===1?'':'s') + ' each';
+    const physItems = total * perUnit;
+    const capitalVal = total * (t.capital_per_stock_sale || 0);
+    const unitWord  = perUnit > 1 ? 'bundle' : 'unit';
+    const physLabel = perUnit + ' item' + (perUnit===1?'':'s') + ' each';
     return `
     <div class="emp-cat cat-${pfx.toLowerCase()}">
       <div class="ec-prefix">${pfx}</div>
@@ -1796,7 +1851,7 @@ function renderEmpCategoryOverview() {
       <div class="ec-row"><span class="ec-lbl">waiting</span><span class="ec-val ev-wait">${waiting}</span></div>
       <div class="ec-row"><span class="ec-lbl">sold</span><span class="ec-val ev-sold">${sold}</span></div>
       ${notseen>0?`<div class="ec-row"><span class="ec-lbl">not seen</span><span class="ec-val ev-ns">${notseen}</span></div>`:''}
-      <div class="ec-phys"><strong>${fmt(physItems)}</strong> physical items<br><span style="color:var(--muted)">${physLabel}</span></div>
+      <div class="ec-phys"><strong>${fmt(physItems)}</strong> physical items<br><strong>${fmt(capitalVal)}</strong> coins capital<br><span style="color:var(--muted)">${physLabel}</span></div>
     </div>`;
   }).join('');
 }
@@ -1804,7 +1859,7 @@ function renderEmpCategoryOverview() {
 function resetDashboard() {
   resetEmployeeUIState();
   ['unitNum','kpi-units','kpi-dep','kpi-sal','kpi-avail','stLevel','stSplit','stDep','stSal','stEarn','stNext','pbLbl','pbPct','pbSub',
-   'sal-earned','sal-paid','sal-avail','sal-dep','bp-c','bp-cp','bp-b','bp-m',
+   'sal-earned','sal-paid','sal-avail','sal-dep','bp-c','bp-cp','bp-b','bp-m','bp-k','bp-mcr',
    'attn-waiting','attn-sold','attn-issue','attn-messages'].forEach(id=>txt(id,'—'));
   const issueRow = document.getElementById('attnRow-issue');
   if (issueRow) issueRow.classList.remove('attn-row--alert');
@@ -2059,10 +2114,11 @@ function stockCardHtml(u) {
 
   const noteHtml = u.owner_note ? `<div class="sc-note">🗒 ${esc(u.owner_note)}</div>` : '';
 
-  // Physical items note — make bundle size clear
-  const physNote = prefix==='B' ? `This bundle = <strong>10 physical items</strong>`
-                 : prefix==='M' ? `This bundle = <strong>5 physical items</strong>`
-                 : '1 physical item';
+  // Physical items note — make bundle size clear. Derived from the stock type's
+  // own quantity so every bundle type (B, M, K, MCR, …) is described correctly.
+  const physNote = qty > 1
+    ? `This ${getStockTypeLabel(u)} = <strong>${qty} physical items</strong>`
+    : '1 physical item';
 
   return `
   <div class="stock-card ${cardCls} pfx-${prefix.toLowerCase()}">
